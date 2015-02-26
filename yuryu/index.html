@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!-- saved from url=(0031)https://ff14-cactpot.wotax.net/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<title>FFXIV Cactpot Solver</title>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript" src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+	<script type="text/javascript" src="gs-oasis.js"></script>
+	<script type="text/javascript" src="solver.js"></script>
+	<script type="text/javascript" src="cact.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+</head>
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container">
+			<p class="i18n navbar-text" data-i18n="title">FFXIV Cactpot Solver</p>
+			<p class="navbar-text navbar-right">
+				Original by /u/yuryu -- Improved recommendations by /u/super_aardvark
+			</p>
+		</div>
+	</nav>
+	<div class="container">
+		<main>
+			<div class="row">
+			</div>
+
+			<div class="row">
+				<div class="col-md-6">
+					<h2 class="i18n" data-i18n="scratch">Scratch</h2>
+					<form id="scratchform">
+
+						<table id="scratch" class="table table-bordered form-group form-group-sm">
+							<tbody>
+								<tr class="exprow">
+									<td id="ed0" class="exp">&nbsp;</td>
+									<td id="ec0" class="exp">&nbsp;</td>
+									<td id="ec1" class="exp">&nbsp;</td>
+									<td id="ec2" class="exp">&nbsp;</td>
+									<td id="ed1" class="exp">&nbsp;</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<input type="button" name="solve" value="Solve" onclick="solveScratch()" class="btn btn-lg btn-primary" disabled="disabled">
+						<input type="button" name="reset" value="Reset" onclick="resetScratch()"
+						class="btn btn-lg btn-default">
+					</form>
+				</div>
+
+				<div class="col-md-3 col-sm-3">
+					<h2 class="i18n" data-i18n="payout">Payout</h2>
+					<table id="payout" class="table table-condensed form-group form-group-sm">
+						<thead>
+							<tr><th>#</th><th>MGP</th><th>#</th><th>MGP</th></tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+
+			</div>
+		</main>
+		<footer class="row">
+			<p>Tested with Google Chrome 40, Firefox 36 and Safari (iOS 8).</p>
+			<p>
+				FINAL FANTASY is a registered trademark of Square Enix Holdings Co., Ltd.
+			</p>
+		</footer>
+	</div>
+
+
+
+
+</body></html>

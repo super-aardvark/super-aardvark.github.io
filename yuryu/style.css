@@ -1,0 +1,7 @@
+.highlighted {
+	background-color: red;
+}
+
+.exprow td.exp {
+	width: 20%;
+}
