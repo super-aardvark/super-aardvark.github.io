@@ -14,3 +14,11 @@ td.valueCell{
 .error {
    color: red;
 }
+
+div.instructions {
+   max-width: 1000px;
+}
+
+div.extra {
+   max-width: 1000px;
+}
