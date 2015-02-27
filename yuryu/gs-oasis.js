@@ -31,7 +31,7 @@ var payout = [
 ];
 
 var size = 3;
-var requiredNums = 2;
+var requiredNums = 1;
 var maxRevealedNums = 4;
 var payoutMin = 6;
 var payoutMax = 24;

@@ -2,7 +2,7 @@ var Cact = {
    getState: function() {
       var revealedValues = [];
       var hiddenIndices = [];
-      var board = new Array(9);
+      var board = [0,0,0,0,0,0,0,0,0];
       for (var row = 0; row < 3; row++) {
          for (var col = 0; col < 3; col++) {
             var index = col + row*3;
@@ -31,24 +31,13 @@ var Cact = {
    },
    recommend: function() {
       var state = Cact.getState();
-      var scores = this.evaluate(state);
-      var bestScore = 0;
-      var bestIndex = [];
-      for (var i = 0; i < state.hiddenIndices.length; i++) {
-         var idx = state.hiddenIndices[i];
-         var score = scores[idx];
-         if (score > bestScore) {
-            bestScore = score;
-            bestIndex = [idx];
-         } else if (score == bestScore) {
-            bestIndex.push(idx);
+      var recommendations = PerfectCactpot.solve(state.board);
+      for (var i = 0; i < recommendations.length; i++) {
+         if (recommendations[i]) {
+            var col = i % 3;
+            var row = i / 3 | 0;
+            $("#" + rowColStr(row, col)).addClass("info");
          }
-      }
-      for (var i = 0; i < bestIndex.length; i++) {
-         idx = bestIndex[i];
-         var col = idx % 3;
-         var row = idx / 3 | 0;
-         $("#" + rowColStr(row, col)).addClass("info");
       }
    },
    evaluate: function(state, prevMove) {
