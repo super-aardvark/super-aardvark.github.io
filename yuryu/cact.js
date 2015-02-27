@@ -15,13 +15,13 @@ var Cact = {
             }
          }
       }
-      console.log(revealedValues);
+      //console.log(revealedValues);
       revealedValues.sort();
       var hiddenValues = [1,2,3,4,5,6,7,8,9];
       for (var i = revealedValues.length-1; i >= 0; i--) {
          hiddenValues.splice(revealedValues[i]-1, 1);
       }
-      console.log(hiddenValues);
+      //console.log(hiddenValues);
       
       var state = new Cact.State();
       state.board = board;
@@ -31,24 +31,16 @@ var Cact = {
    },
    recommend: function() {
       var state = Cact.getState();
-      var newStates = Cact.permute(state);
-      var bestAvgScore = 0;
+      var scores = this.evaluate(state);
+      var bestScore = 0;
       var bestIndex = [];
       for (var i = 0; i < state.hiddenIndices.length; i++) {
          var idx = state.hiddenIndices[i];
-         var childStates = newStates[idx];
-         var totalScore = 0;
-         for (var j = 0; j < childStates.length; j++) {
-            var childState = childStates[j];
-            var maxAvg = childState.getMaxAveragePayout();
-            totalScore += maxAvg;
-         }
-         var avgScore = totalScore / childStates.length;
-         console.log("Average score for index " + idx + " is " + avgScore);
-         if (avgScore > bestAvgScore) {
-            bestAvgScore = avgScore;
+         var score = scores[idx];
+         if (score > bestScore) {
+            bestScore = score;
             bestIndex = [idx];
-         } else if (avgScore == bestAvgScore) {
+         } else if (score == bestScore) {
             bestIndex.push(idx);
          }
       }
@@ -58,6 +50,42 @@ var Cact = {
          var row = idx / 3 | 0;
          $("#" + rowColStr(row, col)).addClass("info");
       }
+   },
+   evaluate: function(state, prevMove) {
+      if (state == null) state = Cact.getState();
+      var newStates = Cact.permute(state);
+      var scores = {};
+      var moveNum = 9 - state.hiddenIndices.length;
+      //console.log("Finding best space for move number " + moveNum);
+      for (var i = 0; i < state.hiddenIndices.length; i++) {
+         var idx = state.hiddenIndices[i];
+         //console.log("Move " + moveNum + " - Checking score for space " + idx);
+         var childStates = newStates[idx];
+         var totalScore = 0;
+         for (var j = 0; j < childStates.length; j++) {
+            var childState = childStates[j];
+            if (childState.hiddenIndices.length <= 5) {
+               totalScore += childState.getMaxAveragePayout();
+            } else {
+               var childScores = this.evaluate(childState, idx);
+               //console.log("Here are the scores for move " + (moveNum + 1) + " if we choose " + idx + " for move " + moveNum + " and get " + childState.board[idx] + " (previous move was " + prevMove + "):");
+               //console.log(childScores);
+               for (var k = 0; k < childState.hiddenIndices.length; k++) {
+                  var idx2 = childState.hiddenIndices[k];
+                  var childScore = childScores[idx2];
+                  var bestChildScore = 0;
+                  if (childScore > bestChildScore) {
+                     bestChildScore = childScore;
+                  }
+               }
+               totalScore += bestChildScore;
+            }
+         }
+         var avgScore = totalScore / childStates.length;
+         scores[idx] = avgScore;
+         //console.log("Move " + moveNum + " - Average score for space " + idx + " is " + avgScore);
+      }
+      return scores;
    },
    getSum: function(array, i1, i2, i3) {
       return array[i1] + array[i2] + array[i3];
