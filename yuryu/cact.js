@@ -64,7 +64,7 @@ var Cact = {
          var totalScore = 0;
          for (var j = 0; j < childStates.length; j++) {
             var childState = childStates[j];
-            if (childState.hiddenIndices.length <= 5) {
+            if (childState.hiddenIndices.length <= (9 - maxRevealedNums)) {
                totalScore += childState.getMaxAveragePayout();
             } else {
                var childScores = this.evaluate(childState, idx);
