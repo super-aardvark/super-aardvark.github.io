@@ -84,7 +84,7 @@ function validateScratch() {
 			count++;
 		}
 	}
-	if ( count == 1 ) {
+	if ( count == 1  && requiredNums > 1) {
 		if ( table[1][1] == 0 ) {
 			$("#" + rowColStr(1, 1)).addClass("info");
 		} else {
@@ -194,7 +194,7 @@ function solveScratch() {
 	var highlightClass = "success";
 	if ( revealed != maxRevealedNums ) {
 		//suggestNext(table, result);
-      Cact.recommend()
+      recommend()
 	} else {
 		maxindex.forEach(function(v, i, a){
 			if ( v < size ) {
@@ -290,6 +290,27 @@ function parsePayout() {
 		payout[i] = parseInt($("#p" + i).val());
 	}
 }
+
+function recommend() {
+   var state = [0,0,0,0,0,0,0,0,0];
+   for (var row = 0; row < 3; row++) {
+      for (var col = 0; col < 3; col++) {
+         var index = col + row*3;
+         var val = parseInt($('select[name="' + index + '"]').val());
+         if (val > 0) {
+            state[index] = val;
+         }
+      }
+   }
+   var recommendations = PerfectCactpot.solve(state);
+   for (var i = 0; i < recommendations.length; i++) {
+      if (recommendations[i]) {
+         var col = i % 3;
+         var row = i / 3 | 0;
+         $("#" + rowColStr(row, col)).addClass("info");
+      }
+   }
+};
 
 $(document).ready(function() {
 	createScratch($("#scratch tbody"));

@@ -1,6 +1,8 @@
-var EPS = 0.00001;
+/* 
+Perfect Cactpot algorithm and documentation by /u/Aureolux
+Ported, condensed, prettified, memoized, and generalized by /u/Super_Aardvark
 
-/* Solve for the best row choice when 4 tiles have been flipped.
+Solve for the best row choice when 4 tiles have been flipped.
 Returns the expected value of picking that row.
 
 state is an array of the current board state, e.g., 001056020
@@ -35,7 +37,30 @@ var PerfectCactpot = {
               "000000010":[1411.3541666666665,[false,false,false,false,true,false,false,false,false]],"000000020":[1414.9401785714288,[false,false,false,false,true,false,false,false,false]],"000000030":[1406.4190476190477,[false,false,false,false,true,false,false,false,false]],"000000040":[1443.3062499999999,[true,false,true,false,false,false,false,false,false]],"000000050":[1444.3172619047618,[true,false,true,false,true,false,false,false,false]],"000000060":[1441.3663690476192,[false,false,false,false,true,false,false,false,false]],"000000070":[1485.6839285714286,[false,false,false,false,true,false,false,false,false]],"000000080":[1512.927976190476,[false,false,false,false,false,false,true,false,true]],"000000090":[1518.466369047619,[false,false,false,false,false,false,true,false,true]],
               "000000001":[1677.7854166666664,[false,false,true,false,false,false,true,false,false]],"000000002":[1665.8127976190476,[false,false,true,false,false,false,true,false,false]],"000000003":[1662.504761904762,[false,false,true,false,false,false,true,false,false]],"000000004":[1365.0047619047618,[false,false,false,false,true,false,false,false,false]],"000000005":[1359.5589285714286,[false,false,false,false,true,false,false,false,false]],"000000006":[1364.3044642857142,[false,false,false,false,true,false,false,false,false]],"000000007":[1454.5455357142855,[false,false,false,false,true,false,false,false,false]],"000000008":[1527.0875,[false,false,true,false,true,false,true,false,false]],"000000009":[1517.7214285714285,[false,false,true,false,true,false,true,false,false]]
    },
+   defaultPayouts: [0, 0, 0, 0, 0, 0, 10000, 36, 720, 360, 80, 252, 108, 72, 54, 180, 72, 180, 119, 36, 306, 1080, 144, 1800, 3600],
    
+   // Provide recommendations to /u/Yuryu's solver app
+   recommend: function() {
+      var state = [0,0,0,0,0,0,0,0,0];
+      for (var row = 0; row < 3; row++) {
+         for (var col = 0; col < 3; col++) {
+            var index = col + row*3;
+            var val = parseInt($('select[name="' + index + '"]').val());
+            if (val > 0) {
+               state[index] = val;
+            }
+         }
+      }
+      var recommendations = this.solve(state);
+      for (var i = 0; i < recommendations.length; i++) {
+         if (recommendations[i]) {
+            var col = i % 3;
+            var row = i / 3 | 0;
+            $("#" + rowColStr(row, col)).addClass("info");
+         }
+      }
+   },
+
    solve: function(input)
    {
        var state = [];
@@ -68,38 +93,47 @@ var PerfectCactpot = {
        for (var i = 0; i < num_options; i++)
            which_to_flip[i] = false;
        var value = 0;
-       switch (num_revealed)
-       {
-       case 1:
-           value = this.solve_1 (state, payout, which_to_flip);
-           break;
-       case 2:
-           value = this.solve_2 (state, payout, which_to_flip);
-           break;
-       case 3:
-           value = this.solve_3 (state, payout, which_to_flip);
-           break;
-       case 4:
-           value = this.solve_4 (state, payout, which_to_flip);
-           break;
+       if (num_revealed == 0) {
+           // You don't get to choose the first spot, but here's the answer anyway
+           return [true, false, true, false, false, false, true, false, true];
+       } else if (num_revealed == 1) {
+           var editedPayouts = false;
+           for (var i = 6; i < payout.length; i++) {
+               if (payout[i] != this.defaultPayouts[i]) {
+                  editedPayouts = true;
+                  break;
+               }
+           }
+           if (editedPayouts) {
+               // This will take a long time, but we have no choice
+               value = this.solve_any(state, payout, which_to_flip);
+           } else {
+               // Using our pre-calculated library, this is much faster
+               value = this.solve_1 (state, payout, which_to_flip);
+           }
+       } else {
+           value = this.solve_any(state, payout, which_to_flip);
        }
-       
+       if (window.console) console.log("Expected value: " + value + " MGP");
        return which_to_flip;
    },
    
-   solve_4: function(state, rewards, row) {
+   solve_any: function(state, rewards, options)
+   {
+       var dummy_array = [];
        var unknowns = [];
        var ids = [];
        var has = [];
-       var tot_win = [0,0,0,0,0,0,0,0];
-       var cur = 0;
+       var tot_win = [];
+       var num_hidden = 0;
+       var num_revealed = 0;
        for (var i = 0; i < 9; i++)
        {
            if (!state[i])
            {
                // Storing the ids of all locations which are currently unrevealed
-               ids[cur] = i;
-               cur++;
+               ids.push(i);
+               tot_win.push(0);
            }
            else
            {
@@ -107,204 +141,100 @@ var PerfectCactpot = {
                has[state[i]] = 1;
            }
        }
-       cur = 0;
+       num_hidden = tot_win.length
+       num_revealed = 9 - num_hidden;
+       
        // From the previous step, we know which numbers are not yet visible:
        //  these are the possible unknowns
-       for (var i = 1; i < 10; i++)
+       for (var i = 1; i <= 9; i++)
        {
            if (!has[i])
            {
-               unknowns[cur] = i;
-               cur++;
+               unknowns.push(i);
            }
        }
-       // Loop over all possible permutations on the unknowns
-       do
-       {
-           for (var i = 0; i < 5; i++) {
-               state[ids[i]] = unknowns[i];
-           }
-           // For each row, cumulatively sum the winnings for picking that row
-           tot_win[0] += rewards[state[0] + state[1] + state[2]];
-           tot_win[1] += rewards[state[3] + state[4] + state[5]];
-           tot_win[2] += rewards[state[6] + state[7] + state[8]];
-           tot_win[3] += rewards[state[0] + state[3] + state[6]];
-           tot_win[4] += rewards[state[1] + state[4] + state[7]];
-           tot_win[5] += rewards[state[2] + state[5] + state[8]];
-           tot_win[6] += rewards[state[0] + state[4] + state[8]];
-           tot_win[7] += rewards[state[2] + state[4] + state[6]];
-       } while (this.next_permutation(unknowns));
-       // Find the maximum. Start by assuming row 0 is best.
-       var curmax = tot_win[0];
-       row[0] = true;
-       for (var i = 1; i < 8; i++)
-       {
-           // If another row yielded a higher expected value:
-           if (tot_win[i] > curmax)
-           {
-               // Mark all the previous rows as FALSE (not optimal) and the current one as TRUE
-               curmax = tot_win[i];
-               for (var j = 0; j < i; j++)
-                   row[j] = false;
-               row[i] = true;
-           }
-           else if(tot_win[i] == curmax)
-           {
-               // For a tie, mark the current one as TRUE, and leave the previous ones intact
-               row[i] = true;
-           }
+       
+       if (num_revealed >= maxRevealedNums) {
+          // We've revealed as many numbers as we can -- time for the final assessment
+          var permutations = 0;
+          tot_win = [0,0,0,0,0,0,0,0]; // One for each row, column, and diagonal
+          // Loop over all possible permutations on the unknowns
+          do
+          {
+              permutations++;
+              for (var i = 0; i < ids.length; i++) {
+                  state[ids[i]] = unknowns[i];
+              }
+              // For each row, cumulatively sum the winnings for picking that row
+              tot_win[0] += rewards[state[0] + state[1] + state[2]];
+              tot_win[1] += rewards[state[3] + state[4] + state[5]];
+              tot_win[2] += rewards[state[6] + state[7] + state[8]];
+              tot_win[3] += rewards[state[0] + state[3] + state[6]];
+              tot_win[4] += rewards[state[1] + state[4] + state[7]];
+              tot_win[5] += rewards[state[2] + state[5] + state[8]];
+              tot_win[6] += rewards[state[0] + state[4] + state[8]];
+              tot_win[7] += rewards[state[2] + state[4] + state[6]];
+          } while (this.next_permutation(unknowns));
+          // Find the maximum. Start by assuming option 0 is best.
+          var curmax = tot_win[0];
+          options[0] = true;
+          for (var i = 1; i < 8; i++)
+          {
+              // If another row yielded a higher expected value:
+              if (tot_win[i] > curmax)
+              {
+                  // Mark all the previous rows as FALSE (not optimal) and the current one as TRUE
+                  curmax = tot_win[i];
+                  for (var j = 0; j < i; j++)
+                      options[j] = false;
+                  options[i] = true;
+              }
+              else if(tot_win[i] == curmax)
+              {
+                  // For a tie, mark the current one as TRUE, and leave the previous ones intact
+                  options[i] = true;
+              }
+          }
+          // The current totals are for a number of possible configurations.
+          // Divide by that number to get the actual expected value.
+          return curmax / permutations;
+       } else {
+          // Determine which tile to reveal next.
+          // Loop over every unknown tile and every possible value that could appear.
+          // Solve the resulting cases with a recursive call to solve_any.
+          for (var i = 0; i < num_hidden; i++)
+          {
+              for (var j = 0; j < num_hidden; j++)
+              {
+                  state[ids[i]] = unknowns[j];
+                  tot_win[i] += this.solve_any(state, rewards, dummy_array);
+                  for (var k = 0; k < num_hidden; k++)
+                      state[ids[k]] = 0;
+              }
+          }
+          var curmax = tot_win[0];
+          options[ids[0]] = true;
+          for (var i = 1; i < tot_win.length; i++)
+          {
+              if (tot_win[i] > curmax + EPS)
+              {
+                  curmax = tot_win[i];
+                  for (var j = 0; j < i; j++)
+                      options[ids[j]] = false;
+                  options[ids[i]] = true;
+              }
+              else if(tot_win[i] > curmax - EPS)
+              {
+                  options[ids[i]] = true;
+              }
+          }
+          // Each tile can be flipped to reveal one of num_hidden values (one number per space).
+          // Divide by num_hidden to get the true expected value.
+          return curmax / num_hidden;
        }
-       // The current totals are for 120 possible configurations.
-       // Divide by 120 to get the actual expected value.
-       return curmax / 120.0;
    },
 
-   /* Solve for the best row choice when 3 tiles have been flipped.
-   Returns the expected value of flipping that tile.
-
-   state is an array of the current board state, e.g., 001050020
-   0 means the tile is not flipped. 2 means the tile is showing a 2.
-
-   rewards is an array of rewards for each sum.
-   For example, rewards[6] = 10000;
-
-   flip is an array of which tiles are the best choice to maximize expected value.
-   It is passed into the function as an array of FALSE.
-   The function changes the best choices to TRUE. Indices are as follows:
-   0 = top left
-   1 = top center
-   2 = top right
-   3 = middle left
-   4 = direct center
-   5 = middle right
-   6 = bottom left
-   7 = bottom middle
-   8 = bottom right
-   For example, if the function changes flip[5] to TRUE, that means the middle right tile
-    is (potentially tied for) the best choice for maximizing expected value. */
-   solve_3: function(state, rewards, flip)
-   {
-       var dummy_array = [];
-       var unknowns = [];
-       var ids = [];
-       var has = [];
-       var tot_win = [0,0,0,0,0,0];
-       var cur = 0;
-       for (var i = 0; i < 9; i++)
-       {
-           if (!state[i])
-           {
-               ids[cur] = i;
-               cur++;
-           }
-           else
-           {
-               has[state[i]] = 1;
-           }
-       }
-       cur = 0;
-       for (var i = 1; i < 10; i++)
-       {
-           if (!has[i])
-           {
-               unknowns[cur] = i;
-               cur++;
-           }
-       }
-       // This is the only part that really differs from the previous function.
-       // Loop over every unknown tile and every possible value that could appear.
-       // Solve the resulting cases with solve_4.
-       for (var i = 0; i < 6; i++)
-       {
-           for (var j = 0; j < 6; j++)
-           {
-               state[ids[i]] = unknowns[j];
-               tot_win[i] += this.solve_4(state, rewards, dummy_array);
-               for (var k = 0; k < 6; k++)
-                   state[ids[k]] = 0;
-           }
-       }
-       var curmax = tot_win[0];
-       flip[ids[0]] = false;
-       for (var i = 1; i < 6; i++)
-       {
-           if (tot_win[i] > curmax + EPS)
-           {
-               curmax = tot_win[i];
-               for (var j = 0; j < i; j++)
-                   flip[ids[j]] = false;
-               flip[ids[i]] = true;
-           }
-           else if(tot_win[i] > curmax - EPS)
-           {
-               flip[ids[i]] = true;
-           }
-       }
-       // Each tile can be flipped to reveal one of 6 values.
-       // Divide by 6 to get the true expected value.
-       return curmax / 6.0;
-   },
-
-   // Same as above, replace 3 with 2
-   solve_2: function(state, rewards, flip)
-   {
-       var dummy_array = [];
-       var unknowns = [];
-       var ids = [];
-       var has = [];
-       var tot_win = [0,0,0,0,0,0,0];
-       var cur = 0;
-       for (var i = 0; i < 9; i++)
-       {
-           if (!state[i])
-           {
-               ids[cur] = i;
-               cur++;
-           }
-           else
-           {
-               has[state[i]] = 1;
-           }
-       }
-       cur = 0;
-       for (var i = 1; i < 10; i++)
-       {
-           if (!has[i])
-           {
-               unknowns[cur] = i;
-               cur++;
-           }
-       }
-       for (var i = 0; i < 7; i++)
-       {
-           for (var j = 0; j < 7; j++)
-           {
-               state[ids[i]] = unknowns[j];
-               tot_win[i] += this.solve_3(state, rewards, dummy_array);
-               for (var k = 0; k < 7; k++)
-                   state[ids[k]] = 0;
-           }
-       }
-       var curmax = tot_win[0];
-       flip[ids[0]] = true;
-       for (var i = 1; i < 7; i++)
-       {
-           if (tot_win[i] > curmax + EPS)
-           {
-               curmax = tot_win[i];
-               for (var j = 0; j < i; j++)
-                   flip[ids[j]] = false;
-               flip[ids[i]] = true;
-           }
-           else if(tot_win[i] > curmax - EPS)
-           {
-               flip[ids[i]] = true;
-           }
-       }
-       return curmax / 7.0;
-   },
-
-   // Same as above, replace 2 with 1
+   // Special case, because it would take so long
    solve_1: function(state, rewards, flip)
    {
       var stateStr = state.join('');
@@ -313,157 +243,7 @@ var PerfectCactpot = {
          flip[i] = newflip[i];
       }
       return this.openings[stateStr][0];
-      /*
-       var dummy_array = [];
-       var unknowns = [];
-       var ids = [];
-       var has = [];
-       var tot_win = [0,0,0,0,0,0,0,0];
-       var cur = 0;
-       for (var i = 0; i < 9; i++)
-       {
-           if (!state[i])
-           {
-               ids[cur] = i;
-               cur++;
-           }
-           else
-           {
-               has[state[i]] = 1;
-           }
-       }
-       cur = 0;
-       for (var i = 1; i < 10; i++)
-       {
-           if (!has[i])
-           {
-               unknowns[cur] = i;
-               cur++;
-           }
-       }
-       for (var i = 0; i < 8; i++)
-       {
-           for (var j = 0; j < 8; j++)
-           {
-               state[ids[i]] = unknowns[j];
-               tot_win[i] += this.solve_2(state, rewards, dummy_array);
-               for (var k = 0; k < 8; k++)
-                   state[ids[k]] = 0;
-           }
-       }
-       var curmax = tot_win[0];
-       flip[ids[0]] = true;
-       for (var i = 1; i < 8; i++)
-       {
-           if (tot_win[i] > curmax + EPS)
-           {
-               curmax = tot_win[i];
-               for (var j = 0; j < i; j++)
-                   flip[ids[j]] = false;
-               flip[ids[i]] = true;
-           }
-           else if(tot_win[i] > curmax - EPS)
-           {
-               flip[ids[i]] = true;
-           }
-       }
-       return curmax / 8.0;
-       */
    },
-
-   main: function(input)
-   {
-       // List of rewards for each sum
-       var rewards = [0, 0, 0, 0, 0, 0, 10000, 36, 720, 360, 80, 252, 108, 72, 54, 180, 72, 180, 119, 36, 306, 1080, 144, 1800, 3600];
-
-       var state = [];
-       if (typeof(input) == 'string') {
-         for (var i = 0; i < input.length; i++) {
-            state[i] = parseInt(input.charAt(i));
-         }
-       } else if (typeof(input) == 'object') {
-         state = input;
-       } else {
-         // A sample state. This one is 003000000
-         // This means we have only flipped one tile, the top right tile, to reveal a 3.
-         state[2] = 3;
-       }
-
-       // Count how many are visible
-       var num_revealed = 0;
-       for (var i = 0; i < 9; i++)
-       {
-           if (state[i] > 0)
-               num_revealed++;
-       }
-
-       // If four are visible, we are picking between eight rows. Otherwise, we are picking
-       // between nine tiles (although we'll never be picking revealed tiles)
-       var num_options = 9;
-       if (num_revealed == 4)
-           num_options = 8;
-
-       // Run the appropriate function to solve for the optimnal choice
-       var which_to_flip = [];
-       for (var i = 0; i < num_options; i++)
-           which_to_flip[i] = false;
-       var message = "Expected winnings with optimal play: ";
-       switch (num_revealed)
-       {
-       case 1:
-           message += this.solve_1 (state, rewards, which_to_flip);
-           break;
-       case 2:
-           message += this.solve_2 (state, rewards, which_to_flip);
-           break;
-       case 3:
-           message += this.solve_3 (state, rewards, which_to_flip);
-           break;
-       case 4:
-           message += this.solve_4 (state, rewards, which_to_flip);
-           break;
-       }
-       console.log(message + " MGP");
-
-       // Output which choices are optimal
-       if (num_revealed < 4)
-           message = "Tiles to flip: ";
-       else
-           message = "Rows to choose: ";
-       for (var i = 0; i < num_options; i++)
-       {
-           if (which_to_flip[i]) {
-               message += i + " ";
-           }
-       }
-       console.log(message);
-       console.log("Program finished.");
-   },
-
-   test: function(input)
-   {
-       // List of rewards for each sum
-       var rewards = [0, 0, 0, 0, 0, 0, 10000, 36, 720, 360, 80, 252, 108, 72, 54, 180, 72, 180, 119, 36, 306, 1080, 144, 1800, 3600];
-
-       var state = [];
-
-       // Run the appropriate function to solve for the optimnal choice
-       var openings = {};
-       for (var i = 0; i < 9; i++) {
-         for (var j = 1; j <= 9; j++) {
-       var which_to_flip = [];
-            var which_to_flip = [false,false,false,false,false,false,false,false,false];
-            state = [0,0,0,0,0,0,0,0,0];
-            state[i] = j;
-            var value = this.solve_1 (state, rewards, which_to_flip);
-            openings[state.join('')] = [value, which_to_flip];
-         }
-       }
-       console.log('var openings = ' + JSON.stringify(openings));
-
-       console.log("Program finished.");
-   },
-
 
    next_permutation: function(array)
    {
@@ -519,3 +299,5 @@ var PerfectCactpot = {
    }
 
 };
+
+var EPS = 0.00001;
