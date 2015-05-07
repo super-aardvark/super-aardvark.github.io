@@ -1,0 +1,91 @@
+<html>
+<head>
+<script type="text/javascript" src="./weather.js">
+</script>
+<script type="text/javascript" src="file:///C:/dev/jquery/jquery-2.1.4.js">
+</script>
+<script type="text/javascript">
+var displayWeather = function() {
+   $("#weatherDiv").text(WeatherFinder.getWeather(new Date(), $("#zoneSelect").val()));
+}
+
+function findWeather() {
+   $("#weatherDiv").text('');
+   $("#weatherTableHeaderRow ~ tr").remove()
+   var weatherStartTime = WeatherFinder.getWeatherTimeFloor(new Date()).getTime();
+   var weatherStartHour = WeatherFinder.getEorzeaHour(weatherStartTime);
+   var zone = $("#zoneSelect").val();
+   var targetWeather = $("#weatherSelect").val();
+   var targetPrevWeather = $("#previousWeatherSelect").val();
+   var tries = 0;
+   var matches = 0;
+   var weather = WeatherFinder.getWeather(weatherStartTime, zone);
+   var prevWeather = WeatherFinder.getWeather(weatherStartTime-1, zone);
+   while (tries < 1000 && matches < 5) {
+      if (     (targetWeather == "" || targetWeather == weather) 
+            && (targetPrevWeather == "" || targetPrevWeather == prevWeather) 
+            && $("#timeBox" + weatherStartHour).is(":checked")) {
+         var weatherDate = new Date(weatherStartTime);
+         $("#weatherTable").append('<tr><td>' + prevWeather + '</td><td>' + weather + '</td><td>' + weatherStartHour + ':00</td><td>' + weatherDate + '</td></tr>');
+         matches++;
+      }
+      weatherStartTime += 8 * 175 * 1000; // Increment by 8 Eorzean hours
+      weatherStartHour = WeatherFinder.getEorzeaHour(weatherStartTime);
+      prevWeather = weather;
+      weather = WeatherFinder.getWeather(weatherStartTime, zone);
+      tries++;
+   }
+   if (matches == 0) {
+      $("#weatherDiv").append("Couldn't find the desired conditions over the next 1000 weather cycles (~16 Earth days).  Make sure you have selected at least one time period.<br/>");
+   }
+}
+
+function populateWeather() {
+   var weathers = WeatherFinder.weatherLists[$("#zoneSelect").val()];
+   var selects = $("#weatherSelect").add("#previousWeatherSelect");
+   selects.empty();
+   selects.append('<option value="">Any</option>');
+   for (var w in weathers) {
+      selects.append('<option value="' + weathers[w] + '">' + weathers[w] + '</option>');
+   }
+}
+</script>
+</head>
+<body>
+Zone: <select id="zoneSelect" onchange="populateWeather()">
+<option value="">Select a Zone</option>
+<option value="Limsa Lominsa">Limsa Lominsa</option>
+<option value="Middle La Noscea">Middle La Noscea</option>
+<option value="Lower La Noscea">Lower La Noscea</option>
+<option value="Eastern La Noscea">Eastern La Noscea</option>
+<option value="Western La Noscea">Western La Noscea</option>
+<option value="Upper La Noscea">Upper La Noscea</option>
+<option value="Outer La Noscea">Outer La Noscea</option>
+<option value="Mist">Mist</option>
+<option value="Gridania">Gridania</option>
+<option value="Central Shroud">Central Shroud</option>
+<option value="East Shroud">East Shroud</option>
+<option value="South Shroud">South Shroud</option>
+<option value="North Shroud">North Shroud</option>
+<option value="The Lavender Beds">The Lavender Beds</option>
+<option value="Ul'dah">Ul'dah</option>
+<option value="Western Thanalan">Western Thanalan</option>
+<option value="Central Thanalan">Central Thanalan</option>
+<option value="Eastern Thanalan">Eastern Thanalan</option>
+<option value="Southern Thanalan">Southern Thanalan</option>
+<option value="Northern Thanalan">Northern Thanalan</option>
+<option value="The Goblet">The Goblet</option>
+<option value="Coerthas Central Highlands">Coerthas Central Highlands</option>
+<option value="Mor Dhona">Mor Dhona</option>
+</select><br/>
+Desired Weather: <select id="weatherSelect"><option value="">Any</option></select><br/>
+Transition From: <select id="previousWeatherSelect"><option value="">Any</option></select><br/>
+Eorzea Time: <input type="checkbox" name="timeBox" value="0" id="timeBox0" checked="checked"/>00:00-07:59  <input type="checkbox" name="timeBox" value="8" id="timeBox8" checked="checked"/>08:00-15:59  <input type="checkbox" name="timeBox" value="16" id="timeBox16" checked="checked"/>16:00-23:59  <br/>
+<button onclick="findWeather()">Find Weather</button><br/>
+<button onclick="displayWeather()">Check weather now</button><br/>
+<table id="weatherTable">
+<tr id="weatherTableHeaderRow"><th>Previous Weather</th><th>Current Weather</th><th>Eorzea Time</th><th>Local Time</th></tr>
+</table>
+<div id="weatherDiv"></div>
+<body>
+</html>
