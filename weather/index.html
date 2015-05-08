@@ -2,7 +2,8 @@
 <head>
 <script type="text/javascript" src="weather.js">
 </script>
-<script type="text/javascript" src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+<!--script type="text/javascript" src="file:///C:/dev/jquery/jquery-2.1.4.js"-->
 </script>
 <script type="text/javascript">
 var displayWeather = function() {
@@ -22,9 +23,24 @@ function findWeather() {
    var weather = WeatherFinder.getWeather(weatherStartTime, zone);
    var prevWeather = WeatherFinder.getWeather(weatherStartTime-1, zone);
    while (tries < 1000 && matches < 5) {
-      if (     (targetWeather == "" || targetWeather == weather) 
-            && (targetPrevWeather == "" || targetPrevWeather == prevWeather) 
-            && $("#timeBox" + weatherStartHour).is(":checked")) {
+      var weatherMatch = targetWeather == null;
+      var prevWeatherMatch = targetPrevWeather == null;
+      var timeMatch = false;
+      for (var i in targetWeather) {
+         if (targetWeather[i] == "" || targetWeather[i] == weather) {
+            weatherMatch = true;
+            break;
+         }
+      }
+      for (var i in targetPrevWeather) {
+         if (targetPrevWeather[i] == "" || targetPrevWeather[i] == prevWeather) {
+            prevWeatherMatch = true;
+         }
+      }
+      if ($("#timeBox" + weatherStartHour).is(":checked")) {
+         timeMatch = true;
+      }
+      if (weatherMatch && prevWeatherMatch && timeMatch) {
          var weatherDate = new Date(weatherStartTime);
          $("#weatherTable").append('<tr><td>' + prevWeather + '</td><td>' + weather + '</td><td>' + weatherStartHour + ':00</td><td>' + weatherDate + '</td></tr>');
          matches++;
@@ -52,7 +68,8 @@ function populateWeather() {
 </script>
 </head>
 <body>
-Zone: <select id="zoneSelect" onchange="populateWeather()">
+<table>
+<tr><td>Zone: </td><td><select id="zoneSelect" onchange="populateWeather()">
 <option value="">Select a Zone</option>
 <option value="Limsa Lominsa">Limsa Lominsa</option>
 <option value="Middle La Noscea">Middle La Noscea</option>
@@ -77,12 +94,12 @@ Zone: <select id="zoneSelect" onchange="populateWeather()">
 <option value="The Goblet">The Goblet</option>
 <option value="Coerthas Central Highlands">Coerthas Central Highlands</option>
 <option value="Mor Dhona">Mor Dhona</option>
-</select><br/>
-Desired Weather: <select id="weatherSelect"><option value="">Any</option></select><br/>
-Transition From: <select id="previousWeatherSelect"><option value="">Any</option></select><br/>
-Eorzea Time: <input type="checkbox" name="timeBox" value="0" id="timeBox0" checked="checked"/>00:00-07:59  <input type="checkbox" name="timeBox" value="8" id="timeBox8" checked="checked"/>08:00-15:59  <input type="checkbox" name="timeBox" value="16" id="timeBox16" checked="checked"/>16:00-23:59  <br/>
+</select></td></tr>
+<tr><td>Desired Weather: </td><td><select id="weatherSelect" multiple="true" size="7"><option value="">Any</option></select></td></tr>
+<tr><td>Transition From: </td><td><select id="previousWeatherSelect" multiple="true" size="7"><option value="">Any</option></select><br/></td></tr>
+<tr><td>Eorzea Time: </td><td><input type="checkbox" name="timeBox" value="0" id="timeBox0" checked="checked"/>00:00-07:59  <br/><input type="checkbox" name="timeBox" value="8" id="timeBox8" checked="checked"/>08:00-15:59  <br/><input type="checkbox" name="timeBox" value="16" id="timeBox16" checked="checked"/>16:00-23:59  <br/></td></tr>
+</table>
 <button onclick="findWeather()">Find Weather</button><br/>
-<button onclick="displayWeather()">Check weather now</button><br/>
 <table id="weatherTable">
 <tr id="weatherTableHeaderRow"><th>Previous Weather</th><th>Current Weather</th><th>Eorzea Time</th><th>Local Time</th></tr>
 </table>
