@@ -68,9 +68,16 @@ weatherChances: {
 "Southern Thanalan": function(chance) { if (chance < 20) { return "Heat Waves"; } else if (chance < 60) { return "Clear Skies"; } else if (chance < 80) { return "Sunshine"; } else if (chance < 90) { return "Clouds"; } else { return "Fog"; } },
 "Northern Thanalan": function(chance) { if (chance < 5) { return "Clear Skies"; } else if (chance < 20) { return "Sunshine"; } else if (chance < 50) { return "Clouds"; } else { return "Fog"; } },
 "The Goblet": function(chance) { if (chance < 40) { return "Clear Skies"; } else if (chance < 60) { return "Sunshine"; } else if (chance < 85) { return "Clouds"; } else if (chance < 95) { return "Fog"; } else { return "Rain"; } },
-"Coerthas Central Highlands": function(chance) { if (chance < 20) { return "Blizzards"; } else if (chance < 60) { return "Snow"; } else if (chance < 70) { return "Sunshine"; } else if (chance < 75) { return "Clear Skies"; } else if (chance < 90) { return "Clouds"; } else { return "Fog"; } },
-"Mor Dhona": function(chance) { if (chance < 15) { return "Clouds"; } else if (chance < 30) { return "Fog"; } else if (chance < 60) { return "Gloom"; } else if (chance < 75) { return "Clear Skies"; } else { return "Sunshine"; } }
-},
+"Mor Dhona": function(chance) {if (chance < 15) {return "Clouds";}  else if (chance < 30) {return "Fog";}  else if (chance < 60) {return "Gloom";}  else if (chance < 75) {return "Clear Skies";}  else {return "Fair Skies";}},
+"Ishgard": function(chance) {if (chance < 60) {return "Snow";}  else if (chance < 70) {return "Fair Skies";}  else if (chance < 75) {return "Clear Skies";}  else if (chance < 90) {return "Clouds";}  else {return "Fog";}},
+"Coerthas Central Highlands": function(chance) {if (chance < 20) {return "Blizzards";}  else if (chance < 60) {return "Snow";}  else if (chance < 70) {return "Fair Skies";}  else if (chance < 75) {return "Clear Skies";}  else if (chance < 90) {return "Clouds";}  else {return "Fog";}},
+"Coerthas Western Highlands": function(chance) {if (chance < 20) {return "Blizzards";}  else if (chance < 60) {return "Snow";}  else if (chance < 70) {return "Fair Skies";}  else if (chance < 75) {return "Clear Skies";}  else if (chance < 90) {return "Clouds";}  else {return "Fog";}},
+"The Sea of Clouds": function(chance) {if (chance < 30) {return "Clear Skies";}  else if (chance < 60) {return "Fair Skies";}  else if (chance < 70) {return "Clouds";}  else if (chance < 80) {return "Fog";}  else if (chance < 90) {return "Wind";}  else {return "Umbral Wind";}},
+"Azys Lla": function(chance) {if (chance < 35) {return "Fair Skies";}  else if (chance < 70) {return "Clouds";}  else {return "Thunder";}},
+"The Dravanian Forelands": function(chance) {if (chance < 10) {return "Clouds";}  else if (chance < 20) {return "Fog";}  else if (chance < 30) {return "Thunder";}  else if (chance < 40) {return "Dust Storms";}  else if (chance < 70) {return "Clear Skies";}  else {return "Fair Skies";}},
+"The Dravanian Hinterlands": function(chance) {if (chance < 10) {return "Clouds";}  else if (chance < 20) {return "Fog";}  else if (chance < 30) {return "Rain";}  else if (chance < 40) {return "Showers";}  else if (chance < 70) {return "Clear Skies";}  else {return "Fair Skies";}},
+"The Churning Mists": function(chance) {if (chance < 10) {return "Clouds";}  else if (chance < 20) {return "Gales";}  else if (chance < 40) {return "Umbral Static";}  else if (chance < 70) {return "Clear Skies";}  else {return "Fair Skies";}},
+"Idyllshire": function(chance) {if (chance < 10) {return "Clouds";}  else if (chance < 20) {return "Fog";}  else if (chance < 30) {return "Rain";}  else if (chance < 40) {return "Showers";}  else if (chance < 70) {return "Clear Skies";}  else {return "Fair Skies";}}},
 
 weatherLists: {
 "Limsa Lominsa": ["Clouds","Clear Skies","Sunshine","Fog","Rain"],
@@ -94,7 +101,15 @@ weatherLists: {
 "Southern Thanalan": ["Heat Waves","Clear Skies","Sunshine","Clouds","Fog"],
 "Northern Thanalan": ["Clear Skies","Sunshine","Clouds","Fog"],
 "The Goblet": ["Clear Skies","Sunshine","Clouds","Fog","Rain"],
-"Coerthas Central Highlands": ["Blizzards","Snow","Sunshine","Clear Skies","Clouds","Fog"],
-"Mor Dhona": ["Clouds","Fog","Gloom","Clear Skies","Sunshine"]
+"Mor Dhona": ["Clouds", "Fog", "Gloom", "Clear Skies", "Fair Skies"],
+"Ishgard": ["Snow", "Fair Skies", "Clear Skies", "Clouds", "Fog"],
+"Coerthas Central Highlands": ["Blizzards", "Snow", "Fair Skies", "Clear Skies", "Clouds", "Fog"],
+"Coerthas Western Highlands": ["Blizzards", "Snow", "Fair Skies", "Clear Skies", "Clouds", "Fog"],
+"The Sea of Clouds": ["Clear Skies", "Fair Skies", "Clouds", "Fog", "Wind", "Umbral Wind"],
+"Azys Lla": ["Fair Skies", "Clouds", "Thunder"],
+"The Dravanian Forelands": ["Clouds", "Fog", "Thunder", "Dust Storms", "Clear Skies", "Fair Skies"],
+"The Dravanian Hinterlands": ["Clouds", "Fog", "Rain", "Showers", "Clear Skies", "Fair Skies"],
+"The Churning Mists": ["Clouds", "Gales", "Umbral Static", "Clear Skies", "Fair Skies"],
+"Idyllshire": ["Clouds", "Fog", "Rain", "Showers", "Clear Skies", "Fair Skies"]
 }
 };
