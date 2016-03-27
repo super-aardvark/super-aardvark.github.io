@@ -23,8 +23,8 @@ calculateForecastTarget: function(timeMillis) {
     var calcBase = totalDays * 100 + increment;
 
     // 0xB = 11
-    var step1 = (calcBase << 11) ^ calcBase;
-    var step2 = (step1 >>> 8) ^ step1;
+    var step1 = ((calcBase << 11) ^ calcBase) >>> 0;
+    var step2 = ((step1 >>> 8) ^ step1) >>> 0;
 
     // 0x64 = 100
     return step2 % 100;
