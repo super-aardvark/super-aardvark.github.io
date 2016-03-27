@@ -40,14 +40,6 @@ $(document).ready(function() {
       $('.adventureOnly').hide(200);
       return false;
    });
-   $('#saveButton').click(function() {
-      if(typeof(Storage) !== "undefined") {
-          localStorage.setItem("RageData", JSON.stringify(Rage));
-      } else {
-         alert("No local storage!");
-      }
-      return false;
-   });
    if (Rage.currentMode != null) {
       setTimeout(function() {$('#' + Rage.currentMode + 'Button').click();}, 10);
    }
@@ -532,5 +524,30 @@ Rage = {
    returned:
       function() {
          this.gauStatus = "returned";
+      },
+   save:
+      function() {
+         if(typeof(Storage) !== "undefined") {
+             localStorage.setItem("RageData", JSON.stringify(Rage));
+         } else {
+            alert("No local storage!");
+         }
+      },
+   export:
+      function() {
+         $('#exportText').val(LZString.compressToBase64(JSON.stringify(this)));
+         $('#exportModal').modal();
+      },
+   import:
+      function() {
+         $('#importModal').modal();
+      },
+   importData:
+      function() {
+         $.extend(Rage, JSON.parse(LZString.decompressFromBase64($('#importText').val())));
+         if (Rage.currentMode != null) {
+            setTimeout(function() {$('#' + Rage.currentMode + 'Button').click();}, 10);
+         }
+         $('#importModal').modal('hide');
       }
 }

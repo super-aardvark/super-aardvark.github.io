@@ -11,6 +11,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
     <link href="css/rage.css" rel="stylesheet"/>
     <script src="js/jquery-2.2.2.min.js"></script>
+    <script src="js/lz-string.js"></script>
     <script src="js/rage-data-snes.js"></script>
     <script src="js/rage-walkthrough-snes.js"></script>
     <script src="js/rage.js"></script>
@@ -32,9 +33,15 @@
             <li id="rageButton"><a href="#">Rages</a></li>
          </ul>
          <ul class="nav navbar-nav navbar-right">
-            <li id="saveButton"><a href="#">Save</a></li>
-            <li id="configButton"><a href="#"><span class="glyphicon glyphicon-cog"></span></a></li>
-          </ul>
+            <li id="saveButton"><a href="javascript:Rage.save()">Save</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog"></span><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="javascript:Rage.export()">Export</a></li>
+                  <li><a href="javascript:Rage.import()">Import</a></li>
+                </ul>
+           </li>
+        </ul>
         </div>
       </nav>
       
@@ -59,6 +66,50 @@
     </div>
     <div id="rageContent" class="content container-fluid">
     </div>
+    
+   <!-- Button trigger modal 
+   <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+     Launch demo modal
+   </button>
+
+   <!-- Modal -->
+   <div class="modal fade" id="exportModal" tabindex="-1" role="dialog" aria-labelledby="exportModalLabel">
+     <div class="modal-dialog" role="document">
+       <div class="modal-content">
+         <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+           <h4 class="modal-title" id="exportModalLabel">Export</h4>
+         </div>
+         <div class="modal-body">
+           <textarea id="exportText" disabled="disabled" rows="10" style="width: 100%"></textarea>
+         </div>
+         <div class="modal-footer">
+           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+         </div>
+       </div>
+     </div>
+   </div>
+   
+   <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel">
+     <div class="modal-dialog" role="document">
+       <div class="modal-content">
+         <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+           <h4 class="modal-title" id="importModalLabel">Import</h4>
+         </div>
+         <div class="modal-body">
+           <p>Note: Imported data will not be saved automatically.  If you like the results, be sure to click Save.</p>
+           <textarea id="importText" rows="10" style="width: 100%"></textarea>
+         </div>
+         <div class="modal-footer">
+           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+           <button type="button" class="btn btn-primary" onclick="Rage.importData();">Import</button>
+         </div>
+       </div>
+     </div>
+   </div>
+   
+   
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
   </body>
