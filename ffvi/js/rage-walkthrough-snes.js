@@ -344,6 +344,18 @@ walkthroughData = [
 [{packId: 45, formId: 5, enemies: "Flan, Flan, Flan, Flan", chance: 10, chanceOutOf: 16},
 {packId: 45, formId: 4, enemies: "Flan, Flan, Flan, Flan, Flan, Flan", chance: 6, chanceOutOf: 16}]
 },
+{areaTitle: "Stairway",
+ formations:
+[{packId: 15, formId: 6, enemies: "Trapper, Trapper, Trapper", chance: 6, chanceOutOf: 16},
+{packId: 15, formId: 7, enemies: "General, General", chance: 5, chanceOutOf: 16},
+{packId: 16, formId: 0, enemies: "General, Pipsqueak, Pipsqueak", chance: 5, chanceOutOf: 16}]
+},
+{areaTitle: "Tube Room",
+ formations:
+[{packId: 46, formId: 1, enemies: "Gobbler, Rhinox, Gobbler", chance: 6, chanceOutOf: 16},
+{packId: 16, formId: 4, enemies: "Gobbler", chance: 5, chanceOutOf: 16},
+{packId: 46, formId: 0, enemies: "Rhinox, Rhinox", chance: 5, chanceOutOf: 16}]
+},
 {areaTitle: "Mine Cart Ride",
  formations:
 [{packId: 14, formId: 7, enemies: "Mag Roader (purple)", chance: null, chanceOutOf: null},
@@ -351,13 +363,7 @@ walkthroughData = [
 {packId: 51, formId: 6, enemies: "Mag Roader (purple), Mag Roader (purple)", chance: null, chanceOutOf: null},
 {packId: 51, formId: 7, enemies: "Mag Roader (red), Mag Roader (red), Mag Roader (red), Mag Roader (red)", chance: null, chanceOutOf: null}]
 },
-{areaTitle: "Escape: Stairway",
- formations:
-[{packId: 15, formId: 6, enemies: "Trapper, Trapper, Trapper", chance: 6, chanceOutOf: 16},
-{packId: 15, formId: 7, enemies: "General, General", chance: 5, chanceOutOf: 16},
-{packId: 16, formId: 0, enemies: "General, Pipsqueak, Pipsqueak", chance: 5, chanceOutOf: 16}]
-},
-{areaTitle: "Escape: Tube Room",
+{areaTitle: "Escape from Vector",
  formations:
 [{packId: 16, formId: 2, enemies: "Chaser, Trapper, Trapper, Trapper", chance: 5, chanceOutOf: 16},
 {packId: 53, formId: 0, enemies: "Commando, Commando, Commando, Commando", chance: 5, chanceOutOf: 16},
