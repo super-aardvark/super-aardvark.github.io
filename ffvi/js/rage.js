@@ -15,6 +15,7 @@ $(document).ready(function() {
       $('.content').hide();
       setupAdventure();
       $('#adventureContent').show();
+      $('.adventureOnly').show(200);
       return false;
    });
    $('#veldtButton').click(function() {
@@ -26,6 +27,7 @@ $(document).ready(function() {
       if (Rage.currentPack) {
          $(document).scrollTop($('#pack-' + Rage.currentPack).position().top - 50);
       }
+      $('.adventureOnly').hide(200);
       return false;
    });
    $('#rageButton').click(function() {
@@ -35,6 +37,7 @@ $(document).ready(function() {
       $('.content').hide();
       setupRages();
       $('#rageContent').show();
+      $('.adventureOnly').hide(200);
       return false;
    });
    $('#saveButton').click(function() {
@@ -59,15 +62,15 @@ function setupAdventure() {
          sectionDiv.addClass("current");
       }
       sectionDiv.data('id', i);
-      sectionDiv.append($('<h3>' + section.sectionTitle + '</h3>'));
+      sectionDiv.append($('<h3><span class="glyphicon glyphicon-expand"></span>' + section.sectionTitle + '</h3>'));
       for (var j = 0; j < section.areas.length; j++) {
          var area = section.areas[j];
          var areaDiv = $('<div class="advArea" id="area-' + i + '-' + j + '"></div>');
-         if (j == Rage.currentAdvArea) {
+         if (i == Rage.currentAdvSection && j == Rage.currentAdvArea) {
             areaDiv.addClass("current");
          }
          areaDiv.data('id', j);
-         areaDiv.append($('<h4>' + area.areaTitle + '</h4>'));
+         areaDiv.append($('<h4><span class="glyphicon glyphicon-expand"></span>' + area.areaTitle + '</h4>'));
          var hasUncleared = false;
          var hasUnknown = false;
          for (var k = 0; k < area.formations.length; k++) {
@@ -127,27 +130,132 @@ function setupAdventure() {
       }
       $('#adventureContent').append(sectionDiv);
    }
-   $('.advSection h3').click(sectionClick);
-   $('.advArea h4').click(areaClick);
+   $('.glyphicon-expand').click(accordionClick);
+   $('.advSection h3').dblclick(function(e){activeSection($(this).parent());});
+   $('.advArea h4').dblclick(function(e){activeArea($(this).parent());});
    $('.advFormation').click(formationClick);
-   $('#section-' + Rage.currentAdvSection).children('div').show();
-   $('#area-' + Rage.currentAdvSection + '-' + Rage.currentAdvArea).children('div').show();
+   // $('#section-' + Rage.currentAdvSection).children('div').show();
+   // $('#area-' + Rage.currentAdvSection + '-' + Rage.currentAdvArea).children('div').show();
+   setTimeout(function() {
+      activeSection($('#section-' + Rage.currentAdvSection), true);
+      activeArea($('#area-' + Rage.currentAdvSection + '-' + Rage.currentAdvArea));
+   }, 10);
 }
 
-function sectionClick(e) {
-   var sectionDiv = $(this).closest('div.advSection');
-   sectionDiv.find('div.advArea').toggle();
-   var areaDiv = sectionDiv.children('div.advArea').first();
-   areaDiv.find('div.advFormation').toggle();
+
+function accordionClick(e) {
+   accordion($(this).closest('div'));
+}
+
+function accordion(container, expandOnly) {
+   var expIcon = container.children().first().find('.glyphicon');
+   if (expandOnly || expIcon.hasClass("glyphicon-expand")) {
+      expIcon.removeClass("glyphicon-expand").addClass("glyphicon-collapse-down");
+      container.children('div').show(300);
+   } else {
+      expIcon.removeClass("glyphicon-collapse-down").addClass("glyphicon-expand");
+      container.children('div').hide(300);
+   }
+}
+
+function activeSection(sectionDiv, skipArea) {
    Rage.currentAdvSection = sectionDiv.data('id');
-   Rage.currentAdvArea = areaDiv.data('id');
-   $('div.advArea.current').removeClass("current");
-   areaDiv.addClass("current");
+   accordion($('.advSection.current'));
+   $('.advSection.current').removeClass("current");
+   sectionDiv.addClass("current");
+   accordion(sectionDiv, true);
+   if (!skipArea) activeArea(sectionDiv.children('.advArea').first());
+   // $(document).scrollTop(sectionDiv.position().top - 50);
 }
 
-function areaClick(e) {
-   var areaDiv = $(this).closest('div.advArea');
-   areaDiv.find('div.advFormation').toggle();
+function activeArea(areaDiv) {
+   var sectionDiv = areaDiv.parent();
+   if (!sectionDiv.hasClass("current")) {
+      activeSection(areaDiv.parent(), true);
+   }
+   Rage.currentAdvArea = areaDiv.data('id');
+   accordion($('.advArea.current'));
+   $('.advArea.current').removeClass("current");
+   areaDiv.addClass("current");
+   
+   var scrollTop = $(document).scrollTop();
+   accordion(areaDiv, true);
+   var int = setInterval(function() {
+         var areaTop = areaDiv.position().top - 110;
+         if (areaTop < scrollTop) {
+            $(document).scrollTop(areaTop);
+            scrollTop = areaTop;
+         }
+      }, 10);
+   setTimeout(function() { clearInterval(int); }, 300);
+}
+
+function prevArea() {
+   var current = $('.advArea.current');
+   if (current.length == 0) {
+      activeArea($('.advArea').first());
+      return;
+   }
+   var prev = current.prev('.advArea');
+   if (prev.length > 0) {
+      activeArea(prev);
+   } else {
+      activeArea(current.parent().prev().children('.advArea').last());
+   }
+}
+
+function nextArea() {
+   var current = $('.advArea.current');
+   if (current.length == 0) {
+      activeArea($('.advArea').first());
+      return;
+   }
+   var next = current.next('.advArea');
+   if (next.length > 0) {
+      activeArea(next);
+   } else {
+      activeArea(current.parent().next().children('.advArea').first());
+   }
+}
+
+function prevSection() {
+   var current = $('.advSection.current');
+   var prev = current.prev('.advSection');
+   if (prev.length > 0) {
+      activeSection(prev);
+   }
+}
+
+function nextSection() {
+   var current = $('.advSection.current');
+   var next = current.next('.advSection');
+   if (next.length > 0) {
+      activeSection(next);
+   }
+}
+
+function toggleSection(sectionDiv, expandOnly) {
+   var expIcon = $(this).find('h3 .glyphicon');
+   if (expIcon.hasClass("glyphicon-expand")) {
+      expIcon.removeClass("glyphicon-expand").addClass("glyphicon-collapse-down");
+      sectionDiv.find('div.advArea').show();
+   } else {
+      sectionDiv.find('div.advArea').hide();
+      expIcon.removeClass("glyphicon-collapse-down").addClass("glyphicon-expand");
+   }
+   Rage.currentAdvSection = sectionDiv.data('id');
+   toggleArea(sectionDiv.children('div.advArea').first());
+}
+
+function toggleArea(areaDiv, expandOnly) {
+   var expIcon = $(this).find('h4 .glyphicon');
+   if (expIcon.hasClass("glyphicon-expand")) {
+      expIcon.removeClass("glyphicon-expand").addClass("glyphicon-collapse-down");
+      sectionDiv.find('div.advArea').show();
+   } else {
+      sectionDiv.find('div.advArea').hide();
+      expIcon.removeClass("glyphicon-collapse-down").addClass("glyphicon-expand");
+   }
    Rage.currentAdvArea = areaDiv.data('id');
    $('div.advArea.current').removeClass("current");
    areaDiv.addClass("current");
@@ -223,6 +331,9 @@ function setupVeldt() {
       }
    }
    $('div.formation').click(function(e) { activeFormation($(this)); });
+   if (Rage.options.showAllVeldtPacks) {
+      $('.noCleared').show();
+   }
    $('#veldtContent').show();
    activePack($('div.pack.current'));
 }
@@ -351,6 +462,7 @@ Rage = {
    currentMode: null,
    clearedFormations: new Array(65),
    knownRages: new Array(255),
+   options: {},
    isCleared: 
       function(packId, formId) {
          var pack = this.clearedFormations[packId];

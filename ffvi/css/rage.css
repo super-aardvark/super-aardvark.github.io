@@ -143,3 +143,7 @@ div.rage.known {
     background-color: lightGreen;
 }
 
+.glyphicon-expand,
+.glyphicon-collapse-down {
+   cursor: pointer;
+}

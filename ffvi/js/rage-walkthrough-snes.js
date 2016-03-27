@@ -258,7 +258,7 @@ walkthroughData = [
 [{packId: 11, formId: 7, enemies: "Rider", chance: 1, chanceOutOf: 1}]
 }
 ]},
-{sectionTitle: "Kohlingen Area", areas:[
+{sectionTitle: "Finding Terra", areas:[
 {areaTitle: "Kohlingen Area, Grasslands",
  formations:
 [{packId: 13, formId: 1, enemies: "Red Fang, Vulture, Red Fang", chance: 6, chanceOutOf: 16},
