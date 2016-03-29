@@ -40,9 +40,11 @@ $(document).ready(function() {
       $('.adventureOnly').hide(200);
       return false;
    });
-   if (Rage.currentMode != null) {
-      setTimeout(function() {$('#' + Rage.currentMode + 'Button').click();}, 10);
+   if (Rage.currentMode == null) {
+      $('#helpModal').modal();
+      Rage.currentMode = "adventure";
    }
+   setTimeout(function() {$('#' + Rage.currentMode + 'Button').click();}, 50);
 });
 
 function setupAdventure() {
@@ -268,6 +270,8 @@ function formationClick(e) {
 function setupVeldt() {
    var veldtContent = $('#veldtContent');
    veldtContent.children().not('#formationDetailPane').remove();
+   $('#formationDetailPane').hide();
+   var hasAnyCleared = false;
    for (var i = 1; i < veldtPacks.length; i++) {
       var pack = veldtPacks[i];
       if (pack.length > 0) {
@@ -313,6 +317,7 @@ function setupVeldt() {
          if (!cleared) {
             packDiv.addClass("noCleared");
          } else {
+            hasAnyCleared = true;
             packDiv.addClass("hasCleared");
             if (hasUnknown) {
                packDiv.addClass("hasUnknown");
@@ -326,6 +331,8 @@ function setupVeldt() {
    $('div.formation').click(function(e) { activeFormation($(this)); });
    if (Rage.options.showAllVeldtPacks) {
       $('.noCleared').show();
+   } else if (!hasAnyCleared) {
+      $('#veldtContent').prepend($("<h3>There's nothing here!</h3><p>To mark formations as cleared (you've encountered them in battle) either switch to Adventure mode or enable \"Show All Veldt Packs\" in the options</p>"));
    }
    $('#veldtContent').show();
    if (Rage.currentPack != null) {
@@ -454,7 +461,7 @@ Rage = {
    gauStatus: null,
    currentAdvSection: 0,
    currentAdvArea: 0,
-   currentMode: "adventure",
+   currentMode: null,
    clearedFormations: new Array(65),
    knownRages: new Array(255),
    options: {},
