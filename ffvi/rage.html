@@ -24,12 +24,12 @@
             <a class="navbar-brand" href="#">Rage Mode</a>
           </div>
           <ul class="nav navbar-nav">
-            <li class="active" id="veldtButton"><a href="#">Veldt</a></li>
             <li id="adventureButton"><a href="#">Adventure</a></li>
             <li id="prevSectionButton" class="adventureOnly"><a href="javascript:prevSection()" title="Previous Section"><span class="glyphicon glyphicon-fast-backward"></span></a></li>
             <li id="prevAreaButton" class="adventureOnly"><a href="javascript:prevArea()" title="Previous Area"><span class="glyphicon glyphicon-step-backward"></span></a></li>
             <li id="nextAreaButton" class="adventureOnly"><a href="javascript:nextArea()" title="Next Area"><span class="glyphicon glyphicon-step-forward"></span></a></li>
             <li id="nextSectionButton" class="adventureOnly"><a href="javascript:nextSection()" title="Next Section"><span class="glyphicon glyphicon-fast-forward"></span></a></li>
+            <li id="veldtButton"><a href="#">Veldt</a></li>
             <li id="rageButton"><a href="#">Rages</a></li>
          </ul>
          <ul class="nav navbar-nav navbar-right">
@@ -39,6 +39,7 @@
                 <ul class="dropdown-menu">
                   <li><a href="javascript:Rage.export()">Export</a></li>
                   <li><a href="javascript:Rage.import()">Import</a></li>
+                  <li><a href="#" data-toggle="modal" data-target="#helpModal">Help</a></li>
                 </ul>
            </li>
         </ul>
@@ -104,6 +105,26 @@
          <div class="modal-footer">
            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
            <button type="button" class="btn btn-primary" onclick="Rage.importData();">Import</button>
+         </div>
+       </div>
+     </div>
+   </div>
+   
+   <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel">
+     <div class="modal-dialog" role="document">
+       <div class="modal-content">
+         <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+           <h4 class="modal-title" id="helpModalLabel">Instructions</h4>
+         </div>
+         <div class="modal-body">
+           <p>Start out in <strong>Adventure</strong> mode.  Click each formation when you encounter it for the first time.  Use the arrow buttons in the menu for easy navigation, or double-click to mark any section or area as the active one.  You can also expand and collapse sections and areas as needed without changing which one is "active".</p>
+           <p>When you visit the Veldt, switch to <strong>Veldt</strong> mode.  All of the packs that you will encounter are listed here.  When you get into a fight, select the appropriate formation, and record the outcome -- Gau used Leap, Gau returned, or neither.  The tool will record any rages you learned as a result, and advance to the next pack automatically.  If the tool loses track of which pack you're on (e.g. if you save and load your game), you can use ctrl-F to find your place.</p>
+           <p>Use the <strong>Rages</strong> list to see the list of all rages.  Click a rage to toggle its status; in case you've started using the tool in the middle of a game, you can quickly record which Rages Gau already knows.</p>
+           <p>Recommendation: Click the Save button in the menu only when you save your game.  This way, if you are forced to reload your last save, you can simply reload the web page and the tool will still be in sync with your game.</p>
+         </div>
+         <div class="modal-footer">
+           <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
          </div>
        </div>
      </div>

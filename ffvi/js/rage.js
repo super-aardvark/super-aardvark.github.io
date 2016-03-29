@@ -123,8 +123,8 @@ function setupAdventure() {
       $('#adventureContent').append(sectionDiv);
    }
    $('.glyphicon-expand').click(accordionClick);
-   $('.advSection h3').dblclick(function(e){activeSection($(this).parent());});
-   $('.advArea h4').dblclick(function(e){activeArea($(this).parent());});
+   $('.advArea').dblclick(function(e){e.stopPropagation(); activeArea($(this));});
+   $('.advSection').dblclick(function(e){activeSection($(this));});
    $('.advFormation').click(formationClick);
    // $('#section-' + Rage.currentAdvSection).children('div').show();
    // $('#area-' + Rage.currentAdvSection + '-' + Rage.currentAdvArea).children('div').show();
@@ -136,6 +136,7 @@ function setupAdventure() {
 
 
 function accordionClick(e) {
+   e.stopPropagation();
    accordion($(this).closest('div'));
 }
 
@@ -327,7 +328,9 @@ function setupVeldt() {
       $('.noCleared').show();
    }
    $('#veldtContent').show();
-   activePack($('div.pack.current'));
+   if (Rage.currentPack != null) {
+      activePack($('div.pack.current'));
+   }
 }
 
 function confirmButton() {
@@ -451,7 +454,7 @@ Rage = {
    gauStatus: null,
    currentAdvSection: 0,
    currentAdvArea: 0,
-   currentMode: null,
+   currentMode: "adventure",
    clearedFormations: new Array(65),
    knownRages: new Array(255),
    options: {},
