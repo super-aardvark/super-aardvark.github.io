@@ -37,6 +37,7 @@
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog"></span><span class="caret"></span></a>
                 <ul class="dropdown-menu">
+                  <li><a href="javascript:Rage.showOptions()">Options</a></li>
                   <li><a href="javascript:Rage.export()">Export</a></li>
                   <li><a href="javascript:Rage.import()">Import</a></li>
                   <li><a href="#" data-toggle="modal" data-target="#helpModal">Help</a></li>
@@ -73,7 +74,30 @@
      Launch demo modal
    </button>
 
-   <!-- Modal -->
+   <!-- Modals -->
+   <div class="modal fade" id="optionsModal" tabindex="-1" role="dialog" aria-labelledby="optionsModalLabel">
+     <div class="modal-dialog" role="document">
+       <div class="modal-content">
+         <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+           <h4 class="modal-title" id="optionsModalLabel">Options</h4>
+         </div>
+         <div class="modal-body">
+            <div class="checkbox">
+             <label>
+               <input type="checkbox" id="allPacksCheckbox" aria-describedby="showAllHelp"> Show All Veldt Packs
+             </label>
+             <span id="showAllHelp" class="help-block">Otherwise, only packs with formations the tool knows you've cleared will be shown.</span>
+            </div>
+         </div>
+         <div class="modal-footer">
+           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+           <button type="button" class="btn btn-primary" onclick="Rage.saveOptions();">Save</button>
+         </div>
+       </div>
+     </div>
+   </div>
+   
    <div class="modal fade" id="exportModal" tabindex="-1" role="dialog" aria-labelledby="exportModalLabel">
      <div class="modal-dialog" role="document">
        <div class="modal-content">

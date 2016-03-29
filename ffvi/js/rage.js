@@ -473,8 +473,23 @@ Rage = {
             this.clearedFormations[packId] = pack;
          }
          pack[formId] = true;
-         $('#formation-' + packId + '-' + formId).removeClass("uncleared").addClass("cleared");
-         $('#advFormation-' + packId + '-' + formId).removeClass("uncleared").addClass("cleared");
+         switch (Rage.currentMode) {
+         case "veldt":
+            $('#formation-' + packId + '-' + formId).removeClass("uncleared").addClass("cleared");
+            var packDiv = $('#pack-' + packId);
+            if (packDiv.hasClass("noCleared")) {
+               packDiv.removeClass("noCleared").addClass("hasCleared");
+               if (packDiv.find('.enemyName.unknown').length > 0) {
+                  packDiv.addClass("hasUnknown");
+               } else {
+                  packDiv.addClass("noUnknown");
+               }
+            }
+            break;
+         case "adventure":
+            $('#advFormation-' + packId + '-' + formId).removeClass("uncleared").addClass("cleared");
+            break;
+         }
       },
    unclear:
       function (packId, formId) {
@@ -509,7 +524,16 @@ Rage = {
          var idx = rageMap[name];
          if (idx != null && idx < this.knownRages.length && !this.knownRages[idx]) {
             this.knownRages[idx] = true;
-            $('.enemyName:contains(' + name + ')').removeClass("unknown").addClass("known");
+            var learnedEnemies = $('.enemyName:contains(' + name + ')');
+            learnedEnemies.removeClass("unknown").addClass("known");
+            if (Rage.currentMode == "veldt") {
+               learnedEnemies.closest('.pack').each(function(i, e){
+                  var packDiv = $(e);
+                  if (packDiv.find('.enemyName.unknown').length == 0) {
+                     packDiv.removeClass("hasUnknown").addClass("noUnknown");
+                  }
+               });
+            }
          }
       },
    unlearn:
@@ -534,6 +558,19 @@ Rage = {
              localStorage.setItem("RageData", JSON.stringify(Rage));
          } else {
             alert("No local storage!");
+         }
+      },
+   showOptions:
+      function() {
+         $('#allPacksCheckbox').prop('checked', Rage.options.showAllVeldtPacks === true);
+         $('#optionsModal').modal();
+      },
+   saveOptions:
+      function() {
+         Rage.options.showAllVeldtPacks = $('#allPacksCheckbox').prop('checked');
+         $('#optionsModal').modal('hide');
+         if (Rage.currentMode != null) {
+            setTimeout(function() {$('#' + Rage.currentMode + 'Button').click();}, 10);
          }
       },
    export:
