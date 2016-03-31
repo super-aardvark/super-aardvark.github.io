@@ -378,13 +378,13 @@ walkthroughData = [
 {packId: 17, formId: 7, enemies: "Bomb", chance: 5, chanceOutOf: 16},
 {packId: 24, formId: 5, enemies: "Grenade", chance: 1, chanceOutOf: 16}]
 },
-{areaTitle: "Thamasa Island, Grassland",
+{areaTitle: "Thamasa Area, Grassland",
  formations:
 [{packId: 21, formId: 2, enemies: "Cephaler, Baserkvor", chance: 6, chanceOutOf: 16},
 {packId: 21, formId: 0, enemies: "Baskervor", chance: 5, chanceOutOf: 16},
 {packId: 24, formId: 7, enemies: "Baskervor, Baskervor", chance: 5, chanceOutOf: 16}]
 },
-{areaTitle: "Thamasa Island, Forest",
+{areaTitle: "Thamasa Area, Forest",
  formations:
 [{packId: 21, formId: 3, enemies: "Cephaler, Cephaler, Cephaler", chance: 6, chanceOutOf: 16},
 {packId: 21, formId: 1, enemies: "Chimera", chance: 5, chanceOutOf: 16},
@@ -438,6 +438,30 @@ walkthroughData = [
 {areaTitle: "Burning House: Trap Door",
  formations:
 [{packId: 52, formId: 3, enemies: "Balloon, Balloon, Balloon, Balloon", chance: 1, chanceOutOf: 1}]
+},
+{areaTitle: "Thamasa Area, Grassland",
+ formations:
+[{packId: 21, formId: 2, enemies: "Cephaler, Baserkvor", chance: 6, chanceOutOf: 16},
+{packId: 21, formId: 0, enemies: "Baskervor", chance: 5, chanceOutOf: 16},
+{packId: 24, formId: 7, enemies: "Baskervor, Baskervor", chance: 5, chanceOutOf: 16}]
+},
+{areaTitle: "Thamasa Area, Forest",
+ formations:
+[{packId: 21, formId: 3, enemies: "Cephaler, Cephaler, Cephaler", chance: 6, chanceOutOf: 16},
+{packId: 21, formId: 1, enemies: "Chimera", chance: 5, chanceOutOf: 16},
+{packId: 24, formId: 6, enemies: "Chimera, Cephaler, Cephaler", chance: 5, chanceOutOf: 16}]
+},
+{areaTitle: "Esper Cave, Inside",
+ formations:
+[{packId: 21, formId: 4, enemies: "Adamanchyt, Slurm, Slurm", chance: 6, chanceOutOf: 16},
+ {packId: 21, formId: 5, enemies: "Adamanchyt, Adamanchyt", chance: 5, chanceOutOf: 16},
+ {packId: 21, formId: 6, enemies: "Slurm, Slurm, Slurm, Slurm, Slurm", chance: 5, chanceOutOf: 16}]
+},
+{areaTitle: "Esper Cave, Outside",
+ formations:
+[{packId: 22, formId: 1, enemies: "Abolisher, Abolisher", chance: 6, chanceOutOf: 16},
+ {packId: 22, formId: 0, enemies: "Mandrake, Insecare, Insecare", chance: 5, chanceOutOf: 16},
+ {packId: 21, formId: 7, enemies: "Mandrake, Mandrake, Mandrake", chance: 5, chanceOutOf: 16}]
 }
 ]},
 {sectionTitle: "To the Floating Continent", areas:[
