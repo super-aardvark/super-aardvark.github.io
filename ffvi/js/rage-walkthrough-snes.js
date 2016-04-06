@@ -1,4 +1,4 @@
-walkthroughData = [
+walkthroughDataWOB = [
 {sectionTitle: "The Beginning", areas:[
 {areaTitle: "Assault on Narshe",
  formations:
@@ -490,5 +490,588 @@ walkthroughData = [
 // There is no Pack 0; we'll use the space to track these non-Veldt packs
 [{packId: 0, formId: 1, enemies: "Naughty", chance: 1, chanceOutOf: 1, note: "This formation does not appear on the Veldt"}]
 }
+]}
+];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+walkthroughDataWOR = [
+{sectionTitle:"Intermezzo; The Solitary Island",areas:[
+{areaTitle:"wastelands",formations:[
+{packId:25,formId:0,enemies:"Peepers, Peepers",chance:10,chanceOutOf:16},
+{packId:25,formId:1,enemies:"Peepers, Peepers, Peepers",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"desert",formations:[
+{packId:25,formId:2,enemies:"EarthGuard, Peepers, Peepers",chance:10,chanceOutOf:16},
+{packId:25,formId:3,enemies:"Black Drgn",chance:6,chanceOutOf:16}
+]}
+]},
+{sectionTitle:"The World of Ruin",areas:[
+{areaTitle:"Grasslands",formations:[
+{packId:25,formId:5,enemies:"Mesosaur, Mesosaur",chance:10,chanceOutOf:16},
+{packId:25,formId:7,enemies:"Gilomantis, Mesosaur",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Wastelands, east",formations:[
+{packId:26,formId:3,enemies:"Lunaris, Lunaris",chance:10,chanceOutOf:16},
+{packId:26,formId:1,enemies:"Chitonid, Gigan Toad, Gigan Toad",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Wastelands, west",formations:[
+{packId:26,formId:2,enemies:"Lunaris, Osprey",chance:10,chanceOutOf:16},
+{packId:26,formId:4,enemies:"Osprey, Chitonid, Gigan Toad",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Forest",formations:[
+{packId:25,formId:6,enemies:"Mesosaur, Mesosaur, Mesosaur, Mesosaur",chance:10,chanceOutOf:16},
+{packId:26,formId:0,enemies:"Gilomantis, Gilomantis, Mesosaur",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Desert",formations:[
+{packId:25,formId:2,enemies:"EarthGuard, Peepers, Peepers",chance:10,chanceOutOf:16},
+{packId:25,formId:3,enemies:"Black Drgn",chance:6,chanceOutOf:16}
+]}
+]},
+{sectionTitle:"En route to Tzen",areas:[
+{areaTitle:"Grasslands",formations:[
+{packId:25,formId:5,enemies:"Mesosaur, Mesosaur",chance:10,chanceOutOf:16},
+{packId:25,formId:7,enemies:"Gilomantis, Mesosaur",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Wastelands, east",formations:[
+{packId:26,formId:3,enemies:"Lunaris, Lunaris",chance:10,chanceOutOf:16},
+{packId:26,formId:1,enemies:"Chitonid, Gigan Toad, Gigan Toad",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Wastelands, west",formations:[
+{packId:26,formId:2,enemies:"Lunaris, Osprey",chance:10,chanceOutOf:16},
+{packId:26,formId:4,enemies:"Osprey, Chitonid, Gigan Toad",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Forest",formations:[
+{packId:25,formId:6,enemies:"Mesosaur, Mesosaur, Mesosaur, Mesosaur",chance:10,chanceOutOf:16},
+{packId:26,formId:0,enemies:"Gilomantis, Gilomantis, Mesosaur",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Desert",formations:[
+{packId:25,formId:2,enemies:"EarthGuard, Peepers, Peepers",chance:10,chanceOutOf:16},
+{packId:25,formId:3,enemies:"Black Drgn",chance:6,chanceOutOf:16}
+]}
+]},
+{sectionTitle:"The Collapsing House",areas:[
+{areaTitle:"?",formations:[
+{packId:27,formId:1,enemies:"Scorpion, Scorpion, Scorpion",chance:10,chanceOutOf:16},
+{packId:26,formId:7,enemies:"HermitCrab, HermitCrab, Pm Stalker",chance:6,chanceOutOf:16}
+]}
+]},
+{sectionTitle:"The Serpent Trench",areas:[
+{areaTitle:"Grasslands, Serpent Trench",formations:[
+{packId:27,formId:7,enemies:"Bloompire, Bloompire, Lizard",chance:6,chanceOutOf:16},
+{packId:28,formId:0,enemies:"Bloompire, Bloompire",chance:5,chanceOutOf:16},
+{packId:27,formId:5,enemies:"Buffalax",chance:5,chanceOutOf:16}
+]},
+{areaTitle:"Wastelands, Serpent Trench",formations:[
+{packId:27,formId:6,enemies:"Buffalax, Delta Bug, Delta Bug",chance:10,chanceOutOf:16},
+{packId:28,formId:1,enemies:"Delta Bug, Delta Bug, Delta Bug, Delta Bug",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Northwest wastelands, Serpent Trench",formations:[
+{packId:28,formId:1,enemies:"Delta Bug, Delta Bug, Delta Bug, Delta Bug",chance:6,chanceOutOf:16},
+{packId:28,formId:3,enemies:"Buffalax, Lizard",chance:5,chanceOutOf:16},
+{packId:28,formId:2,enemies:"Bloompire, Bloompire, Delta Bug",chance:5,chanceOutOf:16}
+]},
+{areaTitle:"Forests, Serpent Trench",formations:[
+{packId:27,formId:7,enemies:"Bloompire, Bloompire, Lizard",chance:6,chanceOutOf:16},
+{packId:28,formId:0,enemies:"Bloompire, Bloompire",chance:5,chanceOutOf:16},
+{packId:27,formId:5,enemies:"Buffalax",chance:5,chanceOutOf:16}
+]}
+]},
+{sectionTitle:"Pursuing Gerad and the Crimon Robbers",areas:[
+{areaTitle:"Grasslands",formations:[
+{packId:17,formId:6,enemies:"Nohrabbit, Nohrabbit, Nohrabbit",chance:1,chanceOutOf:1}
+]},
+{areaTitle:"Wastelands",formations:[
+{packId:28,formId:4,enemies:"Maliga, Maliga, Nohrabbit, Nohrabbit",chance:1,chanceOutOf:1}
+]},
+{areaTitle:"Desert",formations:[
+{packId:18,formId:2,enemies:"Maliga, Maliga, Maliga",chance:6,chanceOutOf:16},
+{packId:28,formId:6,enemies:"Sand Horse, Sand Horse",chance:5,chanceOutOf:16},
+{packId:28,formId:7,enemies:"Sand Horse, Maliga, Maliga",chance:5,chanceOutOf:16}
+]},
+{areaTitle:"Forest",formations:[
+{packId:29,formId:0,enemies:"Latimeria",chance:10,chanceOutOf:16},
+{packId:29,formId:1,enemies:"Latimeria, Nohrabbit, Nohrabbit, Nohrabbit",chance:6,chanceOutOf:16}
+]}
+]},
+{sectionTitle:"Pursuing Gerad and the Crimon Robbers; Cave of Figaro",areas:[
+{areaTitle:"Cave of Figaro",formations:[
+{packId:30,formId:0,enemies:"NeckHunter, Cruller, Humpty, Humpty",chance:10,chanceOutOf:16},
+{packId:30,formId:1,enemies:"Dante",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Recovery Spring",formations:[
+{packId:29,formId:6,enemies:"Humpty, Humpty, Humpty, Humpty",chance:6,chanceOutOf:16},
+{packId:29,formId:7,enemies:"NeckHunter, NeckHunter",chance:5,chanceOutOf:16},
+{packId:30,formId:1,enemies:"Dante",chance:5,chanceOutOf:16}
+]},
+{areaTitle:"Corridor from Recovery Spring to Figaro Castle",formations:[
+{packId:29,formId:7,enemies:"NeckHunter, NeckHunter",chance:6,chanceOutOf:16},
+{packId:29,formId:4,enemies:"Humpty, Humpty, Humpty",chance:5,chanceOutOf:16},
+{packId:29,formId:5,enemies:"Cruller, Humpty, Humpty",chance:5,chanceOutOf:16}
+]}
+]},
+{sectionTitle:"Pursuing Gerad and the Crimon Robbers; Figaro Castle",areas:[
+{areaTitle:"Figaro Castle basement",formations:[
+{packId:29,formId:6,enemies:"Humpty, Humpty, Humpty, Humpty",chance:6,chanceOutOf:16},
+{packId:29,formId:7,enemies:"NeckHunter, NeckHunter",chance:5,chanceOutOf:16},
+{packId:30,formId:1,enemies:"Dante",chance:5,chanceOutOf:16}
+]},
+{areaTitle:"Engine Room",formations:[
+{packId:29,formId:6,enemies:"Humpty, Humpty, Humpty, Humpty",chance:6,chanceOutOf:16},
+{packId:30,formId:2,enemies:"Drop, Drop, Drop",chance:5,chanceOutOf:16},
+{packId:30,formId:1,enemies:"Dante",chance:5,chanceOutOf:16}
+]}
+]},
+{sectionTitle:"En route to Kohlingen",areas:[
+{areaTitle:"Desert",formations:[
+{packId:18,formId:2,enemies:"Maliga, Maliga, Maliga",chance:6,chanceOutOf:16},
+{packId:28,formId:6,enemies:"Sand Horse, Sand Horse",chance:5,chanceOutOf:16},
+{packId:28,formId:7,enemies:"Sand Horse, Maliga, Maliga",chance:5,chanceOutOf:16}
+]},
+{areaTitle:"Grasslands",formations:[
+{packId:30,formId:4,enemies:"Harpiai",chance:10,chanceOutOf:16},
+{packId:31,formId:3,enemies:"Muus",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Forest",formations:[
+{packId:30,formId:6,enemies:"Harpiai, Deep Eye, Deep Eye",chance:6,chanceOutOf:16},
+{packId:31,formId:0,enemies:"Deep Eye, Deep Eye, Deep Eye, Deep Eye, Deep Eye, Deep Eye",chance:6,chanceOutOf:16},
+{packId:31,formId:2,enemies:"Muus, Muus, Muus",chance:5,chanceOutOf:16}
+]},
+{areaTitle:"Wasteland",formations:[
+{packId:30,formId:7,enemies:"Bogy, Bogy",chance:10,chanceOutOf:16},
+{packId:31,formId:1,enemies:"Deep Eye, Muus, Muus, Deep Eye",chance:6,chanceOutOf:16}
+]}
+]},
+{sectionTitle:"Daryl's Tomb",areas:[
+{areaTitle:"First room",formations:[
+{packId:31,formId:6,enemies:"Osteosaur",chance:10,chanceOutOf:16},
+{packId:31,formId:4,enemies:"Orog, Orog",chance:6,chanceOutOf:16},
+{packId:31,formId:5,enemies:"Orog, PowerDemon, PowerDemon",chance:1,chanceOutOf:16}
+]},
+{areaTitle:"Main room",formations:[
+{packId:32,formId:2,enemies:"Mad Oscar, Exoray",chance:6,chanceOutOf:16},
+{packId:31,formId:7,enemies:"PowerDemon",chance:5,chanceOutOf:16},
+{packId:32,formId:1,enemies:"Exoray, Exoray, Exoray",chance:5,chanceOutOf:16}
+]},
+{areaTitle:"Lower level",formations:[
+{packId:32,formId:0,enemies:"PowerDemon, Exoray, Exoray",chance:6,chanceOutOf:16},
+{packId:32,formId:3,enemies:"Mad Oscar",chance:5,chanceOutOf:16},
+{packId:32,formId:2,enemies:"Mad Oscar, Exoray",chance:5,chanceOutOf:16}
+]}
+]},
+{sectionTitle:"Airship Exploitation: The Overworld Map",areas:[
+{areaTitle:"Grasslands & Forest",formations:[
+{packId:42,formId:3,enemies:"Harpy",chance:10,chanceOutOf:16},
+{packId:42,formId:4,enemies:"Harpy, Prussian",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Wastelands",formations:[
+{packId:42,formId:6,enemies:"GloomShell, GloomShell, GloomShell",chance:10,chanceOutOf:16},
+{packId:42,formId:5,enemies:"Prussian, GloomShell",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Grasslands",formations:[
+{packId:40,formId:7,enemies:"Crawler, Crawler, Crawler",chance:10,chanceOutOf:16},
+{packId:41,formId:6,enemies:"Geckorex, Geckorex, Reach Frog",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Desert",formations:[
+{packId:30,formId:5,enemies:"Hoover",chance:10,chanceOutOf:16},
+{packId:28,formId:5,enemies:"Cactrot",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Forest",formations:[
+{packId:41,formId:4,enemies:"Reach Frog, Reach Frog, Reach Frog, Reach Frog",chance:10,chanceOutOf:16},
+{packId:41,formId:5,enemies:"Mantodea, Mantodea",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Wastelands",formations:[
+{packId:40,formId:7,enemies:"Crawler, Crawler, Crawler",chance:10,chanceOutOf:16},
+{packId:41,formId:3,enemies:"Mantodea, Sprinter, Spek Tor, Spek Tor",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Triangle Island",formations:[
+{packId:0,formId:2,enemies:"Zone Eater",chance:1,chanceOutOf:1}
+]},
+{areaTitle:"Grasslands",formations:[
+{packId:42,formId:0,enemies:"Sprinter, Sprinter, Spek Tor, Spek Tor",chance:10,chanceOutOf:16},
+{packId:41,formId:7,enemies:"TumbleWeed, TumbleWeed, TumbleWeed, TumbleWeed",chance:5,chanceOutOf:16},
+{packId:41,formId:3,enemies:"Mantodea, Sprinter, Spek Tor, Spek Tor",chance:1,chanceOutOf:16}
+]},
+{areaTitle:"Wastelands",formations:[
+{packId:15,formId:2,enemies:"Crawler, Crawler, Crawler, Crawler",chance:6,chanceOutOf:16},
+{packId:13,formId:7,enemies:"Crawler",chance:1,chanceOutOf:16},
+{packId:40,formId:7,enemies:"Crawler, Crawler, Crawler",chance:5,chanceOutOf:16}
+]},
+{areaTitle:"Forest",formations:[
+{packId:41,formId:1,enemies:"Tyranosaur",chance:10,chanceOutOf:16}
+]},
+{areaTitle:"Tyranosaur, Tyranosaur (5/16) (fixed Pincer",formations:[
+{packId:41,formId:2,enemies:"Brachosaur",chance:1,chanceOutOf:16}
+]},
+{areaTitle:"Grasslands",formations:[
+{packId:41,formId:6,enemies:"Geckorex, Geckorex, Reach Frog",chance:5,chanceOutOf:16},
+{packId:41,formId:4,enemies:"Reach Frog, Reach Frog, Reach Frog, Reach Frog",chance:5,chanceOutOf:16},
+{packId:41,formId:5,enemies:"Mantodea, Mantodea",chance:5,chanceOutOf:16},
+{packId:41,formId:3,enemies:"Mantodea, Sprinter, Spek Tor, Spek Tor",chance:1,chanceOutOf:16}
+]},
+{areaTitle:"Wastelands",formations:[
+{packId:15,formId:2,enemies:"Crawler, Crawler, Crawler, Crawler",chance:6,chanceOutOf:16},
+{packId:13,formId:7,enemies:"Crawler",chance:5,chanceOutOf:16},
+{packId:40,formId:7,enemies:"Crawler, Crawler, Crawler",chance:5,chanceOutOf:16}
+]}
+]},
+{sectionTitle:"Narshe",areas:[
+{areaTitle:"Narshe",formations:[
+{packId:35,formId:3,enemies:"Nastidon, Red Wolf, Red Wolf",chance:5,chanceOutOf:16},
+{packId:35,formId:1,enemies:"Red Wolf, Red Wolf, Red Wolf",chance:5,chanceOutOf:16},
+{packId:35,formId:2,enemies:"Test Rider",chance:5,chanceOutOf:16},
+{packId:17,formId:0,enemies:"Nastidon, Nastidon",chance:1,chanceOutOf:16}
+]},
+{areaTitle:"Northern mines and first cave of Western mines",formations:[
+{packId:36,formId:0,enemies:"Mag Roader (yellow), Mag Roader (yellow), Mag Roader (brown)",chance:10,chanceOutOf:16},
+{packId:36,formId:1,enemies:"Mag Roader (yellow), Mag Roader (brown), Mag Roader (brown)",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Western mines",formations:[
+{packId:35,formId:4,enemies:"Wizard, Wizard, Wizard",chance:5,chanceOutOf:16},
+{packId:35,formId:5,enemies:"Wizard, Wizard, Psychot, Psychot, Psychot",chance:5,chanceOutOf:16},
+{packId:35,formId:6,enemies:"Red Wolf, Red Wolf, Psychot, Psychot",chance:5,chanceOutOf:16},
+{packId:35,formId:7,enemies:"Psychot, Psychot, Psychot, Psychot, Psychot, Psychot",chance:1,chanceOutOf:16}
+]}
+]},
+{sectionTitle:"Narshe's Snowfields; the battle with Ice Dragon",areas:[
+{areaTitle:"Snowfields",formations:[
+{packId:35,formId:4,enemies:"Wizard, Wizard, Wizard",chance:5,chanceOutOf:16},
+{packId:35,formId:5,enemies:"Wizard, Wizard, Psychot, Psychot, Psychot",chance:5,chanceOutOf:16},
+{packId:35,formId:6,enemies:"Red Wolf, Red Wolf, Psychot, Psychot",chance:5,chanceOutOf:16},
+{packId:35,formId:7,enemies:"Psychot, Psychot, Psychot, Psychot, Psychot, Psychot",chance:1,chanceOutOf:16}
+]}
+]},
+{sectionTitle:"Umaro's Cave; the battle with three Pugs",areas:[
+{areaTitle:"Upper two levels",formations:[
+{packId:32,formId:6,enemies:"Poppers, Poppers, Poppers, Poppers",chance:5,chanceOutOf:16},
+{packId:33,formId:0,enemies:"Kiwok, Poppers, Poppers, Poppers",chance:5,chanceOutOf:16},
+{packId:32,formId:7,enemies:"Kiwok, Ceritops",chance:5,chanceOutOf:16},
+{packId:32,formId:5,enemies:"Pug",chance:1,chanceOutOf:16}
+]},
+{areaTitle:"Umaro's room",formations:[
+{packId:33,formId:3,enemies:"Anemone, Anemone, Anemone, Anemone",chance:5,chanceOutOf:16},
+{packId:33,formId:4,enemies:"Ceritops, Tomb Thumb, Tomb Thumb",chance:5,chanceOutOf:16},
+{packId:33,formId:2,enemies:"Anemone, Anemone, Tomb Thumb",chance:5,chanceOutOf:16},
+{packId:33,formId:1,enemies:"Ceritops, Ceritops, Ceritops",chance:1,chanceOutOf:16}
+]}
+]},
+{sectionTitle:"Mount Zozo",areas:[
+{areaTitle:"Caves",formations:[
+{packId:34,formId:3,enemies:"Ursus, Punisher",chance:6,chanceOutOf:16},
+{packId:33,formId:7,enemies:"Borras",chance:5,chanceOutOf:16},
+{packId:34,formId:1,enemies:"Ursus",chance:5,chanceOutOf:16}
+]},
+{areaTitle:"Bridge slope",formations:[
+{packId:33,formId:6,enemies:"Punisher, Scrapper, Punisher",chance:6,chanceOutOf:16},
+{packId:34,formId:2,enemies:"Luridan, Luridan, Luridan, Luridan, Luridan, Luridan",chance:5,chanceOutOf:16},
+{packId:33,formId:7,enemies:"Borras",chance:5,chanceOutOf:16}
+]},
+{areaTitle:"Slope before Cyan's settlement",formations:[
+{packId:34,formId:2,enemies:"Luridan, Luridan, Luridan, Luridan, Luridan, Luridan",chance:6,chanceOutOf:16},
+{packId:33,formId:5,enemies:"Luridan, Luridan, Luridan",chance:5,chanceOutOf:16},
+{packId:34,formId:0,enemies:"Borras, Ursus, Scrapper",chance:5,chanceOutOf:16}
+]}
+]},
+{sectionTitle:"The Cave of the Veldt and Allo Ver",areas:[
+{areaTitle:"Monster formations",formations:[
+{packId:34,formId:4,enemies:"Toe Cutter",chance:10,chanceOutOf:16},
+{packId:34,formId:5,enemies:"Toe Cutter, Toe Cutter",chance:5,chanceOutOf:16},
+{packId:34,formId:6,enemies:"Rhyos",chance:1,chanceOutOf:16}
+]}
+]},
+{sectionTitle:"Owzer's Mansion, the Magic House",areas:[
+{areaTitle:"Monster formations",formations:[
+{packId:36,formId:4,enemies:"SoulDancer, SoulDancer, Crusher, Crusher",chance:6,chanceOutOf:16},
+{packId:36,formId:6,enemies:"Vindr, Vindr",chance:5,chanceOutOf:16},
+{packId:36,formId:5,enemies:"Vindr, Vindr, Wild Cat, Crusher, Crusher",chance:5,chanceOutOf:16}
+]}
+]},
+{sectionTitle:"Gungho's assignment; Ebot's Rock",areas:[
+{areaTitle:"First cave, Save Point area, and Living chest area",formations:[
+{packId:38,formId:0,enemies:"Slatter, Warlock, Eland",chance:5,chanceOutOf:16},
+{packId:38,formId:1,enemies:"Slatter, Slatter",chance:5,chanceOutOf:16},
+{packId:38,formId:2,enemies:"Warlock, Cluck, Cluck, Eland, Eland",chance:5,chanceOutOf:16},
+{packId:37,formId:7,enemies:"Hipocampus, Cluck, Cluck, Cluck",chance:1,chanceOutOf:16}
+]},
+{areaTitle:"Main room",formations:[
+{packId:37,formId:3,enemies:"Opinicus, Opinicus",chance:5,chanceOutOf:16},
+{packId:37,formId:4,enemies:"Displayer",chance:5,chanceOutOf:16},
+{packId:37,formId:5,enemies:"Opinicus, Hipocampus, Eland",chance:5,chanceOutOf:16},
+{packId:37,formId:6,enemies:"Hipocampus, Hipocampus, Hipocampus",chance:1,chanceOutOf:16}
+]}
+]},
+{sectionTitle:"Cyan's Soul",areas:[
+{areaTitle:"",formations:[
+{packId:40,formId:0,enemies:"Barb-e, Critic",chance:5,chanceOutOf:16},
+{packId:40,formId:3,enemies:"Critic, Pan Dora, Pan Dora, Pan Dora",chance:5,chanceOutOf:16},
+{packId:40,formId:2,enemies:"Allosaurus, Parasite, Parasite, Parasite",chance:5,chanceOutOf:16},
+{packId:40,formId:4,enemies:"Allosaurus",chance:1,chanceOutOf:16}
+]}
+]},
+{sectionTitle:"Cyan's Dream; the Phantom Train?",areas:[
+{areaTitle:"Inside the cars",formations:[
+{packId:39,formId:5,enemies:"Rain Man, Rain Man",chance:5,chanceOutOf:16},
+{packId:39,formId:6,enemies:"Samurai, Rain Man, Rain Man",chance:5,chanceOutOf:16},
+{packId:40,formId:5,enemies:"Barb-e, Samurai, Suriander",chance:5,chanceOutOf:16},
+{packId:40,formId:6,enemies:"Suriander, Pan Dora, Parasite, Parasite",chance:1,chanceOutOf:16}
+]}
+]},
+{sectionTitle:"Cyan's Dream; Mechanical mines",areas:[
+{areaTitle:"Monster formations",formations:[
+{packId:18,formId:1,enemies:"Io",chance:6,chanceOutOf:16},
+{packId:39,formId:7,enemies:"PlutoArmor, PlutoArmor",chance:5,chanceOutOf:16},
+{packId:40,formId:1,enemies:"PlutoArmor, Sky Cap",chance:5,chanceOutOf:16}
+]}
+]},
+{sectionTitle:"Cyan's Dream; Doma Castle",areas:[
+{areaTitle:"Everywhere, including the Save Point room and the throne room",formations:[
+{packId:39,formId:5,enemies:"Rain Man, Rain Man",chance:5,chanceOutOf:16},
+{packId:39,formId:6,enemies:"Samurai, Rain Man, Rain Man",chance:5,chanceOutOf:16},
+{packId:40,formId:5,enemies:"Barb-e, Samurai, Suriander",chance:5,chanceOutOf:16},
+{packId:40,formId:6,enemies:"Suriander, Pan Dora, Parasite, Parasite",chance:1,chanceOutOf:16}
+]}
+]},
+{sectionTitle:"The road to the Ancient Castle and the fight with Master Pug",areas:[
+{areaTitle:"All three caves, but not the Save Point room",formations:[
+{packId:39,formId:3,enemies:"Enuo, Goblin, Figaliz",chance:6,chanceOutOf:16},
+{packId:39,formId:2,enemies:"Enuo, Enuo",chance:5,chanceOutOf:16},
+{packId:38,formId:6,enemies:"Goblin, Figaliz, Figaliz",chance:5,chanceOutOf:16}
+]}
+]},
+{sectionTitle:"The Ancient Castle and the battle with KatanaSoul",areas:[
+{areaTitle:"Outside of the Ancient Castle",formations:[
+{packId:38,formId:6,enemies:"Goblin, Figaliz, Figaliz",chance:6,chanceOutOf:16},
+{packId:38,formId:5,enemies:"Goblin, Goblin",chance:5,chanceOutOf:16}
+]},
+{areaTitle:"Inside of the Ancient Castle",formations:[
+{packId:39,formId:1,enemies:"Lethal Wpn",chance:5,chanceOutOf:16},
+{packId:39,formId:0,enemies:"Boxed Set",chance:5,chanceOutOf:16},
+{packId:38,formId:7,enemies:"Boxed Set, Boxed Set, Figaliz, Figaliz",chance:5,chanceOutOf:16},
+{packId:39,formId:4,enemies:"Boxed Set, Boxed Set, Boxed Set, Boxed Set",chance:1,chanceOutOf:16}
+]}
+]},
+{sectionTitle:"Triangle Island",areas:[
+{areaTitle:"Monster formations",formations:[
+{packId:0,formId:2,enemies:"Zone Eater",chance:1,chanceOutOf:1}
+]}
+]},
+{sectionTitle:"The world inside of the Zone Eater",areas:[
+{areaTitle:"All caves except the last",formations:[
+{packId:44,formId:5,enemies:"Karkass, Karkass",chance:5,chanceOutOf:16},
+{packId:45,formId:1,enemies:"Wart Puck, Ogor",chance:5,chanceOutOf:16},
+{packId:44,formId:6,enemies:"Tap Dancer, Covert, Covert",chance:5,chanceOutOf:16},
+{packId:45,formId:0,enemies:"Woolly, Woolly, Karkass, Karkass",chance:1,chanceOutOf:16}
+]},
+{areaTitle:"Gogo's spot",formations:[
+{packId:44,formId:2,enemies:"Ogor, Ogor",chance:5,chanceOutOf:16},
+{packId:44,formId:3,enemies:"Covert, Ogor",chance:5,chanceOutOf:16},
+{packId:44,formId:4,enemies:"Wart Puck, Wart Puck",chance:5,chanceOutOf:16},
+{packId:44,formId:7,enemies:"Tap Dancer, Woolly",chance:1,chanceOutOf:16}
+]}
+]},
+{sectionTitle:"Phoenix Cave",areas:[
+{areaTitle:"Basic floors",formations:[
+{packId:43,formId:0,enemies:"Phase, Phase",chance:5,chanceOutOf:16},
+{packId:43,formId:2,enemies:"Phase, Parasoul, Necromancr, Necromancr",chance:5,chanceOutOf:16},
+{packId:43,formId:3,enemies:"Trixter, Trixter, Necromancr",chance:5,chanceOutOf:16},
+{packId:43,formId:7,enemies:"Aquila, Chaos Drgn, Chaos Drgn",chance:1,chanceOutOf:16}
+]},
+{areaTitle:"Lava floors",formations:[
+{packId:43,formId:1,enemies:"Trixter, Trixter, Trixter",chance:5,chanceOutOf:16},
+{packId:43,formId:4,enemies:"Sea Flower, Sea Flower, Sea Flower, Sea Flower, Sea Flower",chance:5,chanceOutOf:16},
+{packId:43,formId:6,enemies:"Chaos Drgn, Uroburos, Sea Flower, Sea Flower",chance:5,chanceOutOf:16},
+{packId:43,formId:5,enemies:"Uroburos, Sea Flower, Sea Flower",chance:1,chanceOutOf:16}
+]}
+]},
+{sectionTitle:"The Fanatics Tower and the battle with White Drgn",areas:[
+{areaTitle:"Fanatics Tower inside",formations:[
+{packId:0,formId:5,enemies:"L.90 Magic",chance:5,chanceOutOf:16},
+{packId:65,formId:4,enemies:"L.50 Magic",chance:5,chanceOutOf:16},
+{packId:45,formId:3,enemies:"Magic Urn, Magic Urn",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Air Anchor room",formations:[
+{packId:45,formId:3,enemies:"Magic Urn, Magic Urn",chance:1,chanceOutOf:1}
+]},
+{areaTitle:"Top and fourth tier",formations:[
+{packId:0,formId:6,enemies:"L.90 Magic, L.80 Magic",chance:5,chanceOutOf:16},
+{packId:0,formId:7,enemies:"L.80 Magic, L.80 Magic",chance:5,chanceOutOf:16},
+{packId:65,formId:0,enemies:"L.90 Magic, L.60 Magic",chance:5,chanceOutOf:16},
+{packId:45,formId:3,enemies:"Magic Urn, Magic Urn",chance:1,chanceOutOf:16}
+]},
+{areaTitle:"Third tier",formations:[
+{packId:65,formId:1,enemies:"L.60 Magic, L.30 Magic, L.10 Magic, L.10 Magic",chance:5,chanceOutOf:16},
+{packId:65,formId:2,enemies:"L.70 Magic, L.70 Magic, L.50 Magic",chance:5,chanceOutOf:16},
+{packId:65,formId:3,enemies:"L.70 Magic, L.50 Magic, L.40 Magic",chance:5,chanceOutOf:16},
+{packId:45,formId:3,enemies:"Magic Urn, Magic Urn",chance:1,chanceOutOf:16}
+]},
+{areaTitle:"Second tier",formations:[
+{packId:65,formId:4,enemies:"L.50 Magic",chance:5,chanceOutOf:16},
+{packId:65,formId:5,enemies:"L.40 Magic, L.50 Magic, L.60 Magic",chance:5,chanceOutOf:16},
+{packId:65,formId:6,enemies:"L.30 Magic, L.20 Magic, L.10 Magic",chance:5,chanceOutOf:16},
+{packId:45,formId:3,enemies:"Magic Urn, Magic Urn",chance:1,chanceOutOf:16}
+]},
+{areaTitle:"Bottom tier",formations:[
+{packId:65,formId:7,enemies:"L.10 Magic, L.20 Magic",chance:5,chanceOutOf:16},
+{packId:66,formId:0,enemies:"L.30 Magic, L.30 Magic, L.30 Magic",chance:5,chanceOutOf:16},
+{packId:66,formId:1,enemies:"L.40 Magic, L.20 Magic, L.20 Magic",chance:5,chanceOutOf:16},
+{packId:45,formId:3,enemies:"Magic Urn, Magic Urn",chance:1,chanceOutOf:16}
+]}
+]},
+{sectionTitle:"Kefka's Tower",areas:[
+{areaTitle:"Kefka's Tower (garbage slopes)",formations:[
+{packId:42,formId:1,enemies:"GtBehemoth, Evil Oscar, Vectaur",chance:6,chanceOutOf:16},
+{packId:34,formId:7,enemies:"Vectaur, Vectaur, Vectaur, Vectaur",chance:5,chanceOutOf:16},
+{packId:35,formId:0,enemies:"Brontaur, Evil Oscar",chance:5,chanceOutOf:16}
+]},
+{areaTitle:"Kefka's Tower (garbage caves party #2)",formations:[
+{packId:36,formId:2,enemies:"Brontaur, Brontaur",chance:10,chanceOutOf:16},
+{packId:42,formId:2,enemies:"Evil Oscar, Evil Oscar, Evil Oscar",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Kefka's Tower (Imperial jail cells)",formations:[
+{packId:54,formId:3,enemies:"Hemophyte, Retainer",chance:10,chanceOutOf:16},
+{packId:54,formId:2,enemies:"Retainer, Retainer, Dark Force",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Kefka's Tower (Imperial stairway)",formations:[
+{packId:54,formId:5,enemies:"Mover, Mover, Mover",chance:10,chanceOutOf:16},
+{packId:54,formId:6,enemies:"Steroidite",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Kefka's Tower (Facility rooms)",formations:[
+{packId:51,formId:1,enemies:"Junk, Junk, Junk",chance:6,chanceOutOf:16},
+{packId:52,formId:6,enemies:"IronHitman, IronHitman, IronHitman",chance:5,chanceOutOf:16},
+{packId:52,formId:7,enemies:"Dueller, Fortis",chance:5,chanceOutOf:16}
+]},
+{areaTitle:"Kefka's Tower (garbage passageway party #2",formations:[
+{packId:27,formId:4,enemies:"Vectagoyle, Vectagoyle",chance:10,chanceOutOf:16},
+{packId:36,formId:2,enemies:"Brontaur, Brontaur",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Kefka's Tower (Gold Dragon's room",formations:[
+{packId:26,formId:6,enemies:"Veteran, Veteran, Veteran",chance:10,chanceOutOf:16},
+{packId:25,formId:4,enemies:"Didalos, Veteran",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Kefka's Tower (Imperial corner-room",formations:[
+{packId:54,formId:4,enemies:"Outsider, Outsider, Madam",chance:5,chanceOutOf:16},
+{packId:54,formId:3,enemies:"Hemophyte, Retainer",chance:5,chanceOutOf:16},
+{packId:54,formId:2,enemies:"Retainer, Retainer, Dark Force",chance:5,chanceOutOf:16},
+{packId:54,formId:1,enemies:"Dark Force, Dark Force",chance:1,chanceOutOf:16}
+]},
+{areaTitle:"Kefka's Tower (garbage slopes)",formations:[
+{packId:42,formId:1,enemies:"GtBehemoth, Evil Oscar, Vectaur",chance:6,chanceOutOf:16},
+{packId:34,formId:7,enemies:"Vectaur, Vectaur, Vectaur, Vectaur",chance:5,chanceOutOf:16},
+{packId:35,formId:0,enemies:"Brontaur, Evil Oscar",chance:5,chanceOutOf:16}
+]},
+{areaTitle:"Kefka's Tower (garbage caves party #3)",formations:[
+{packId:38,formId:3,enemies:"GtBehemoth, Vectaur, Vectaur",chance:10,chanceOutOf:16},
+{packId:42,formId:1,enemies:"GtBehemoth, Evil Oscar, Vectaur",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Kefka's Tower (Gauntlet/Nutkin Suit metal corridor",formations:[
+{packId:50,formId:7,enemies:"Scullion",chance:6,chanceOutOf:16},
+{packId:0,formId:3,enemies:"Prometheus",chance:5,chanceOutOf:16},
+{packId:51,formId:0,enemies:"Innoc, Innoc, Innoc",chance:5,chanceOutOf:16}
+]},
+{areaTitle:"Kefka's Tower (first garbage passageway party #3",formations:[
+{packId:36,formId:2,enemies:"Brontaur, Brontaur",chance:6,chanceOutOf:16},
+{packId:38,formId:3,enemies:"GtBehemoth, Vectaur, Vectaur",chance:5,chanceOutOf:16},
+{packId:42,formId:2,enemies:"Evil Oscar, Evil Oscar, Evil Oscar",chance:5,chanceOutOf:16}
+]},
+{areaTitle:"Kefka's Tower (MagiTek Facility",formations:[
+{packId:50,formId:4,enemies:"Fortis, Fortis",chance:10,chanceOutOf:16},
+{packId:50,formId:6,enemies:"Dueller, Dueller, Sky Base",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Kefka's Tower (other two garbage passageways party #3",formations:[
+{packId:29,formId:3,enemies:"Land Worm",chance:1,chanceOutOf:1}
+]},
+{areaTitle:"Kefka's Tower (Skull Drgn room and ensuing hallway",formations:[
+{packId:54,formId:4,enemies:"Outsider, Outsider, Madam",chance:5,chanceOutOf:16},
+{packId:54,formId:3,enemies:"Hemophyte, Retainer",chance:5,chanceOutOf:16},
+{packId:54,formId:2,enemies:"Retainer, Retainer, Dark Force",chance:5,chanceOutOf:16},
+{packId:54,formId:1,enemies:"Dark Force, Dark Force",chance:1,chanceOutOf:16}
+]},
+{areaTitle:"Kefka's Tower (garbage slopes)",formations:[
+{packId:42,formId:1,enemies:"GtBehemoth, Evil Oscar, Vectaur",chance:6,chanceOutOf:16},
+{packId:34,formId:7,enemies:"Vectaur, Vectaur, Vectaur, Vectaur",chance:5,chanceOutOf:16},
+{packId:35,formId:0,enemies:"Brontaur, Evil Oscar",chance:5,chanceOutOf:16}
+]},
+{areaTitle:"Kefka's Tower (garbage caves party #1)",formations:[
+{packId:38,formId:3,enemies:"GtBehemoth, Vectaur, Vectaur",chance:10,chanceOutOf:16},
+{packId:42,formId:1,enemies:"GtBehemoth, Evil Oscar, Vectaur",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Kefka's Tower (Imperial Castle)",formations:[
+{packId:54,formId:1,enemies:"Dark Force, Dark Force",chance:10,chanceOutOf:16},
+{packId:54,formId:4,enemies:"Outsider, Outsider, Madam",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Kefka's Tower (Facility rooms)",formations:[
+{packId:51,formId:1,enemies:"Junk, Junk, Junk",chance:6,chanceOutOf:16},
+{packId:52,formId:6,enemies:"IronHitman, IronHitman, IronHitman",chance:5,chanceOutOf:16},
+{packId:52,formId:7,enemies:"Dueller, Fortis",chance:5,chanceOutOf:16}
+]},
+{areaTitle:"Kefka's Tower (Tube room)",formations:[
+{packId:52,formId:5,enemies:"Sky Base, IronHitman, IronHitman, IronHitman, IronHitman",chance:6,chanceOutOf:16},
+{packId:50,formId:3,enemies:"Innoc, Fortis",chance:5,chanceOutOf:16},
+{packId:0,formId:3,enemies:"Prometheus",chance:5,chanceOutOf:16}
+]},
+{areaTitle:"Kefka's Tower (Garbage U-turn passageway party #1)",formations:[
+{packId:38,formId:4,enemies:"Doom Drgn",chance:10,chanceOutOf:16},
+{packId:29,formId:2,enemies:"Doom Drgn, Doom Drgn",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Kefka's Tower (swap room",formations:[
+{packId:50,formId:7,enemies:"Scullion",chance:10,chanceOutOf:16},
+{packId:51,formId:0,enemies:"Innoc, Innoc, Innoc",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Kefka's Tower (Guardian room",formations:[
+{packId:26,formId:5,enemies:"Madam, Veteran, Veteran",chance:10,chanceOutOf:16},
+{packId:54,formId:7,enemies:"Didalos, Didalos",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Kefka's Tower (garbage caves party #3",formations:[
+{packId:42,formId:1,enemies:"GtBehemoth, Evil Oscar, Vectaur",chance:6,chanceOutOf:16},
+{packId:35,formId:0,enemies:"Brontaur, Evil Oscar",chance:5,chanceOutOf:16},
+{packId:34,formId:7,enemies:"Vectaur, Vectaur, Vectaur, Vectaur",chance:5,chanceOutOf:16}
+]},
+{areaTitle:"Kefka's Tower (garbage slopes)",formations:[
+{packId:42,formId:1,enemies:"GtBehemoth, Evil Oscar, Vectaur",chance:6,chanceOutOf:16},
+{packId:34,formId:7,enemies:"Vectaur, Vectaur, Vectaur, Vectaur",chance:5,chanceOutOf:16},
+{packId:35,formId:0,enemies:"Brontaur, Evil Oscar",chance:5,chanceOutOf:16}
+]},
+{areaTitle:"Kefka's Tower (Doom room",formations:[
+{packId:50,formId:7,enemies:"Scullion",chance:10,chanceOutOf:16},
+{packId:51,formId:0,enemies:"Innoc, Innoc, Innoc",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Kefka's Tower (Goddess room",formations:[
+{packId:54,formId:4,enemies:"Outsider, Outsider, Madam",chance:5,chanceOutOf:16},
+{packId:54,formId:3,enemies:"Hemophyte, Retainer",chance:5,chanceOutOf:16},
+{packId:54,formId:2,enemies:"Retainer, Retainer, Dark Force",chance:5,chanceOutOf:16},
+{packId:54,formId:1,enemies:"Dark Force, Dark Force",chance:1,chanceOutOf:16}
+]}
 ]}
 ];

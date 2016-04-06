@@ -49,8 +49,25 @@ $(document).ready(function() {
 
 function setupAdventure() {
    $('#adventureContent').empty();
-   for (var i = 0; i < walkthroughData.length; i++) {
-      var section = walkthroughData[i];
+   setupAdventureForAct($('#adventureContent'), walkthroughDataWOB);
+   // TODO: put these in individually collapsible super-sections
+   setupAdventureForAct($('#adventureContent'), walkthroughDataWOR);
+   $('.glyphicon-expand').click(accordionClick);
+   $('.advArea').dblclick(function(e){e.stopPropagation(); activeArea($(this));});
+   $('.advSection').dblclick(function(e){activeSection($(this));});
+   $('.advFormation').click(formationClick);
+   // $('#section-' + Rage.currentAdvSection).children('div').show();
+   // $('#area-' + Rage.currentAdvSection + '-' + Rage.currentAdvArea).children('div').show();
+   setTimeout(function() {
+      activeSection($('#section-' + Rage.currentAdvSection), true);
+      activeArea($('#area-' + Rage.currentAdvSection + '-' + Rage.currentAdvArea));
+   }, 10);
+}
+
+function setupAdventureForAct(actContainer, actWalkthroughData) {
+   var fixit = false;
+   for (var i = 0; i < actWalkthroughData.length; i++) {
+      var section = actWalkthroughData[i];
       var sectionDiv = $('<div class="advSection" id="section-' + i + '"></div>');
       if (i == Rage.currentAdvSection) {
          sectionDiv.addClass("current");
@@ -69,6 +86,17 @@ function setupAdventure() {
          var hasUnknown = false;
          for (var k = 0; k < area.formations.length; k++) {
             var form = area.formations[k];
+            if (typeof form.packId != "number" || typeof form.formId != "number") {
+               fixit = true;
+               var id = findPackIdByEnemiesString(form.enemies);
+               if (id == null) {
+                  console.log("Couldn't find formation: " + form.enemies);
+                  continue;
+               } else {
+                  form.packId = id.packId;
+                  form.formId = id.formId;
+               }
+            }
             var packId = form.packId;
             var formId = form.formId;
             var formDiv = $('<div id="advFormation-' + packId + '-' + formId + '" class="advFormation"></div>');
@@ -122,21 +150,33 @@ function setupAdventure() {
          }
          sectionDiv.append(areaDiv);
       }
-      $('#adventureContent').append(sectionDiv);
+      actContainer.append(sectionDiv);
    }
-   $('.glyphicon-expand').click(accordionClick);
-   $('.advArea').dblclick(function(e){e.stopPropagation(); activeArea($(this));});
-   $('.advSection').dblclick(function(e){activeSection($(this));});
-   $('.advFormation').click(formationClick);
-   // $('#section-' + Rage.currentAdvSection).children('div').show();
-   // $('#area-' + Rage.currentAdvSection + '-' + Rage.currentAdvArea).children('div').show();
-   setTimeout(function() {
-      activeSection($('#section-' + Rage.currentAdvSection), true);
-      activeArea($('#area-' + Rage.currentAdvSection + '-' + Rage.currentAdvArea));
-   }, 10);
+   if (fixit) {
+      console.log(JSON.stringify(actWalkthroughData));
+   }
 }
 
-
+function findPackIdByEnemiesString(enemies) {
+   var result = null;
+   var packId;
+   var formId;
+   for (packId = 0; packId < veldtPacks.length; packId++) {
+      var formations = veldtPacks[packId];
+      for (formId = 0; formId < 8; formId++) {
+         var formation = formations[formId];
+         if (formation != null && enemies == formation.join(", ")) {
+            if (result == null) {
+               result = {packId: packId, formId: formId};
+            } else {
+               console.log("Duplicate formations for " + enemies + ": " + JSON.stringify(result) + " and " + JSON.stringify({packId: packId, formId: formId}));
+            }
+         }
+      }
+   }
+   return result;
+}
+      
 function accordionClick(e) {
    e.stopPropagation();
    accordion($(this).closest('div'));
@@ -272,7 +312,7 @@ function setupVeldt() {
    veldtContent.children().not('#formationDetailPane').remove();
    $('#formationDetailPane').hide();
    var hasAnyCleared = false;
-   for (var i = 1; i < veldtPacks.length; i++) {
+   for (var i = 1; i < 65; i++) {
       var pack = veldtPacks[i];
       if (pack.length > 0) {
          var packDiv = $('<div id="pack-' + i + '" class="pack"></div>');
@@ -462,7 +502,7 @@ Rage = {
    currentAdvSection: 0,
    currentAdvArea: 0,
    currentMode: null,
-   clearedFormations: new Array(65),
+   clearedFormations: new Array(67),
    knownRages: new Array(255),
    options: {},
    isCleared: 

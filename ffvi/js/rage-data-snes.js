@@ -3,12 +3,12 @@ veldtPacks = [
 // 1-based indexes, so we'll use pack 0 for non-veldt formations
 [["ProtoArmor", "ProtoArmor"],
  ["Naughty"],
- [],
- [],
- [],
- [],
- [],
- []], 
+ ["Zone Eater"],
+ ["Prometheus"],
+ ["Mega Armor, ProtoArmor"],
+ ["L.90 Magic"],
+ ["L.90 Magic, L.80 Magic"],
+ ["L.80 Magic, L.80 Magic"]], // ...continued in pack 65, which also doesn't exist
 
 [["Lobo"],
 ["Lobo", "Lobo"],
@@ -520,7 +520,26 @@ veldtPacks = [
 
 [],
 
-[]
+[], // Pack 64 -- That's all, folks!
+
+// More non-existent packs for non-Veldt formations
+[["L.90 Magic, L.60 Magic"],
+ ["L.60 Magic, L.30 Magic, L.10 Magic, L.10 Magic"],
+ ["L.70 Magic, L.70 Magic, L.50 Magic"],
+ ["L.70 Magic, L.50 Magic, L.40 Magic"],
+ ["L.50 Magic"],
+ ["L.40 Magic, L.50 Magic, L.60 Magic"],
+ ["L.30 Magic, L.20 Magic, L.10 Magic"],
+ ["L.10 Magic, L.20 Magic"]],
+ 
+[["L.30 Magic, L.30 Magic, L.30 Magic"],
+ ["L.40 Magic, L.20 Magic, L.20 Magic"],
+ [],
+ [],
+ [],
+ [],
+ [],
+ []]
 ];
 
 rageList = [
