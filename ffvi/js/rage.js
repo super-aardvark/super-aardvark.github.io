@@ -99,7 +99,7 @@ function setupAdventureForAct(actContainer, actWalkthroughData) {
             }
             var packId = form.packId;
             var formId = form.formId;
-            var formDiv = $('<div id="advFormation-' + packId + '-' + formId + '" class="advFormation"></div>');
+            var formDiv = $('<div class="advFormation advFormation-' + packId + '-' + formId + '"></div>');
             formDiv.data('id', {packId: packId, formId: formId});
             if (Rage.isCleared(packId, formId)) {
                formDiv.addClass("cleared");
@@ -534,7 +534,7 @@ Rage = {
             }
             break;
          case "adventure":
-            $('#advFormation-' + packId + '-' + formId).removeClass("uncleared").addClass("cleared");
+            $('.advFormation-' + packId + '-' + formId).removeClass("uncleared").addClass("cleared");
             break;
          }
       },
@@ -547,7 +547,7 @@ Rage = {
          }
          pack[formId] = false;
          $('#formation-' + packId + '-' + formId).removeClass("cleared").addClass("uncleared");
-         $('#advFormation-' + packId + '-' + formId).removeClass("cleared").addClass("uncleared");
+         $('.advFormation-' + packId + '-' + formId).removeClass("cleared").addClass("uncleared");
       },
    getKnownStatus:
       function(name) {
