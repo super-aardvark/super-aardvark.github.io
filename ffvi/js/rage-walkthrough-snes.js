@@ -798,9 +798,9 @@ walkthroughDataWOR = [
 ]},
 {sectionTitle:"Owzer's Mansion, the Magic House",areas:[
 {areaTitle:"Paintings",formations:[
-{packId:37,formId:1,enemies:"Nightshade, Nightshade, Nightshade",chance:1,chanceOutOf:1},
+{packId:37,formId:1,enemies:"NightShade, NightShade, NightShade",chance:1,chanceOutOf:1},
 {packId:37,formId:0,enemies:"Dahling, Dahling",chance:1,chanceOutOf:1},
-{packId:37,formId:2,enemies:"Still Life",chance:1,chanceOutOf:1},
+{packId:37,formId:2,enemies:"StillLife",chance:1,chanceOutOf:1},
 {packId:36,formId:7,enemies:"SoulDancer, Wild Cat, Wild Cat, Wild Cat, Wild Cat",chance:1,chanceOutOf:1}
 ]},
 {areaTitle:"Monster formations",formations:[

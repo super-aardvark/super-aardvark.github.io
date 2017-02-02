@@ -335,8 +335,8 @@ veldtPacks = [
 ["SoulDancer", "Wild Cat", "Wild Cat", "Wild Cat", "Wild Cat"]],
 
 [["Dahling", "Dahling"],
-["Nightshade", "Nightshade", "Nightshade"],
-["Still Life"],
+["NightShade", "NightShade", "NightShade"],
+["StillLife"],
 ["Opinicus", "Opinicus"],
 ["Displayer"],
 ["Opinicus", "Hipocampus", "Eland"],
