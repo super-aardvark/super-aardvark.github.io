@@ -48,10 +48,17 @@ $(document).ready(function() {
 });
 
 function setupAdventure() {
+   var wobDiv = $('<div class="advAct" id="act-0"></div>');
+   wobDiv.data('id', 0);
+   wobDiv.append($('<h3><span class="glyphicon glyphicon-expand"></span>World of Balance</h3>'));
+   setupAdventureForAct(wobDiv, walkthroughDataWOB);
+   var worDiv = $('<div class="advAct" id="act-1"></div>');
+   worDiv.data('id', 1);
+   worDiv.append($('<h3><span class="glyphicon glyphicon-expand"></span>World of Ruin</h3>'));
+   setupAdventureForAct(worDiv, walkthroughDataWOR);
    $('#adventureContent').empty();
-   setupAdventureForAct($('#adventureContent'), walkthroughDataWOB);
-   // TODO: put these in individually collapsible super-sections
-   setupAdventureForAct($('#adventureContent'), walkthroughDataWOR);
+   $('#adventureContent').append(wobDiv);
+   $('#adventureContent').append(worDiv);
    $('.glyphicon-expand').click(accordionClick);
    $('.advArea').dblclick(function(e){e.stopPropagation(); activeArea($(this));});
    $('.advSection').dblclick(function(e){activeSection($(this));});
@@ -59,8 +66,9 @@ function setupAdventure() {
    // $('#section-' + Rage.currentAdvSection).children('div').show();
    // $('#area-' + Rage.currentAdvSection + '-' + Rage.currentAdvArea).children('div').show();
    setTimeout(function() {
+      activeAct($('#act-' + Rage.currentAdvAct), true);
       activeSection($('#section-' + Rage.currentAdvSection), true);
-      activeArea($('#area-' + Rage.currentAdvSection + '-' + Rage.currentAdvArea));
+      activeArea($('#area-' + Rage.currentAdvSection + '-' + Rage.currentAdvArea), true);
    }, 10);
 }
 
@@ -182,9 +190,15 @@ function accordionClick(e) {
    accordion($(this).closest('div'));
 }
 
-function accordion(container, expandOnly) {
+function accordion(container, force) {
+   var expandOnly = false;
+   var contractOnly = false;
+   if (force != null) {
+      expandOnly = force;
+      contractOnly = !force;
+   }
    var expIcon = container.children().first().find('.glyphicon');
-   if (expandOnly || expIcon.hasClass("glyphicon-expand")) {
+   if (expandOnly || (expIcon.hasClass("glyphicon-expand") && !contractOnly)) {
       expIcon.removeClass("glyphicon-expand").addClass("glyphicon-collapse-down");
       container.children('div').show(300);
    } else {
@@ -193,9 +207,23 @@ function accordion(container, expandOnly) {
    }
 }
 
+function activeAct(actDiv, skipSection) {
+   Rage.currentAdvAct = actDiv.data('id');
+   accordion($('.advAct.current'), false);
+   $('.advAct.current').removeClass("current");
+   actDiv.addClass("current");
+   accordion(actDiv, true);
+   if (!skipSection) activeSection(actDiv.children('.advSection').first());
+   // $(document).scrollTop(actDiv.position().top - 50);
+}
+
 function activeSection(sectionDiv, skipArea) {
+   var actDiv = sectionDiv.parent();
+   if (!actDiv.hasClass("current")) {
+      activeAct(actDiv, true);
+   }
    Rage.currentAdvSection = sectionDiv.data('id');
-   accordion($('.advSection.current'));
+   accordion($('.advSection.current'), false);
    $('.advSection.current').removeClass("current");
    sectionDiv.addClass("current");
    accordion(sectionDiv, true);
@@ -203,13 +231,13 @@ function activeSection(sectionDiv, skipArea) {
    // $(document).scrollTop(sectionDiv.position().top - 50);
 }
 
-function activeArea(areaDiv) {
+function activeArea(areaDiv, forceScroll) {
    var sectionDiv = areaDiv.parent();
    if (!sectionDiv.hasClass("current")) {
-      activeSection(areaDiv.parent(), true);
+      activeSection(sectionDiv, true);
    }
    Rage.currentAdvArea = areaDiv.data('id');
-   accordion($('.advArea.current'));
+   accordion($('.advArea.current'), false);
    $('.advArea.current').removeClass("current");
    areaDiv.addClass("current");
    
@@ -217,7 +245,7 @@ function activeArea(areaDiv) {
    accordion(areaDiv, true);
    var int = setInterval(function() {
          var areaTop = areaDiv.position().top - 110;
-         if (areaTop < scrollTop) {
+         if (areaTop < scrollTop || forceScroll) {
             $(document).scrollTop(areaTop);
             scrollTop = areaTop;
          }
@@ -232,11 +260,13 @@ function prevArea() {
       return;
    }
    var prev = current.prev('.advArea');
-   if (prev.length > 0) {
-      activeArea(prev);
-   } else {
-      activeArea(current.parent().prev().children('.advArea').last());
+   if (prev.length == 0) {
+      prev = current.parent().prev().children('.advArea').last();
+      if (prev.length == 0) {
+         prev = current.parent().parent().prev().children('.advSection').last().children('.advArea').last();
+      }
    }
+   activeArea(prev);
 }
 
 function nextArea() {
@@ -249,7 +279,7 @@ function nextArea() {
    if (next.length > 0) {
       activeArea(next);
    } else {
-      activeArea(current.parent().next().children('.advArea').first());
+      nextSection();
    }
 }
 
@@ -258,6 +288,8 @@ function prevSection() {
    var prev = current.prev('.advSection');
    if (prev.length > 0) {
       activeSection(prev);
+   } else {
+      activeSection(current.parent().prev().children('.advSection').last());
    }
 }
 
@@ -266,6 +298,8 @@ function nextSection() {
    var next = current.next('.advSection');
    if (next.length > 0) {
       activeSection(next);
+   } else {
+      activeSection(current.parent().next().children('.advSection').first());
    }
 }
 
@@ -499,6 +533,7 @@ Rage = {
    UNKNOWN: 2,
    currentPack: null,
    gauStatus: null,
+   currentAdvAct: 0,
    currentAdvSection: 0,
    currentAdvArea: 0,
    currentMode: null,

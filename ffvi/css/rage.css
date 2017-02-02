@@ -18,11 +18,25 @@ div.content {
     background-color: lightGoldenrodYellow;
 }
 
-div.advSection {
+div.advAct {
    border: solid black 1px;
    max-width: 450px;
    border-radius: 8px;
    margin: 10px;
+   padding: 5px;
+   cursor: default;
+}
+
+.advAct h3 {
+   margin-top: 10px;
+}
+
+div.advSection {
+   display: none;
+   border: solid black 1px;
+   max-width: 450px;
+   border-radius: 8px;
+   margin: 10px 5px;
    padding: 5px;
    cursor: default;
 }
