@@ -538,28 +538,6 @@ walkthroughDataWOR = [
 {packId:25,formId:3,enemies:"Black Drgn",chance:6,chanceOutOf:16}
 ]}
 ]},
-{sectionTitle:"The World of Ruin",areas:[
-{areaTitle:"Grasslands",formations:[
-{packId:25,formId:5,enemies:"Mesosaur, Mesosaur",chance:10,chanceOutOf:16},
-{packId:25,formId:7,enemies:"Gilomantis, Mesosaur",chance:6,chanceOutOf:16}
-]},
-{areaTitle:"Wastelands, east",formations:[
-{packId:26,formId:3,enemies:"Lunaris, Lunaris",chance:10,chanceOutOf:16},
-{packId:26,formId:1,enemies:"Chitonid, Gigan Toad, Gigan Toad",chance:6,chanceOutOf:16}
-]},
-{areaTitle:"Wastelands, west",formations:[
-{packId:26,formId:2,enemies:"Lunaris, Osprey",chance:10,chanceOutOf:16},
-{packId:26,formId:4,enemies:"Osprey, Chitonid, Gigan Toad",chance:6,chanceOutOf:16}
-]},
-{areaTitle:"Forest",formations:[
-{packId:25,formId:6,enemies:"Mesosaur, Mesosaur, Mesosaur, Mesosaur",chance:10,chanceOutOf:16},
-{packId:26,formId:0,enemies:"Gilomantis, Gilomantis, Mesosaur",chance:6,chanceOutOf:16}
-]},
-{areaTitle:"Desert",formations:[
-{packId:25,formId:2,enemies:"EarthGuard, Peepers, Peepers",chance:10,chanceOutOf:16},
-{packId:25,formId:3,enemies:"Black Drgn",chance:6,chanceOutOf:16}
-]}
-]},
 {sectionTitle:"En route to Tzen",areas:[
 {areaTitle:"Grasslands",formations:[
 {packId:25,formId:5,enemies:"Mesosaur, Mesosaur",chance:10,chanceOutOf:16},
@@ -580,36 +558,34 @@ walkthroughDataWOR = [
 {areaTitle:"Desert",formations:[
 {packId:25,formId:2,enemies:"EarthGuard, Peepers, Peepers",chance:10,chanceOutOf:16},
 {packId:25,formId:3,enemies:"Black Drgn",chance:6,chanceOutOf:16}
-]}
 ]},
-{sectionTitle:"The Collapsing House",areas:[
-{areaTitle:"?",formations:[
+{areaTitle:"The Collapsing House",formations:[
 {packId:27,formId:1,enemies:"Scorpion, Scorpion, Scorpion",chance:10,chanceOutOf:16},
 {packId:26,formId:7,enemies:"HermitCrab, HermitCrab, Pm Stalker",chance:6,chanceOutOf:16}
 ]}
 ]},
 {sectionTitle:"The Serpent Trench",areas:[
-{areaTitle:"Grasslands, Serpent Trench",formations:[
+{areaTitle:"Grasslands",formations:[
 {packId:27,formId:7,enemies:"Bloompire, Bloompire, Lizard",chance:6,chanceOutOf:16},
 {packId:28,formId:0,enemies:"Bloompire, Bloompire",chance:5,chanceOutOf:16},
 {packId:27,formId:5,enemies:"Buffalax",chance:5,chanceOutOf:16}
 ]},
-{areaTitle:"Wastelands, Serpent Trench",formations:[
+{areaTitle:"Wastelands",formations:[
 {packId:27,formId:6,enemies:"Buffalax, Delta Bug, Delta Bug",chance:10,chanceOutOf:16},
 {packId:28,formId:1,enemies:"Delta Bug, Delta Bug, Delta Bug, Delta Bug",chance:6,chanceOutOf:16}
 ]},
-{areaTitle:"Northwest wastelands, Serpent Trench",formations:[
+{areaTitle:"Northwest wastelands",formations:[
 {packId:28,formId:1,enemies:"Delta Bug, Delta Bug, Delta Bug, Delta Bug",chance:6,chanceOutOf:16},
 {packId:28,formId:3,enemies:"Buffalax, Lizard",chance:5,chanceOutOf:16},
 {packId:28,formId:2,enemies:"Bloompire, Bloompire, Delta Bug",chance:5,chanceOutOf:16}
 ]},
-{areaTitle:"Forests, Serpent Trench",formations:[
+{areaTitle:"Forests",formations:[
 {packId:27,formId:7,enemies:"Bloompire, Bloompire, Lizard",chance:6,chanceOutOf:16},
 {packId:28,formId:0,enemies:"Bloompire, Bloompire",chance:5,chanceOutOf:16},
 {packId:27,formId:5,enemies:"Buffalax",chance:5,chanceOutOf:16}
 ]}
 ]},
-{sectionTitle:"Pursuing Gerad and the Crimon Robbers",areas:[
+{sectionTitle:"South Figaro Area",areas:[
 {areaTitle:"Grasslands",formations:[
 {packId:17,formId:6,enemies:"Nohrabbit, Nohrabbit, Nohrabbit",chance:1,chanceOutOf:1}
 ]},
@@ -626,7 +602,7 @@ walkthroughDataWOR = [
 {packId:29,formId:1,enemies:"Latimeria, Nohrabbit, Nohrabbit, Nohrabbit",chance:6,chanceOutOf:16}
 ]}
 ]},
-{sectionTitle:"Pursuing Gerad and the Crimon Robbers; Cave of Figaro",areas:[
+{sectionTitle:"Pursuing Gerad",areas:[
 {areaTitle:"Cave of Figaro",formations:[
 {packId:30,formId:0,enemies:"NeckHunter, Cruller, Humpty, Humpty",chance:10,chanceOutOf:16},
 {packId:30,formId:1,enemies:"Dante",chance:6,chanceOutOf:16}
@@ -640,21 +616,23 @@ walkthroughDataWOR = [
 {packId:29,formId:7,enemies:"NeckHunter, NeckHunter",chance:6,chanceOutOf:16},
 {packId:29,formId:4,enemies:"Humpty, Humpty, Humpty",chance:5,chanceOutOf:16},
 {packId:29,formId:5,enemies:"Cruller, Humpty, Humpty",chance:5,chanceOutOf:16}
-]}
 ]},
-{sectionTitle:"Pursuing Gerad and the Crimon Robbers; Figaro Castle",areas:[
-{areaTitle:"Figaro Castle basement",formations:[
-{packId:29,formId:6,enemies:"Humpty, Humpty, Humpty, Humpty",chance:6,chanceOutOf:16},
-{packId:29,formId:7,enemies:"NeckHunter, NeckHunter",chance:5,chanceOutOf:16},
-{packId:30,formId:1,enemies:"Dante",chance:5,chanceOutOf:16}
+{areaTitle:"Figaro Castle Basement 2",formations:[
+{packId:29,formId:7,enemies:"NeckHunter, NeckHunter",chance:6,chanceOutOf:16},
+{packId:29,formId:4,enemies:"Humpty, Humpty, Humpty",chance:5,chanceOutOf:16},
+{packId:29,formId:5,enemies:"Cruller, Humpty, Humpty",chance:5,chanceOutOf:16}
 ]},
-{areaTitle:"Engine Room",formations:[
+{areaTitle:"Figaro Castle Basement 3",formations:[
+{packId:30,formId:0,enemies:"NeckHunter, Cruller, Humpty, Humpty",chance:10,chanceOutOf:16},
+{packId:30,formId:1,enemies:"Dante",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Figaro Castle Engine Room",formations:[
 {packId:29,formId:6,enemies:"Humpty, Humpty, Humpty, Humpty",chance:6,chanceOutOf:16},
 {packId:30,formId:2,enemies:"Drop, Drop, Drop",chance:5,chanceOutOf:16},
 {packId:30,formId:1,enemies:"Dante",chance:5,chanceOutOf:16}
 ]}
 ]},
-{sectionTitle:"En route to Kohlingen",areas:[
+{sectionTitle:"Kohlingen Area",areas:[
 {areaTitle:"Desert",formations:[
 {packId:18,formId:2,enemies:"Maliga, Maliga, Maliga",chance:6,chanceOutOf:16},
 {packId:28,formId:6,enemies:"Sand Horse, Sand Horse",chance:5,chanceOutOf:16},
@@ -691,7 +669,7 @@ walkthroughDataWOR = [
 {packId:32,formId:2,enemies:"Mad Oscar, Exoray",chance:5,chanceOutOf:16}
 ]}
 ]},
-{sectionTitle:"Airship Exploitation: The Overworld Map",areas:[
+{sectionTitle:"Southeastern Continent (Thamasa)",areas:[
 {areaTitle:"Grasslands & Forest",formations:[
 {packId:42,formId:3,enemies:"Harpy",chance:10,chanceOutOf:16},
 {packId:42,formId:4,enemies:"Harpy, Prussian",chance:6,chanceOutOf:16}
@@ -699,7 +677,9 @@ walkthroughDataWOR = [
 {areaTitle:"Wastelands",formations:[
 {packId:42,formId:6,enemies:"GloomShell, GloomShell, GloomShell",chance:10,chanceOutOf:16},
 {packId:42,formId:5,enemies:"Prussian, GloomShell",chance:6,chanceOutOf:16}
+]}
 ]},
+{sectionTitle:"Southwestern Continent (Jidoor, Zozo, Maranda)",areas:[
 {areaTitle:"Grasslands",formations:[
 {packId:40,formId:7,enemies:"Crawler, Crawler, Crawler",chance:10,chanceOutOf:16},
 {packId:41,formId:6,enemies:"Geckorex, Geckorex, Reach Frog",chance:6,chanceOutOf:16}
@@ -715,10 +695,14 @@ walkthroughDataWOR = [
 {areaTitle:"Wastelands",formations:[
 {packId:40,formId:7,enemies:"Crawler, Crawler, Crawler",chance:10,chanceOutOf:16},
 {packId:41,formId:3,enemies:"Mantodea, Sprinter, Spek Tor, Spek Tor",chance:6,chanceOutOf:16}
+]}
 ]},
+{sectionTitle:"Triangle Island",areas:[
 {areaTitle:"Triangle Island",formations:[
 {packId:0,formId:2,enemies:"Zone Eater",chance:1,chanceOutOf:1}
+]}
 ]},
+{sectionTitle:"Northeastern Continent (Crazy man's hut)",areas:[
 {areaTitle:"Grasslands",formations:[
 {packId:42,formId:0,enemies:"Sprinter, Sprinter, Spek Tor, Spek Tor",chance:10,chanceOutOf:16},
 {packId:41,formId:7,enemies:"TumbleWeed, TumbleWeed, TumbleWeed, TumbleWeed",chance:5,chanceOutOf:16},
@@ -730,11 +714,12 @@ walkthroughDataWOR = [
 {packId:40,formId:7,enemies:"Crawler, Crawler, Crawler",chance:5,chanceOutOf:16}
 ]},
 {areaTitle:"Forest",formations:[
-{packId:41,formId:1,enemies:"Tyranosaur",chance:10,chanceOutOf:16}
-]},
-{areaTitle:"Tyranosaur, Tyranosaur (5/16) (fixed Pincer",formations:[
+{packId:41,formId:1,enemies:"Tyranosaur",chance:10,chanceOutOf:16},
+{packId:41,formId:0,enemies:"Tyranosaur, Tyranosaur",chance:5,chanceOutOf:16},
 {packId:41,formId:2,enemies:"Brachosaur",chance:1,chanceOutOf:16}
+]}
 ]},
+{sectionTitle:"Northern Continent (Narshe)",areas:[
 {areaTitle:"Grasslands",formations:[
 {packId:41,formId:6,enemies:"Geckorex, Geckorex, Reach Frog",chance:5,chanceOutOf:16},
 {packId:41,formId:4,enemies:"Reach Frog, Reach Frog, Reach Frog, Reach Frog",chance:5,chanceOutOf:16},
@@ -812,6 +797,12 @@ walkthroughDataWOR = [
 ]}
 ]},
 {sectionTitle:"Owzer's Mansion, the Magic House",areas:[
+{areaTitle:"Paintings",formations:[
+{packId:37,formId:1,enemies:"Nightshade, Nightshade, Nightshade",chance:1,chanceOutOf:1},
+{packId:37,formId:0,enemies:"Dahling, Dahling",chance:1,chanceOutOf:1},
+{packId:37,formId:2,enemies:"Still Life",chance:1,chanceOutOf:1},
+{packId:36,formId:7,enemies:"SoulDancer, Wild Cat, Wild Cat, Wild Cat, Wild Cat",chance:1,chanceOutOf:1}
+]},
 {areaTitle:"Monster formations",formations:[
 {packId:36,formId:4,enemies:"SoulDancer, SoulDancer, Crusher, Crusher",chance:6,chanceOutOf:16},
 {packId:36,formId:6,enemies:"Vindr, Vindr",chance:5,chanceOutOf:16},
