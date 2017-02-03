@@ -63,20 +63,19 @@ function setupAdventure() {
    $('.advArea').dblclick(function(e){e.stopPropagation(); activeArea($(this));});
    $('.advSection').dblclick(function(e){activeSection($(this));});
    $('.advFormation').click(formationClick);
-   // $('#section-' + Rage.currentAdvSection).children('div').show();
-   // $('#area-' + Rage.currentAdvSection + '-' + Rage.currentAdvArea).children('div').show();
    setTimeout(function() {
       activeAct($('#act-' + Rage.currentAdvAct), true);
-      activeSection($('#section-' + Rage.currentAdvSection), true);
-      activeArea($('#area-' + Rage.currentAdvSection + '-' + Rage.currentAdvArea), true);
+      activeSection($('#section-' + Rage.currentAdvAct + '-' + Rage.currentAdvSection), true);
+      activeArea($('#area-' + Rage.currentAdvAct + '-' + Rage.currentAdvSection + '-' + Rage.currentAdvArea), true);
    }, 10);
 }
 
 function setupAdventureForAct(actContainer, actWalkthroughData) {
+   var actId = actContainer.data('id');
    var fixit = false;
    for (var i = 0; i < actWalkthroughData.length; i++) {
       var section = actWalkthroughData[i];
-      var sectionDiv = $('<div class="advSection" id="section-' + i + '"></div>');
+      var sectionDiv = $('<div class="advSection" id="section-' + actId + '-' + i + '"></div>');
       if (i == Rage.currentAdvSection) {
          sectionDiv.addClass("current");
       }
@@ -84,7 +83,7 @@ function setupAdventureForAct(actContainer, actWalkthroughData) {
       sectionDiv.append($('<h3><span class="glyphicon glyphicon-expand"></span>' + section.sectionTitle + '</h3>'));
       for (var j = 0; j < section.areas.length; j++) {
          var area = section.areas[j];
-         var areaDiv = $('<div class="advArea" id="area-' + i + '-' + j + '"></div>');
+         var areaDiv = $('<div class="advArea" id="area-' + actId + '-' + i + '-' + j + '"></div>');
          if (i == Rage.currentAdvSection && j == Rage.currentAdvArea) {
             areaDiv.addClass("current");
          }
