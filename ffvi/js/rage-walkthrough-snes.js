@@ -538,7 +538,7 @@ walkthroughDataWOR = [
 {packId:25,formId:3,enemies:"Black Drgn",chance:6,chanceOutOf:16}
 ]}
 ]},
-{sectionTitle:"Southern Continent",areas:[
+{sectionTitle:"Southern Continent (Albrook, Tzen)",areas:[
 {areaTitle:"Grasslands",formations:[
 {packId:25,formId:5,enemies:"Mesosaur, Mesosaur",chance:10,chanceOutOf:16},
 {packId:25,formId:7,enemies:"Gilomantis, Mesosaur",chance:6,chanceOutOf:16}
@@ -854,7 +854,8 @@ walkthroughDataWOR = [
 ]},
 {areaTitle:"Outside of the Ancient Castle",formations:[
 {packId:38,formId:6,enemies:"Goblin, Figaliz, Figaliz",chance:6,chanceOutOf:16},
-{packId:38,formId:5,enemies:"Goblin, Goblin",chance:5,chanceOutOf:16}
+{packId:38,formId:5,enemies:"Goblin, Goblin",chance:5,chanceOutOf:16},
+{packId:40,formId:5,enemies:"Barb-e, Samurai, Suriander",chance:5,chanceOutOf:16}
 ]},
 {areaTitle:"Inside of the Ancient Castle",formations:[
 {packId:39,formId:1,enemies:"Lethal Wpn",chance:5,chanceOutOf:16},
@@ -930,125 +931,129 @@ walkthroughDataWOR = [
 {packId:45,formId:3,enemies:"Magic Urn, Magic Urn",chance:1,chanceOutOf:16}
 ]}
 ]},
-{sectionTitle:"Kefka's Tower",areas:[
-{areaTitle:"Kefka's Tower (garbage slopes)",formations:[
+{sectionTitle:"Kefka's Tower, Party #1",areas:[
+{areaTitle:"Surface",formations:[
 {packId:42,formId:1,enemies:"GtBehemoth, Evil Oscar, Vectaur",chance:6,chanceOutOf:16},
 {packId:34,formId:7,enemies:"Vectaur, Vectaur, Vectaur, Vectaur",chance:5,chanceOutOf:16},
 {packId:35,formId:0,enemies:"Brontaur, Evil Oscar",chance:5,chanceOutOf:16}
 ]},
-{areaTitle:"Kefka's Tower (garbage caves party #2)",formations:[
-{packId:36,formId:2,enemies:"Brontaur, Brontaur",chance:10,chanceOutOf:16},
-{packId:42,formId:2,enemies:"Evil Oscar, Evil Oscar, Evil Oscar",chance:6,chanceOutOf:16}
-]},
-{areaTitle:"Kefka's Tower (Imperial jail cells)",formations:[
-{packId:54,formId:3,enemies:"Hemophyte, Retainer",chance:10,chanceOutOf:16},
-{packId:54,formId:2,enemies:"Retainer, Retainer, Dark Force",chance:6,chanceOutOf:16}
-]},
-{areaTitle:"Kefka's Tower (Imperial stairway)",formations:[
-{packId:54,formId:5,enemies:"Mover, Mover, Mover",chance:10,chanceOutOf:16},
-{packId:54,formId:6,enemies:"Steroidite",chance:6,chanceOutOf:16}
-]},
-{areaTitle:"Kefka's Tower (Facility rooms)",formations:[
-{packId:51,formId:1,enemies:"Junk, Junk, Junk",chance:6,chanceOutOf:16},
-{packId:52,formId:6,enemies:"IronHitman, IronHitman, IronHitman",chance:5,chanceOutOf:16},
-{packId:52,formId:7,enemies:"Dueller, Fortis",chance:5,chanceOutOf:16}
-]},
-{areaTitle:"Kefka's Tower (garbage passageway party #2",formations:[
-{packId:27,formId:4,enemies:"Vectagoyle, Vectagoyle",chance:10,chanceOutOf:16},
-{packId:36,formId:2,enemies:"Brontaur, Brontaur",chance:6,chanceOutOf:16}
-]},
-{areaTitle:"Kefka's Tower (Gold Dragon's room",formations:[
-{packId:26,formId:6,enemies:"Veteran, Veteran, Veteran",chance:10,chanceOutOf:16},
-{packId:25,formId:4,enemies:"Didalos, Veteran",chance:6,chanceOutOf:16}
-]},
-{areaTitle:"Kefka's Tower (Imperial corner-room",formations:[
-{packId:54,formId:4,enemies:"Outsider, Outsider, Madam",chance:5,chanceOutOf:16},
-{packId:54,formId:3,enemies:"Hemophyte, Retainer",chance:5,chanceOutOf:16},
-{packId:54,formId:2,enemies:"Retainer, Retainer, Dark Force",chance:5,chanceOutOf:16},
-{packId:54,formId:1,enemies:"Dark Force, Dark Force",chance:1,chanceOutOf:16}
-]},
-{areaTitle:"Kefka's Tower (garbage slopes)",formations:[
-{packId:42,formId:1,enemies:"GtBehemoth, Evil Oscar, Vectaur",chance:6,chanceOutOf:16},
-{packId:34,formId:7,enemies:"Vectaur, Vectaur, Vectaur, Vectaur",chance:5,chanceOutOf:16},
-{packId:35,formId:0,enemies:"Brontaur, Evil Oscar",chance:5,chanceOutOf:16}
-]},
-{areaTitle:"Kefka's Tower (garbage caves party #3)",formations:[
+{areaTitle:"First passage",formations:[
 {packId:38,formId:3,enemies:"GtBehemoth, Vectaur, Vectaur",chance:10,chanceOutOf:16},
 {packId:42,formId:1,enemies:"GtBehemoth, Evil Oscar, Vectaur",chance:6,chanceOutOf:16}
 ]},
-{areaTitle:"Kefka's Tower (Gauntlet/Nutkin Suit metal corridor",formations:[
-{packId:50,formId:7,enemies:"Scullion",chance:6,chanceOutOf:16},
-{packId:0,formId:3,enemies:"Prometheus",chance:5,chanceOutOf:16},
-{packId:51,formId:0,enemies:"Innoc, Innoc, Innoc",chance:5,chanceOutOf:16}
-]},
-{areaTitle:"Kefka's Tower (first garbage passageway party #3",formations:[
-{packId:36,formId:2,enemies:"Brontaur, Brontaur",chance:6,chanceOutOf:16},
-{packId:38,formId:3,enemies:"GtBehemoth, Vectaur, Vectaur",chance:5,chanceOutOf:16},
-{packId:42,formId:2,enemies:"Evil Oscar, Evil Oscar, Evil Oscar",chance:5,chanceOutOf:16}
-]},
-{areaTitle:"Kefka's Tower (MagiTek Facility",formations:[
-{packId:50,formId:4,enemies:"Fortis, Fortis",chance:10,chanceOutOf:16},
-{packId:50,formId:6,enemies:"Dueller, Dueller, Sky Base",chance:6,chanceOutOf:16}
-]},
-{areaTitle:"Kefka's Tower (other two garbage passageways party #3",formations:[
-{packId:29,formId:3,enemies:"Land Worm",chance:1,chanceOutOf:1}
-]},
-{areaTitle:"Kefka's Tower (Skull Drgn room and ensuing hallway",formations:[
-{packId:54,formId:4,enemies:"Outsider, Outsider, Madam",chance:5,chanceOutOf:16},
-{packId:54,formId:3,enemies:"Hemophyte, Retainer",chance:5,chanceOutOf:16},
-{packId:54,formId:2,enemies:"Retainer, Retainer, Dark Force",chance:5,chanceOutOf:16},
-{packId:54,formId:1,enemies:"Dark Force, Dark Force",chance:1,chanceOutOf:16}
-]},
-{areaTitle:"Kefka's Tower (garbage slopes)",formations:[
-{packId:42,formId:1,enemies:"GtBehemoth, Evil Oscar, Vectaur",chance:6,chanceOutOf:16},
-{packId:34,formId:7,enemies:"Vectaur, Vectaur, Vectaur, Vectaur",chance:5,chanceOutOf:16},
-{packId:35,formId:0,enemies:"Brontaur, Evil Oscar",chance:5,chanceOutOf:16}
-]},
-{areaTitle:"Kefka's Tower (garbage caves party #1)",formations:[
-{packId:38,formId:3,enemies:"GtBehemoth, Vectaur, Vectaur",chance:10,chanceOutOf:16},
-{packId:42,formId:1,enemies:"GtBehemoth, Evil Oscar, Vectaur",chance:6,chanceOutOf:16}
-]},
-{areaTitle:"Kefka's Tower (Imperial Castle)",formations:[
+{areaTitle:"Metal passage (Fixed Dice)",formations:[
 {packId:54,formId:1,enemies:"Dark Force, Dark Force",chance:10,chanceOutOf:16},
 {packId:54,formId:4,enemies:"Outsider, Outsider, Madam",chance:6,chanceOutOf:16}
 ]},
-{areaTitle:"Kefka's Tower (Facility rooms)",formations:[
+{areaTitle:"Imperial Magitek Facility rooms",formations:[
 {packId:51,formId:1,enemies:"Junk, Junk, Junk",chance:6,chanceOutOf:16},
 {packId:52,formId:6,enemies:"IronHitman, IronHitman, IronHitman",chance:5,chanceOutOf:16},
 {packId:52,formId:7,enemies:"Dueller, Fortis",chance:5,chanceOutOf:16}
 ]},
-{areaTitle:"Kefka's Tower (Tube room)",formations:[
+{areaTitle:"Mgitek Facility - Specimen room",formations:[
 {packId:52,formId:5,enemies:"Sky Base, IronHitman, IronHitman, IronHitman, IronHitman",chance:6,chanceOutOf:16},
 {packId:50,formId:3,enemies:"Innoc, Fortis",chance:5,chanceOutOf:16},
 {packId:0,formId:3,enemies:"Prometheus",chance:5,chanceOutOf:16}
 ]},
-{areaTitle:"Kefka's Tower (Garbage U-turn passageway party #1)",formations:[
+{areaTitle:"Passage from Specimen room",formations:[
 {packId:38,formId:4,enemies:"Doom Drgn",chance:10,chanceOutOf:16},
 {packId:29,formId:2,enemies:"Doom Drgn, Doom Drgn",chance:6,chanceOutOf:16}
+]}
 ]},
-{areaTitle:"Kefka's Tower (swap room",formations:[
-{packId:50,formId:7,enemies:"Scullion",chance:10,chanceOutOf:16},
-{packId:51,formId:0,enemies:"Innoc, Innoc, Innoc",chance:6,chanceOutOf:16}
-]},
-{areaTitle:"Kefka's Tower (Guardian room",formations:[
-{packId:26,formId:5,enemies:"Madam, Veteran, Veteran",chance:10,chanceOutOf:16},
-{packId:54,formId:7,enemies:"Didalos, Didalos",chance:6,chanceOutOf:16}
-]},
-{areaTitle:"Kefka's Tower (garbage caves party #3",formations:[
-{packId:42,formId:1,enemies:"GtBehemoth, Evil Oscar, Vectaur",chance:6,chanceOutOf:16},
-{packId:35,formId:0,enemies:"Brontaur, Evil Oscar",chance:5,chanceOutOf:16},
-{packId:34,formId:7,enemies:"Vectaur, Vectaur, Vectaur, Vectaur",chance:5,chanceOutOf:16}
-]},
-{areaTitle:"Kefka's Tower (garbage slopes)",formations:[
+{sectionTitle:"Kefka's Tower, Party #2",areas:[
+{areaTitle:"Surface",formations:[
 {packId:42,formId:1,enemies:"GtBehemoth, Evil Oscar, Vectaur",chance:6,chanceOutOf:16},
 {packId:34,formId:7,enemies:"Vectaur, Vectaur, Vectaur, Vectaur",chance:5,chanceOutOf:16},
 {packId:35,formId:0,enemies:"Brontaur, Evil Oscar",chance:5,chanceOutOf:16}
 ]},
-{areaTitle:"Kefka's Tower (Doom room",formations:[
+{areaTitle:"Caves",formations:[
+{packId:36,formId:2,enemies:"Brontaur, Brontaur",chance:10,chanceOutOf:16},
+{packId:42,formId:2,enemies:"Evil Oscar, Evil Oscar, Evil Oscar",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Imperial jail cells",formations:[
+{packId:54,formId:3,enemies:"Hemophyte, Retainer",chance:10,chanceOutOf:16},
+{packId:54,formId:2,enemies:"Retainer, Retainer, Dark Force",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Imperial stairway",formations:[
+{packId:54,formId:5,enemies:"Mover, Mover, Mover",chance:10,chanceOutOf:16},
+{packId:54,formId:6,enemies:"Steroidite",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Imperial Magitek Facility rooms",formations:[
+{packId:51,formId:1,enemies:"Junk, Junk, Junk",chance:6,chanceOutOf:16},
+{packId:52,formId:6,enemies:"IronHitman, IronHitman, IronHitman",chance:5,chanceOutOf:16},
+{packId:52,formId:7,enemies:"Dueller, Fortis",chance:5,chanceOutOf:16}
+]},
+{areaTitle:"Passage to Gold Dragon's room",formations:[
+{packId:27,formId:4,enemies:"Vectagoyle, Vectagoyle",chance:10,chanceOutOf:16},
+{packId:36,formId:2,enemies:"Brontaur, Brontaur",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Gold Dragon's room",formations:[
+{packId:26,formId:6,enemies:"Veteran, Veteran, Veteran",chance:10,chanceOutOf:16},
+{packId:25,formId:4,enemies:"Didalos, Veteran",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Imperial corner-room",formations:[
+{packId:54,formId:4,enemies:"Outsider, Outsider, Madam",chance:5,chanceOutOf:16},
+{packId:54,formId:3,enemies:"Hemophyte, Retainer",chance:5,chanceOutOf:16},
+{packId:54,formId:2,enemies:"Retainer, Retainer, Dark Force",chance:5,chanceOutOf:16},
+{packId:54,formId:1,enemies:"Dark Force, Dark Force",chance:1,chanceOutOf:16}
+]}
+]},
+{sectionTitle:"Kefka's Tower, Party #3",areas:[
+{areaTitle:"Surface",formations:[
+{packId:42,formId:1,enemies:"GtBehemoth, Evil Oscar, Vectaur",chance:6,chanceOutOf:16},
+{packId:34,formId:7,enemies:"Vectaur, Vectaur, Vectaur, Vectaur",chance:5,chanceOutOf:16},
+{packId:35,formId:0,enemies:"Brontaur, Evil Oscar",chance:5,chanceOutOf:16}
+]},
+{areaTitle:"Double passage right side",formations:[
+{packId:36,formId:2,enemies:"Brontaur, Brontaur",chance:6,chanceOutOf:16},
+{packId:38,formId:3,enemies:"GtBehemoth, Vectaur, Vectaur",chance:5,chanceOutOf:16},
+{packId:42,formId:2,enemies:"Evil Oscar, Evil Oscar, Evil Oscar",chance:5,chanceOutOf:16}
+]},
+{areaTitle:"Magitek Facility catwalk (Nutkin Suit, Gauntlet)",formations:[
+{packId:50,formId:7,enemies:"Scullion",chance:6,chanceOutOf:16},
+{packId:0,formId:3,enemies:"Prometheus",chance:5,chanceOutOf:16},
+{packId:51,formId:0,enemies:"Innoc, Innoc, Innoc",chance:5,chanceOutOf:16}
+]},
+{areaTitle:"Caves",formations:[
+{packId:36,formId:2,enemies:"Brontaur, Brontaur",chance:6,chanceOutOf:16},
+{packId:38,formId:3,enemies:"GtBehemoth, Vectaur, Vectaur",chance:5,chanceOutOf:16},
+{packId:42,formId:2,enemies:"Evil Oscar, Evil Oscar, Evil Oscar",chance:5,chanceOutOf:16}
+//{packId:38,formId:3,enemies:"GtBehemoth, Vectaur, Vectaur",chance:10,chanceOutOf:16},
+//{packId:42,formId:1,enemies:"GtBehemoth, Evil Oscar, Vectaur",chance:6,chanceOutOf:16} // ???
+]},
+{areaTitle:"Imperial Magitek Facility rooms",formations:[
+{packId:50,formId:4,enemies:"Fortis, Fortis",chance:10,chanceOutOf:16},
+{packId:50,formId:6,enemies:"Dueller, Dueller, Sky Base",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Double passage left side / Passage to Skull Drgn",formations:[
+{packId:29,formId:3,enemies:"Land Worm",chance:1,chanceOutOf:1}
+]},
+{areaTitle:"Skull Drgn's room / Imperial corner-room",formations:[
+{packId:54,formId:4,enemies:"Outsider, Outsider, Madam",chance:5,chanceOutOf:16},
+{packId:54,formId:3,enemies:"Hemophyte, Retainer",chance:5,chanceOutOf:16},
+{packId:54,formId:2,enemies:"Retainer, Retainer, Dark Force",chance:5,chanceOutOf:16},
+{packId:54,formId:1,enemies:"Dark Force, Dark Force",chance:1,chanceOutOf:16}
+]}
+]},
+{sectionTitle:"Kefka's Tower, Endgame",areas:[
+{areaTitle:"Three-button room",formations:[
 {packId:50,formId:7,enemies:"Scullion",chance:10,chanceOutOf:16},
 {packId:51,formId:0,enemies:"Innoc, Innoc, Innoc",chance:6,chanceOutOf:16}
 ]},
-{areaTitle:"Kefka's Tower (Goddess room",formations:[
+{areaTitle:"Guardian's room",formations:[
+{packId:26,formId:5,enemies:"Madam, Veteran, Veteran",chance:10,chanceOutOf:16},
+{packId:54,formId:7,enemies:"Didalos, Didalos",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Passage to Poltrgeist",formations:[
+{packId:42,formId:1,enemies:"GtBehemoth, Evil Oscar, Vectaur",chance:6,chanceOutOf:16},
+{packId:35,formId:0,enemies:"Brontaur, Evil Oscar",chance:5,chanceOutOf:16},
+{packId:34,formId:7,enemies:"Vectaur, Vectaur, Vectaur, Vectaur",chance:5,chanceOutOf:16}
+]},
+{areaTitle:"Doom's room",formations:[
+{packId:50,formId:7,enemies:"Scullion",chance:10,chanceOutOf:16},
+{packId:51,formId:0,enemies:"Innoc, Innoc, Innoc",chance:6,chanceOutOf:16}
+]},
+{areaTitle:"Goddess's room",formations:[
 {packId:54,formId:4,enemies:"Outsider, Outsider, Madam",chance:5,chanceOutOf:16},
 {packId:54,formId:3,enemies:"Hemophyte, Retainer",chance:5,chanceOutOf:16},
 {packId:54,formId:2,enemies:"Retainer, Retainer, Dark Force",chance:5,chanceOutOf:16},
