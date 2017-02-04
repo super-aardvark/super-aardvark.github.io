@@ -780,6 +780,9 @@ walkthroughDataWOR = [
 {packId:32,formId:7,enemies:"Kiwok, Ceritops",chance:5,chanceOutOf:16},
 {packId:32,formId:5,enemies:"Pug",chance:1,chanceOutOf:16}
 ]},
+{areaTitle:"Monster-in-a-Box",formations:[
+{packId:30,formId:3,enemies:"Pugs, Pugs, Pugs",chance:1,chanceOutOf:1}
+]},
 {areaTitle:"Umaro's room",formations:[
 {packId:33,formId:3,enemies:"Anemone, Anemone, Anemone, Anemone",chance:5,chanceOutOf:16},
 {packId:33,formId:4,enemies:"Ceritops, Tomb Thumb, Tomb Thumb",chance:5,chanceOutOf:16},
