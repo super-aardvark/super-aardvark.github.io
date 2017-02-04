@@ -791,10 +791,14 @@ walkthroughDataWOR = [
 ]}
 ]},
 {sectionTitle:"Cave of the Veldt",areas:[
-{areaTitle:"Monster formations",formations:[
+{areaTitle:"Random Encounters",formations:[
 {packId:34,formId:4,enemies:"Toe Cutter",chance:10,chanceOutOf:16},
 {packId:34,formId:5,enemies:"Toe Cutter, Toe Cutter",chance:5,chanceOutOf:16},
 {packId:34,formId:6,enemies:"Rhyos",chance:1,chanceOutOf:16}
+]},
+{areaTitle:"Boss Battle",formations:[
+{packId:54,formId:0,enemies:"SrBehemoth",chance:1,chanceOutOf:1},
+{packId:57,formId:4,enemies:"SrBehemoth",chance:1,chanceOutOf:1}
 ]}
 ]},
 {sectionTitle:"Owzer's Mansion",areas:[
@@ -908,6 +912,9 @@ walkthroughDataWOR = [
 ]},
 {areaTitle:"Air Anchor room",formations:[
 {packId:45,formId:3,enemies:"Magic Urn, Magic Urn",chance:1,chanceOutOf:1}
+]},
+{areaTitle:"White Dragon",formations:[
+{packId:61,formId:1,enemies:"White Drgn",chance:1,chanceOutOf:1}
 ]},
 {areaTitle:"Bottom tier",formations:[
 {packId:65,formId:7,enemies:"L.10 Magic, L.20 Magic",chance:5,chanceOutOf:16},
