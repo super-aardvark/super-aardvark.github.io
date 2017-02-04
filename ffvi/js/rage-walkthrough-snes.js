@@ -429,6 +429,13 @@ walkthroughDataWOB = [
 {packId: 19, formId: 7, enemies: "Zombone, Ing, Ing", chance: 5, chanceOutOf: 16}]
 }
 ]},
+{sectionTitle: "Imperial Banquet", areas:[
+{areaTitle: "Exhibition Matches",formations:[
+{packId: 53, formId: 2, enemies: "Commando"},
+{packId: 66, formId: 2, enemies: "Mega Armor"},
+{packId: 20, formId: 5, enemies: "Sp Forces, Sp Forces, Sp Forces"}
+]}
+]},
 {sectionTitle: "Thamasa", areas:[
 {areaTitle: "Burning House: Wandering Flame",
  formations:
@@ -778,10 +785,8 @@ walkthroughDataWOR = [
 {packId:32,formId:6,enemies:"Poppers, Poppers, Poppers, Poppers",chance:5,chanceOutOf:16},
 {packId:33,formId:0,enemies:"Kiwok, Poppers, Poppers, Poppers",chance:5,chanceOutOf:16},
 {packId:32,formId:7,enemies:"Kiwok, Ceritops",chance:5,chanceOutOf:16},
-{packId:32,formId:5,enemies:"Pug",chance:1,chanceOutOf:16}
-]},
-{areaTitle:"Monster-in-a-Box",formations:[
-{packId:30,formId:3,enemies:"Pugs, Pugs, Pugs",chance:1,chanceOutOf:1}
+{packId:32,formId:5,enemies:"Pug",chance:1,chanceOutOf:16},
+{packId:30,formId:3,enemies:"Pugs, Pugs, Pugs"}
 ]},
 {areaTitle:"Umaro's room",formations:[
 {packId:33,formId:3,enemies:"Anemone, Anemone, Anemone, Anemone",chance:5,chanceOutOf:16},
@@ -790,23 +795,21 @@ walkthroughDataWOR = [
 {packId:33,formId:1,enemies:"Ceritops, Ceritops, Ceritops",chance:1,chanceOutOf:16}
 ]}
 ]},
-{sectionTitle:"Cave of the Veldt",areas:[
-{areaTitle:"Random Encounters",formations:[
+{sectionTitle:"The Veldt",areas:[
+{areaTitle:"Cave of the Veldt",formations:[
 {packId:34,formId:4,enemies:"Toe Cutter",chance:10,chanceOutOf:16},
 {packId:34,formId:5,enemies:"Toe Cutter, Toe Cutter",chance:5,chanceOutOf:16},
-{packId:34,formId:6,enemies:"Rhyos",chance:1,chanceOutOf:16}
-]},
-{areaTitle:"Boss Battle",formations:[
-{packId:54,formId:0,enemies:"SrBehemoth",chance:1,chanceOutOf:1},
-{packId:57,formId:4,enemies:"SrBehemoth",chance:1,chanceOutOf:1}
+{packId:34,formId:6,enemies:"Rhyos",chance:1,chanceOutOf:16},
+{packId:54,formId:0,enemies:"SrBehemoth"},
+{packId:57,formId:4,enemies:"SrBehemoth"}
 ]}
 ]},
 {sectionTitle:"Owzer's Mansion",areas:[
 {areaTitle:"Paintings and Chests",formations:[
-{packId:37,formId:1,enemies:"NightShade, NightShade, NightShade",chance:1,chanceOutOf:1},
-{packId:37,formId:0,enemies:"Dahling, Dahling",chance:1,chanceOutOf:1},
-{packId:37,formId:2,enemies:"StillLife",chance:1,chanceOutOf:1},
-{packId:36,formId:7,enemies:"SoulDancer, Wild Cat, Wild Cat, Wild Cat, Wild Cat",chance:1,chanceOutOf:1}
+{packId:37,formId:1,enemies:"NightShade, NightShade, NightShade"},
+{packId:37,formId:0,enemies:"Dahling, Dahling"},
+{packId:37,formId:2,enemies:"StillLife"},
+{packId:36,formId:7,enemies:"SoulDancer, Wild Cat, Wild Cat, Wild Cat, Wild Cat"}
 ]},
 {areaTitle:"Random Encounters",formations:[
 {packId:36,formId:4,enemies:"SoulDancer, SoulDancer, Crusher, Crusher",chance:6,chanceOutOf:16},
@@ -908,13 +911,11 @@ walkthroughDataWOR = [
 {areaTitle:"Interior rooms",formations:[
 {packId:0,formId:5,enemies:"L.90 Magic",chance:5,chanceOutOf:16},
 {packId:65,formId:4,enemies:"L.50 Magic",chance:5,chanceOutOf:16},
-{packId:45,formId:3,enemies:"Magic Urn, Magic Urn",chance:6,chanceOutOf:16}
+{packId:45,formId:3,enemies:"Magic Urn, Magic Urn",chance:6,chanceOutOf:16},
+{packId:61,formId:1,enemies:"White Drgn"}
 ]},
 {areaTitle:"Air Anchor room",formations:[
 {packId:45,formId:3,enemies:"Magic Urn, Magic Urn",chance:1,chanceOutOf:1}
-]},
-{areaTitle:"White Dragon",formations:[
-{packId:61,formId:1,enemies:"White Drgn",chance:1,chanceOutOf:1}
 ]},
 {areaTitle:"Bottom tier",formations:[
 {packId:65,formId:7,enemies:"L.10 Magic, L.20 Magic",chance:5,chanceOutOf:16},

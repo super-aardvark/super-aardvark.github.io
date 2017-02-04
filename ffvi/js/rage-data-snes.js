@@ -497,7 +497,7 @@ veldtPacks = [
 [],
 [],
 [],
-["SrBehemoth*"],
+["SrBehemoth"],
 [],
 []],
 
@@ -534,7 +534,7 @@ veldtPacks = [
  
 [["L.30 Magic, L.30 Magic, L.30 Magic"],
  ["L.40 Magic, L.20 Magic, L.20 Magic"],
- [],
+ ["Mega Armor"],
  [],
  [],
  [],
