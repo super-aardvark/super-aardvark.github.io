@@ -568,7 +568,8 @@ walkthroughDataWOR = [
 ]},
 {areaTitle:"Tzen - The Collapsing House",formations:[
 {packId:27,formId:1,enemies:"Scorpion, Scorpion, Scorpion",chance:10,chanceOutOf:16},
-{packId:26,formId:7,enemies:"HermitCrab, HermitCrab, Pm Stalker",chance:6,chanceOutOf:16}
+{packId:26,formId:7,enemies:"HermitCrab, HermitCrab, Pm Stalker",chance:6,chanceOutOf:16},
+{packId:27,formId:3,enemies:"Pm Stalker, Pm Stalker, Pm Stalker, Pm Stalker"},
 ]}
 ]},
 {sectionTitle:"The Serpent Trench",areas:[

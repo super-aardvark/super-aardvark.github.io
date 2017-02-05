@@ -695,7 +695,7 @@ rageList = [
 "Sky Cap",
 "Cephaler",
 "Maliga",
-"GiganToad",
+"Gigan Toad",
 "Geckorex",
 "Cluck",
 "Land Worm",
