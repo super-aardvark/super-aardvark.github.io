@@ -734,7 +734,7 @@ rageList = [
 "Phase",
 "Outsider",
 "Barb-e",
-"ParaSoul",
+"Parasoul",
 "Pm Stalker",
 "Hemophyte",
 "Sp Forces",
