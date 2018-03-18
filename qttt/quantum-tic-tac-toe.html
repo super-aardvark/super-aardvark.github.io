@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Quantum Tic-Tac-Toe</title>
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script type="text/javascript">
+
+var QTTT = function() {
+	this.board = [[],[],[],[],[],[],[],[],[]];
+	this.marks = {};
+	this.turn = 1;
+	this.loopMarks = null;
+	this.selectedSquare = null;
+	this.winner = null;
+
+	this.getNextMark = function() {
+		return (this.turn % 2 == 0 ? "O" : "X") + this.turn;
+	};
+
+	/* 
+	 * Returns true if a cycle was created; false otherwise.
+	 */
+	this.move = function(square1, square2) {
+		if (this.loopMarks != null) {
+			alert("Must resolve loop before making a move.");
+			return null;
+		}
+		if (this.winner != null) {
+			alert("The game is over.");
+			return null;
+		}
+		var pos1 = this.board[square1];
+		var pos2 = this.board[square2];
+		if (typeof pos1 == "object" && typeof pos2 == "object") {
+			var mark = this.getNextMark();
+			this.turn += 1;
+			pos1.push(mark);
+			pos2.push(mark);
+			this.marks[mark] = [square1, square2];
+			var cycle = this.checkCycle(square1, square2, mark);
+			this.loopMarks = cycle;
+			this.drawCycle();
+			return cycle != null;
+		}
+		return false;
+	};
+
+	/*
+	 * square: the next square to check (must contain lastMark)
+	 * initialSquare: the first square in the chain
+	 * lastMark: the mark that was followed to reach square
+	 * 
+	 * Returns: the list of marks in the cycle, or null
+	 */
+	this.checkCycle = function(square, initialSquare, lastMark) {
+		console.log('checkCycle ' + square + ' ' + initialSquare + ' ' + lastMark);
+		if (square == initialSquare) {
+			return [lastMark];
+		}
+		var marksInSquare = this.board[square];
+		if (marksInSquare.length <= 1) return null;
+		var marksToCheck = [];
+		var numChainMarks = 0;
+		for (var i = 0; i < marksInSquare.length; i++) {
+			var mark = marksInSquare[i];
+			if (mark != lastMark) {
+				marksToCheck.push(mark);
+			}
+		}
+		for (var i = 0; i < marksToCheck.length; i++) {
+			var mark = marksToCheck[i];
+			var markSquares = this.marks[mark];
+			var nextSquare = markSquares[0] == square ? markSquares[1] : markSquares[0];
+			var result = this.checkCycle(nextSquare, initialSquare, mark);
+			if (result != null) {
+				result.push(lastMark);
+				return result;
+			}
+		}
+		return null;
+	};
+
+	/*
+	 * Return: 'X' or 'O' for winner; 'C' for draw; null if game is not over
+	 *
+	 */
+	this.checkWinner = function() {
+		var bestRowX = null;
+		var bestRowO = null;
+		// rows
+		var undecidedSquares = 0;
+		for (var row = 0; row < 3; row++) {
+			var maxIndex = 0;
+			var winner = null;
+			var hasWinner = true;
+			for (var col = 0; col < 3; col++) {
+				var square = col*3 + row;
+				if (typeof this.board[square] == 'object') {
+					hasWinner = false;
+					undecidedSquares += 1;
+				} else {
+					var thisMark = this.board[square][0];
+					var thisIndex = parseInt(this.board[square].substring(1));
+					if (thisIndex > maxIndex) maxIndex = thisIndex;
+					if (winner == null) {
+						winner = thisMark;
+					} else if (winner != thisMark) {
+						hasWinner = false;
+					}
+				}
+			}
+			if (hasWinner) {
+				if (winner == 'X') {
+					if (bestRowX == null || maxIndex < bestRowX) {
+						bestRowX = maxIndex;
+					}
+				} else {
+					if (bestRowO == null || maxIndex < bestRowO) {
+						bestRowO = maxIndex;
+					}
+				}
+			}
+		}
+
+		// columns
+		for (var col = 0; col < 3; col++) {
+			var maxIndex = 0;
+			var winner = null;
+			var hasWinner = true;
+			for (var row = 0; row < 3; row++) {
+				var square = col*3 + row;
+				if (typeof this.board[square] == 'object') {
+					hasWinner = false;
+					break;
+				} else {
+					var thisMark = this.board[square][0];
+					var thisIndex = parseInt(this.board[square].substring(1));
+					if (thisIndex > maxIndex) maxIndex = thisIndex;
+					if (winner == null) {
+						winner = thisMark;
+					} else if (winner != thisMark) {
+						hasWinner = false;
+						break;
+					}
+				}
+			}
+			if (hasWinner) {
+				if (winner == 'X') {
+					if (bestRowX == null || maxIndex < bestRowX) {
+						bestRowX = maxIndex;
+					}
+				} else {
+					if (bestRowO == null || maxIndex < bestRowO) {
+						bestRowO = maxIndex;
+					}
+				}
+			}
+		}
+
+		// diagonals
+		var maxIndex = 0;
+		var winner = null;
+		var hasWinner = true;
+		for (var square = 0; square < 9; square += 4) {
+			if (typeof this.board[square] == 'object') {
+				hasWinner = false;
+				break;
+			} else {
+				var thisMark = this.board[square][0];
+				var thisIndex = parseInt(this.board[square].substring(1));
+				if (thisIndex > maxIndex) maxIndex = thisIndex;
+				if (winner == null) {
+					winner = thisMark;
+				} else if (winner != thisMark) {
+					hasWinner = false;
+					break;
+				}
+			}
+		}
+		if (hasWinner) {
+			if (winner == 'X') {
+				if (bestRowX == null || maxIndex < bestRowX) {
+					bestRowX = maxIndex;
+				}
+			} else {
+				if (bestRowO == null || maxIndex < bestRowO) {
+					bestRowO = maxIndex;
+				}
+			}
+		}
+
+		maxIndex = 0;
+		winner = null;
+		hasWinner = true;
+		for (var square = 2; square < 8; square += 2) {
+			if (typeof this.board[square] == 'object') {
+				hasWinner = false;
+				break;
+			} else {
+				var thisMark = this.board[square][0];
+				var thisIndex = parseInt(this.board[square].substring(1));
+				if (thisIndex > maxIndex) maxIndex = thisIndex;
+				if (winner == null) {
+					winner = thisMark;
+				} else if (winner != thisMark) {
+					hasWinner = false;
+					break;
+				}
+			}
+		}
+		if (hasWinner) {
+			if (winner == 'X') {
+				if (bestRowX == null || maxIndex < bestRowX) {
+					bestRowX = maxIndex;
+				}
+			} else {
+				if (bestRowO == null || maxIndex < bestRowO) {
+					bestRowO = maxIndex;
+				}
+			}
+		}
+
+		if (bestRowO != null) {
+			if (bestRowX != null) {
+				if (bestRowO < bestRowX) {
+					return 'O';
+				} else {
+					return 'X';
+				}
+			} else {
+				return 'O';
+			}
+		} else if (bestRowX != null) {
+			return 'X';
+		} else if (undecidedSquares <= 1) {
+			return 'C';
+		} else {
+			return null;
+		}
+	};
+
+	this.resolve = function(square, mark, ignoreMark) {
+		if (mark == ignoreMark) return;
+		if (this.loopMarks == null) {
+			console.log("No loop to resolve.");
+			return;
+		}
+		if (ignoreMark == null && !this.loopMarks.includes(mark)) {
+			console.log("Mark " + mark + " not in loop.");
+			return;
+		}
+		if (typeof this.board[square] != "object") {
+			console.log("Square " + square + " has already been resolved: " + this.board[square]);
+		}
+		if (this.board[square].indexOf(mark) == -1) {
+			console.log(mark + " is not a valid mark for square " + square);
+			return;
+		}
+		console.log("Resolving square " + square + " with mark " + mark + "...");
+		var otherSquaresToResolve = [];
+		var otherMarks = this.board[square];
+		otherMarks.splice(otherMarks.indexOf(mark), 1);
+		for (var i = 0; i < otherMarks.length; i++) {
+			var otherMark = otherMarks[i];
+			var pair = this.marks[otherMark];
+			var otherSquare;
+			if (pair[0] == square) otherSquare = pair[1];
+			else if (pair[1] == square) otherSquare = pair[0];
+			else {
+				console.log("Error -- marks[" + mark + "] == " + pair + " -- expected " + square);
+				return;
+			}
+			this.resolve(otherSquare, otherMark, ignoreMark == null ? mark : ignoreMark);
+		}
+		this.board[square] = mark;
+		this.marks[mark] = null;
+		if (ignoreMark == null) {
+			this.loopMarks = null;
+		}
+	};
+
+	this.draw = function(container) {
+		this.winner = this.checkWinner();
+		if (typeof this.board[this.selectedSquare] != 'object') {
+			this.selectedSquare = null;
+		}
+		for (var square = 0; square < this.board.length; square++) {
+			var squareDiv = $('#square-' + square);
+			var isCycle = false;
+			if (typeof this.board[square] == "object") {
+				var text = '';
+				for (var j = 0; j < this.board[square].length; j++) {
+					var mark = this.board[square][j];
+					if (this.loopMarks != null && this.loopMarks.includes(mark)) {
+						isCycle = true;
+						text += '<span class="loop">' + mark + '</span> ';
+					} else {
+						text += mark + ' ';
+					}
+				}
+				squareDiv.html(text);
+			} else {
+				squareDiv.addClass("resolved").text(this.board[square]);
+			}
+			if (isCycle) {
+				squareDiv.addClass("loop");
+			} else {
+				squareDiv.removeClass("loop");
+			}
+			if (square == this.selectedSquare) {
+				squareDiv.addClass("selected");
+			} else {
+				squareDiv.removeClass("selected");
+			}
+		}
+		var playerNum = ((this.turn - 1) % 2) + 1;
+		var winner = this.checkWinner();
+		if (winner != null) {
+			if (winner == 'X') $('#message').text('Player 1 wins!  Reload the page to play again.');
+			else if (winner == 'O') $('#message').text('Player 2 wins!  Reload the page to play again.');
+			else $('#message').text('The game ended in a draw.  Reload the page to play again.');
+		} else if (this.loopMarks != null) {
+			$('#message').text('Loop detected!  Player ' + playerNum + ': In a highlighted square, click a mark to place that mark in that square.');
+		} else {
+			if (this.selectedSquare == null) {
+				$('#message').text('Player ' + playerNum + ': Click two squares to place ' + this.getNextMark());
+			} else {
+				$('#message').text('Player ' + playerNum + ': Click a second square to place ' + this.getNextMark());
+			}
+		}
+	};
+
+	this.drawCycle = function() {
+		// Unused
+	};
+
+	this.hasCycle = function() {
+		return this.loopMarks != null;
+	}
+
+	this.select = function(square) {
+		if (this.hasCycle()) return null;
+		if (typeof this.board[square] != 'object') {
+//			alert("That square has already been resolved.");
+			return null;
+		}
+		var result = null;
+		if (this.selectedSquare == null) {
+			this.selectedSquare = square;
+		} else if (this.selectedSquare == square) {
+			this.selectedSquare = null;
+		} else {
+			result = this.move(square, this.selectedSquare);
+			this.selectedSquare = null;
+		}
+		return result;
+	}
+
+};
+
+game = new QTTT();
+$(document).ready(function() {
+	$('div').click(function() {
+		var square = $(this).data('square');
+		console.log("clicked on square " + square);
+		var cycle = game.select(square);
+		game.draw();
+		$('span.loop').click(function() {
+			var mark = $(this).text();
+			var square = $(this).parent().data('square');
+			game.resolve(square, mark);
+			game.draw();
+		});
+	});
+	game.draw();
+});
+	</script>
+	<style type="text/css">
+	td div {
+		min-width: 50px;
+		min-height: 50px;
+		width: 50px;
+		height: 50px;
+		border-style: solid;
+		border-width: 0;
+	}
+	div.resolved {
+	    font-size: xx-large;
+	    text-align: center;
+   	}
+	div.loop {
+		background-color: pink;
+	}
+	span.loop {
+		font-weight: bold;
+		cursor: pointer;
+	}
+	div.upper-left {
+		border-width: 0px 1px 1px 0px;
+	}
+	div.upper-right {
+		border-width: 0px 0px 1px 1px;
+	}
+	div.center {
+		border-width: 1px 1px 1px 1px;
+	}
+	div.lower-left {
+		border-width: 1px 1px 0px 0px;
+	}
+	div.lower-right {
+		border-width: 1px 0px 0px 1px;
+	}
+	div.selected {
+		border-width: 2px;
+		border-color: green;
+	}
+	</style>
+</head>
+<body>
+	<div id="message"></div>
+	<br/>
+	<table cellspacing="0" cellpadding="0">
+		<tr><td><div id="square-0" data-square="0" class="upper-left"></div></td>
+			<td><div id="square-1" data-square="1"></div></td>
+			<td><div id="square-2" data-square="2" class="upper-right"></div></td>
+		</tr>
+		<tr><td><div id="square-3" data-square="3"></div></td>
+			<td><div id="square-4" data-square="4" class="center"></div></td>
+			<td><div id="square-5" data-square="5"></div></td>
+		</tr>
+		<tr><td><div id="square-6" data-square="6" class="lower-left"></div></td>
+			<td><div id="square-7" data-square="7"></div></td>
+			<td><div id="square-8" data-square="8" class="lower-right"></div></td>
+		</tr>
+	</table>
+</body>
+</html>
