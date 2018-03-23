@@ -5,13 +5,15 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<script type="text/javascript">
 
-var QTTT = function() {
+var QTTT = function(computerPlayer, moveFunction) {
 	this.board = [[],[],[],[],[],[],[],[],[]];
 	this.marks = {};
 	this.turn = 1;
 	this.loopMarks = null;
 	this.selectedSquare = null;
 	this.winner = null;
+	this.computerPlayer = computerPlayer;
+	this.computerMoveFunction = moveFunction;
 
 	this.getNextMark = function() {
 		return (this.turn % 2 == 0 ? "O" : "X") + this.turn;
@@ -281,6 +283,16 @@ var QTTT = function() {
 
 	this.draw = function(container) {
 		this.winner = this.checkWinner();
+		if (this.winner == null) {
+			if (this.computerPlayer != null && this.turn%2 == this.computerPlayer) {
+				if (typeof this.computerMoveFunction == "function") {
+					this.computerMoveFunction(this);
+				} else {
+					this.moveRandom();
+				}
+				this.winner = this.checkWinner();
+			}
+		}
 		if (typeof this.board[this.selectedSquare] != 'object') {
 			this.selectedSquare = null;
 		}
@@ -299,6 +311,7 @@ var QTTT = function() {
 					}
 				}
 				squareDiv.html(text);
+				squareDiv.removeClass("resolved");
 			} else {
 				squareDiv.addClass("resolved").text(this.board[square]);
 			}
@@ -356,11 +369,57 @@ var QTTT = function() {
 		return result;
 	}
 
+	this.moveRandom = function() {
+		var move = [null, null];
+		if (this.hasCycle()) {
+			// Resolve
+			var markToChoose = this.loopMarks[Math.floor(Math.random()*this.loopMarks.length)];
+			var squareToResolve = this.marks[markToChoose][Math.floor(Math.random()*2)];
+			this.resolve(squareToResolve, markToChoose);
+		}
+		this.winner = this.checkWinner();
+		if (this.winner != null) {
+			return move;
+		}
+		var validSquares = [];
+		for (var i = 0; i < this.board.length; i++) {
+			if (typeof this.board[i] == "object") {
+				validSquares.push(i);
+			}
+		}
+		var idx = Math.floor(Math.random()*validSquares.length);
+		move[0] = validSquares[idx];
+		validSquares.splice(idx, 1);
+		idx = Math.floor(Math.random()*validSquares.length);
+		move[1] = validSquares[idx];
+		this.move(move[0], move[1]);
+		return move;
+	}
+
 };
 
-game = new QTTT();
+games = [];
+currentGameNum = 0;
+for (var i = 0; i < 6; i++) {
+	games.push(new QTTT(i%2));
+}
+function getCurrentGame() {
+	return games[currentGameNum];
+}
+function setCurrentGameNum(num) {
+	currentGameNum = num;
+	getCurrentGame().draw();
+	$('span.loop').click(function() {
+		var mark = $(this).text();
+		var square = $(this).parent().data('square');
+		game.resolve(square, mark);
+		game.draw();
+	});
+}
+
 $(document).ready(function() {
 	$('div').click(function() {
+		var game = getCurrentGame();
 		var square = $(this).data('square');
 		console.log("clicked on square " + square);
 		var cycle = game.select(square);
@@ -372,7 +431,7 @@ $(document).ready(function() {
 			game.draw();
 		});
 	});
-	game.draw();
+	setCurrentGameNum(0);
 });
 	</script>
 	<style type="text/css">
