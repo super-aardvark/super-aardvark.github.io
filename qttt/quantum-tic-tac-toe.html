@@ -288,7 +288,7 @@ var QTTT = function(computerPlayer, moveFunction) {
 	this.draw = function(container) {
 		this.winner = this.checkWinner();
 		if (this.winner == null) {
-			if (this.computerPlayer != null && this.turn%2 == this.computerPlayer) {
+			if (this.computerPlayer != null && this.getPlayerMark() == this.computerPlayer) {
 				if (typeof this.computerMoveFunction == "function") {
 					this.computerMoveFunction(this);
 				} else {
@@ -437,6 +437,14 @@ $(document).ready(function() {
 			game.draw();
 		});
 	});
+	$('#playAgainButton').click(function() {
+		games[currentGameNum] = new QTTT($('input[name="aiChoice"]:checked').val());
+		games[currentGameNum].draw();
+	});
+	$('input[name="aiChoice"]').change(function() {
+		getCurrentGame().computerPlayer = this.value;
+		getCurrentGame().draw();
+	});
 	setCurrentGameNum(0);
 });
 	</script>
@@ -497,6 +505,11 @@ $(document).ready(function() {
 			<td><div id="square-7" data-square="7"></div></td>
 			<td><div id="square-8" data-square="8" class="lower-right"></div></td>
 		</tr>
-	</table>
+	</table><br/>
+	<button id="playAgainButton">Play Again</button><br/>
+	AI Player:<br/>
+	<input type="radio" name="aiChoice" value="none" checked="checked"/> None<br/>
+	<input type="radio" name="aiChoice" value="X"/> X<br/>
+	<input type="radio" name="aiChoice" value="O"/> O<br/>
 </body>
 </html>
