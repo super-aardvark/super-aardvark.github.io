@@ -2,7 +2,7 @@
 <head>
 <script type="text/javascript" src="weather.js">
 </script>
-<script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <!-- <script type="text/javascript" src="file:///C:/dev/jquery/jquery-2.1.4.js"> -->
 </script>
 <script type="text/javascript">
@@ -60,7 +60,7 @@ function populateWeather() {
    var weathers = WeatherFinder.weatherLists[$("#zoneSelect").val()];
    var selects = $("#weatherSelect").add("#previousWeatherSelect");
    selects.empty();
-   selects.append('<option value="">Any</option>');
+   selects.append('<option value="" selected="selected">Any</option>');
    for (var w in weathers) {
       selects.append('<option value="' + weathers[w] + '">' + weathers[w] + '</option>');
    }
@@ -110,6 +110,7 @@ function populateWeather() {
 <option value="Yanxia">Yanxia</option>
 <option value="The Azim Steppe">The Azim Steppe</option>
 <option value="Kugane">Kugane</option>
+<option value="Eureka">Eureka</option>
 </select></td></tr>
 <tr><td>Desired Weather: </td><td><select id="weatherSelect" multiple="true" size="7"><option value="">Any</option></select></td></tr>
 <tr><td>Transition From: </td><td><select id="previousWeatherSelect" multiple="true" size="7"><option value="">Any</option></select><br/></td></tr>
