@@ -16,8 +16,12 @@ var QTTT = function(computerPlayer, moveFunction) {
 	this.computerMoveFunction = moveFunction;
 
 	this.getNextMark = function() {
-		return (this.turn % 2 == 0 ? "O" : "X") + this.turn;
+		return this.getPlayerMark() + this.turn;
 	};
+
+	this.getPlayerMark = function() {
+		return this.turn % 2 == 0 ? "O" : "X";
+	}
 
 	/* 
 	 * Returns true if a cycle was created; false otherwise.
@@ -326,19 +330,21 @@ var QTTT = function(computerPlayer, moveFunction) {
 				squareDiv.removeClass("selected");
 			}
 		}
-		var playerNum = ((this.turn - 1) % 2) + 1;
+		var player = this.getPlayerMark();
 		var winner = this.checkWinner();
 		if (winner != null) {
-			if (winner == 'X') $('#message').text('Player 1 wins!  Reload the page to play again.');
-			else if (winner == 'O') $('#message').text('Player 2 wins!  Reload the page to play again.');
-			else $('#message').text('The game ended in a draw.  Reload the page to play again.');
+			if (winner == 'C') {
+				$('#message').text('The game ended in a draw.  Reload the page to play again.');
+			} else {
+				$('#message').text('Player ' + winner + ' wins!');
+			}
 		} else if (this.loopMarks != null) {
-			$('#message').text('Loop detected!  Player ' + playerNum + ': In a highlighted square, click a mark to place that mark in that square.');
+			$('#message').text('Quantum Loop Detected!  Player ' + player + ': Click any highlighted mark to resolve that square and close the Loop!');
 		} else {
 			if (this.selectedSquare == null) {
-				$('#message').text('Player ' + playerNum + ': Click two squares to place ' + this.getNextMark());
+				$('#message').text('Player ' + player + ': Click a square to place one possible location for ' + this.getNextMark());
 			} else {
-				$('#message').text('Player ' + playerNum + ': Click a second square to place ' + this.getNextMark());
+				$('#message').text('Player ' + player + ': Click a different square to place the other possible for ' + this.getNextMark());
 			}
 		}
 	};
