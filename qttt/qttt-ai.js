@@ -118,7 +118,7 @@ function orderingScore(move) {
 		score = 10;
 	}
 	if (move.newState.hasCycle()) {
-		score += 5;
+		score += 50;
 	}
 	return score;
 }
