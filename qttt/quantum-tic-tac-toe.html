@@ -3,6 +3,7 @@
 <head>
 	<title>Quantum Tic-Tac-Toe</title>
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script src="qttt-ai.js"></script>
 	<script type="text/javascript">
 
 var QTTT = function(computerPlayer, moveFunction) {
@@ -59,7 +60,7 @@ var QTTT = function(computerPlayer, moveFunction) {
 	 * Returns: the list of marks in the cycle, or null
 	 */
 	this.checkCycle = function(square, initialSquare, lastMark) {
-		console.log('checkCycle ' + square + ' ' + initialSquare + ' ' + lastMark);
+		//console.log('checkCycle ' + square + ' ' + initialSquare + ' ' + lastMark);
 		if (square == initialSquare) {
 			return [lastMark];
 		}
@@ -229,17 +230,17 @@ var QTTT = function(computerPlayer, moveFunction) {
 		if (bestRowO != null) {
 			if (bestRowX != null) {
 				if (bestRowO < bestRowX) {
-					return 'O';
+					return -.5;
 				} else {
-					return 'X';
+					return .5;
 				}
 			} else {
-				return 'O';
+				return -1;
 			}
 		} else if (bestRowX != null) {
-			return 'X';
+			return 1;
 		} else if (undecidedSquares <= 1) {
-			return 'C';
+			return 0;
 		} else {
 			return null;
 		}
@@ -262,7 +263,7 @@ var QTTT = function(computerPlayer, moveFunction) {
 			console.log(mark + " is not a valid mark for square " + square);
 			return;
 		}
-		console.log("Resolving square " + square + " with mark " + mark + "...");
+		//console.log("Resolving square " + square + " with mark " + mark + "...");
 		var otherSquaresToResolve = [];
 		var otherMarks = this.board[square];
 		otherMarks.splice(otherMarks.indexOf(mark), 1);
@@ -283,10 +284,10 @@ var QTTT = function(computerPlayer, moveFunction) {
 		if (ignoreMark == null) {
 			this.loopMarks = null;
 		}
+		this.winner = this.checkWinner();
 	};
 
 	this.draw = function(container) {
-		this.winner = this.checkWinner();
 		if (this.winner == null) {
 			if (this.computerPlayer != null && this.getPlayerMark() == this.computerPlayer) {
 				if (typeof this.computerMoveFunction == "function") {
@@ -294,7 +295,7 @@ var QTTT = function(computerPlayer, moveFunction) {
 				} else {
 					this.moveRandom();
 				}
-				this.winner = this.checkWinner();
+				//this.winner = this.checkWinner();
 			}
 		}
 		if (typeof this.board[this.selectedSquare] != 'object') {
@@ -331,12 +332,12 @@ var QTTT = function(computerPlayer, moveFunction) {
 			}
 		}
 		var player = this.getPlayerMark();
-		var winner = this.checkWinner();
-		if (winner != null) {
-			if (winner == 'C') {
+		var score = this.winner;
+		if (score != null) {
+			if (score == 0) {
 				$('#message').text('The game ended in a draw.  Reload the page to play again.');
 			} else {
-				$('#message').text('Player ' + winner + ' wins!');
+				$('#message').text('Player ' + (score < 0 ? 'O' : 'X') + ' wins!');
 			}
 		} else if (this.loopMarks != null) {
 			$('#message').text('Quantum Loop Detected!  Player ' + player + ': Click any highlighted mark to resolve that square and close the Loop!');
@@ -383,7 +384,6 @@ var QTTT = function(computerPlayer, moveFunction) {
 			var squareToResolve = this.marks[markToChoose][Math.floor(Math.random()*2)];
 			this.resolve(squareToResolve, markToChoose);
 		}
-		this.winner = this.checkWinner();
 		if (this.winner != null) {
 			return move;
 		}
@@ -407,7 +407,8 @@ var QTTT = function(computerPlayer, moveFunction) {
 games = [];
 currentGameNum = 0;
 for (var i = 0; i < 6; i++) {
-	games.push(new QTTT(i%2));
+	//games.push(new QTTT(i%2));
+	games.push(new QTTT("O", dfs));
 }
 function getCurrentGame() {
 	return games[currentGameNum];
@@ -438,12 +439,23 @@ $(document).ready(function() {
 		});
 	});
 	$('#playAgainButton').click(function() {
-		games[currentGameNum] = new QTTT($('input[name="aiChoice"]:checked').val());
+		games[currentGameNum] = new QTTT(
+			$('input[name="aiChoice"]:checked').val(), 
+			$('input[name="aiDiff"]:checked').val() == "0" ? null : dfs);
 		games[currentGameNum].draw();
 	});
 	$('input[name="aiChoice"]').change(function() {
 		getCurrentGame().computerPlayer = this.value;
 		getCurrentGame().draw();
+	});
+	$('input[name="aiDiff"]').change(function() {
+		var diff = parseInt(this.value);
+		if (diff == 0) {
+			getCurrentGame().computerMoveFunction = null;
+		} else {
+			getCurrentGame().computerMoveFunction = dfs;
+			setMaxDepth(diff);
+		}
 	});
 	setCurrentGameNum(0);
 });
@@ -508,8 +520,16 @@ $(document).ready(function() {
 	</table><br/>
 	<button id="playAgainButton">Play Again</button><br/>
 	AI Player:<br/>
-	<input type="radio" name="aiChoice" value="none" checked="checked"/> None<br/>
+	<input type="radio" name="aiChoice" value="none"/> None<br/>
 	<input type="radio" name="aiChoice" value="X"/> X<br/>
-	<input type="radio" name="aiChoice" value="O"/> O<br/>
+	<input type="radio" name="aiChoice" value="O" checked="checked"/> O<br/>
+	AI Difficulty:<br/>
+	<input type="radio" name="aiDiff" value="0"/>0<br/>
+	<input type="radio" name="aiDiff" value="1"/>1<br/>
+	<input type="radio" name="aiDiff" value="2"/>2<br/>
+	<input type="radio" name="aiDiff" value="3"/>3<br/>
+	<input type="radio" name="aiDiff" value="4" checked="checked"/>4<br/>
+	<input type="radio" name="aiDiff" value="5"/>5<br/>
+	<input type="radio" name="aiDiff" value="6"/>6<br/>
 </body>
 </html>
