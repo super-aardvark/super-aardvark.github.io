@@ -1,4 +1,5 @@
 var maxDepth = 4;
+var solution = false;
 
 function setMaxDepth(d) {
 	maxDepth = d;
@@ -99,6 +100,7 @@ function evaluate(game) {
 	var result = 0;
 	if (game.winner != null) {
 		result = game.winner * 1000;
+		solution = true;
 	}
 
 	// todo: heuristic
@@ -139,18 +141,25 @@ function alphaBetaSearch(game, maxDepth) {
 	var alpha = Number.NEGATIVE_INFINITY;
 	var beta = Number.POSITIVE_INFINITY;
 	var moves = getPossibleMoves(game);
-	var bestMove = null;
+	var bestMoves = [];
+	solution = false;
 	for (var i = 0; i < moves.length; i++) {
 		var move = moves[i];
 		var moveValue = minValue(move.newState, alpha, beta, maxDepth, 1);
 		if (moveValue > v) {
 			v = moveValue;
-			bestMove = move;
+			bestMoves = [move];
+		} else if (moveValue == v) {
+			bestMoves.push(move);
 		}
-		if (v >= beta) return bestMove;
+		if (v >= beta) break;
 		alpha = Math.max(alpha, v);
 	}
-	return bestMove;
+	if (solution) {
+		return bestMoves[Math.floor(Math.random()*bestMoves.length)];
+	} else {
+		return bestMoves[0];
+	}
 }
 
 function maxValue(game, alpha, beta, maxDepth, depth) {
