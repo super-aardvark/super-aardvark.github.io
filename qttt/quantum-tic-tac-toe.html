@@ -288,16 +288,6 @@ var QTTT = function(computerPlayer, moveFunction) {
 	};
 
 	this.draw = function(container) {
-		if (this.winner == null) {
-			if (this.computerPlayer != null && this.getPlayerMark() == this.computerPlayer) {
-				if (typeof this.computerMoveFunction == "function") {
-					this.computerMoveFunction(this);
-				} else {
-					this.moveRandom();
-				}
-				//this.winner = this.checkWinner();
-			}
-		}
 		if (typeof this.board[this.selectedSquare] != 'object') {
 			this.selectedSquare = null;
 		}
@@ -346,6 +336,20 @@ var QTTT = function(computerPlayer, moveFunction) {
 				$('#message').text('Player ' + player + ': Click a square to place one possible location for ' + this.getNextMark());
 			} else {
 				$('#message').text('Player ' + player + ': Click a different square to place the other possible for ' + this.getNextMark());
+			}
+		}
+		if (this.winner == null) {
+			if (this.computerPlayer != null && this.getPlayerMark() == this.computerPlayer) {
+				$('#message').text('Computer is thinking...');
+				var _this = this;
+				setTimeout(function() {
+					if (typeof _this.computerMoveFunction == "function") {
+						_this.computerMoveFunction(_this);
+					} else {
+						_this.moveRandom();
+					}
+					_this.draw();
+				}, 10);
 			}
 		}
 	};
@@ -406,9 +410,12 @@ var QTTT = function(computerPlayer, moveFunction) {
 
 games = [];
 currentGameNum = 0;
+gamesWon = 0;
+scoreX = 0;
+scoreO = 0;
 for (var i = 0; i < 6; i++) {
 	//games.push(new QTTT(i%2));
-	games.push(new QTTT("O", dfs));
+	games.push(new QTTT("O"));
 }
 function getCurrentGame() {
 	return games[currentGameNum];
@@ -431,17 +438,31 @@ $(document).ready(function() {
 		console.log("clicked on square " + square);
 		var cycle = game.select(square);
 		game.draw();
-		$('span.loop').click(function() {
-			var mark = $(this).text();
-			var square = $(this).parent().data('square');
-			game.resolve(square, mark);
-			game.draw();
-		});
+		setTimeout(function() {
+			$('span.loop').click(function() {
+				var mark = $(this).text();
+				var square = $(this).parent().data('square');
+				game.resolve(square, mark);
+				game.draw();
+			});
+			if (game.winner != null) {
+				if (game.winner > 0) {
+					gamesWon++;
+					scoreX += game.winner;
+				} else {
+					scoreO -= game.winner;
+				}
+				$('#score').text(scoreX - scoreO);
+			}
+		}, 20);
 	});
 	$('#playAgainButton').click(function() {
 		games[currentGameNum] = new QTTT(
-			$('input[name="aiChoice"]:checked').val(), 
-			$('input[name="aiDiff"]:checked').val() == "0" ? null : dfs);
+//			$('input[name="aiChoice"]:checked').val(), 
+//			$('input[name="aiDiff"]:checked').val() == "0" ? null : dfs);
+			"O",
+			gamesWon == 0 ? null : dfs);
+		setMaxDepth(gamesWon);
 		games[currentGameNum].draw();
 	});
 	$('input[name="aiChoice"]').change(function() {
@@ -502,6 +523,29 @@ $(document).ready(function() {
 	</style>
 </head>
 <body>
+	<div style="float: right; max-width: 50%">
+	<h3>Quantum Tic-Tac-Toe</h3>
+
+	<h4>Object of the Game</h4>
+	<p>Just like Tic-Tac-Toe, the object Q T-T-T is to mark 3 consecutive squares in any direction.</p>
+
+	<h4>How to Play</h4>
+	<p>Each player takes a turn by placing a numbered mark in two different squares on the board. <br/>
+	Note: These marks represent the possibility. Each pair of marks will only result in one square being controlled by that player.</p>
+
+	<p>Each pair of marks you make have a number associated with it, starting with 1 for X and 2 for O. The number associated with the mark is also used for resolving ties at the end.</p>
+
+	<p>When the placement of a mark results in a Loop, the next player gets to determine which mark wins any one of the unresolved squares. This can cause a cascade of resolutions so choose your mark carefully. </p>
+
+	<h4>End of Game</h4>
+	<p>Play continues until a Loop reveals at least 3 matching squares in a row, or the board is filled and there are no more places to play.</p>
+
+	<h4>Victory &amp; Scoring</h4>
+	<p>Due to the mysterious nature of quantum positioning, the game can result in both players controlling 3 squares in a row. 
+	The player with the lowest maximum number in the winning row gets a full point, and the other player receives a half point. </p>
+
+	<p>If no one has 3 marks in a row then no points are awarded.</p>
+	</div>
 	<div id="message"></div>
 	<br/>
 	<table cellspacing="0" cellpadding="0">
@@ -519,6 +563,8 @@ $(document).ready(function() {
 		</tr>
 	</table><br/>
 	<button id="playAgainButton">Play Again</button><br/>
+	Score: <span id="score">0</span><br/>
+	<!--
 	AI Player:<br/>
 	<input type="radio" name="aiChoice" value="none"/> None<br/>
 	<input type="radio" name="aiChoice" value="X"/> X<br/>
@@ -535,5 +581,6 @@ $(document).ready(function() {
 	<input type="radio" name="aiDiff" value="8"/>8<br/>
 	<input type="radio" name="aiDiff" value="9"/>9<br/>
 	<input type="radio" name="aiDiff" value="10"/>10<br/>
+	-->
 </body>
 </html>
