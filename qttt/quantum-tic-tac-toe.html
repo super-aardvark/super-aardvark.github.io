@@ -369,11 +369,15 @@ var QTTT = function(computerPlayer, moveFunction) {
 			return null;
 		}
 		var result = null;
+		var mark = this.getNextMark();
 		if (this.selectedSquare == null) {
+			this.board[square].push(mark);
 			this.selectedSquare = square;
 		} else if (this.selectedSquare == square) {
+			this.board[square].pop();
 			this.selectedSquare = null;
 		} else {
+			this.board[this.selectedSquare].pop();
 			result = this.move(square, this.selectedSquare);
 			this.selectedSquare = null;
 		}
@@ -463,6 +467,7 @@ $(document).ready(function() {
 			"O",
 			gamesWon == 0 ? null : dfs);
 		setMaxDepth(gamesWon);
+		$('#difficulty').text(gamesWon);
 		games[currentGameNum].draw();
 	});
 	$('input[name="aiChoice"]').change(function() {
@@ -564,23 +569,24 @@ $(document).ready(function() {
 	</table><br/>
 	<button id="playAgainButton">Play Again</button><br/>
 	Score: <span id="score">0</span><br/>
-	<!--
-	AI Player:<br/>
-	<input type="radio" name="aiChoice" value="none"/> None<br/>
-	<input type="radio" name="aiChoice" value="X"/> X<br/>
-	<input type="radio" name="aiChoice" value="O" checked="checked"/> O<br/>
-	AI Difficulty:<br/>
-	<input type="radio" name="aiDiff" value="0"/>0<br/>
-	<input type="radio" name="aiDiff" value="1"/>1<br/>
-	<input type="radio" name="aiDiff" value="2"/>2<br/>
-	<input type="radio" name="aiDiff" value="3"/>3<br/>
-	<input type="radio" name="aiDiff" value="4" checked="checked"/>4<br/>
-	<input type="radio" name="aiDiff" value="5"/>5<br/>
-	<input type="radio" name="aiDiff" value="6"/>6<br/>
-	<input type="radio" name="aiDiff" value="7"/>7<br/>
-	<input type="radio" name="aiDiff" value="8"/>8<br/>
-	<input type="radio" name="aiDiff" value="9"/>9<br/>
-	<input type="radio" name="aiDiff" value="10"/>10<br/>
-	-->
+	Difficulty Level: <span id="difficulty">0</span><br/>
+	<div style="display: none;">
+		AI Player:<br/>
+		<input type="radio" name="aiChoice" value="none"/> None<br/>
+		<input type="radio" name="aiChoice" value="X"/> X<br/>
+		<input type="radio" name="aiChoice" value="O" checked="checked"/> O<br/>
+		AI Difficulty:<br/>
+		<input type="radio" name="aiDiff" value="0" checked="checked"/>0<br/>
+		<input type="radio" name="aiDiff" value="1"/>1<br/>
+		<input type="radio" name="aiDiff" value="2"/>2<br/>
+		<input type="radio" name="aiDiff" value="3"/>3<br/>
+		<input type="radio" name="aiDiff" value="4"/>4<br/>
+		<input type="radio" name="aiDiff" value="5"/>5<br/>
+		<input type="radio" name="aiDiff" value="6"/>6<br/>
+		<input type="radio" name="aiDiff" value="7"/>7<br/>
+		<input type="radio" name="aiDiff" value="8"/>8<br/>
+		<input type="radio" name="aiDiff" value="9"/>9<br/>
+		<input type="radio" name="aiDiff" value="10"/>10<br/>
+	</div>
 </body>
 </html>
