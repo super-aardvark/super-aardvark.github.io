@@ -15,6 +15,8 @@ var QTTT = function(computerPlayer, moveFunction) {
 	this.winner = null;
 	this.computerPlayer = computerPlayer;
 	this.computerMoveFunction = moveFunction;
+	this.xRow = [];
+	this.oRow = [];
 
 	this.getNextMark = function() {
 		return this.getPlayerMark() + this.turn;
@@ -28,6 +30,7 @@ var QTTT = function(computerPlayer, moveFunction) {
 	 * Returns true if a cycle was created; false otherwise.
 	 */
 	this.move = function(square1, square2) {
+		if (square1 == null || square2 == null) return;
 		if (this.loopMarks != null) {
 			alert("Must resolve loop before making a move.");
 			return null;
@@ -120,10 +123,12 @@ var QTTT = function(computerPlayer, moveFunction) {
 				if (winner == 'X') {
 					if (bestRowX == null || maxIndex < bestRowX) {
 						bestRowX = maxIndex;
+						this.xRow = [row, row+3, row+6];
 					}
 				} else {
 					if (bestRowO == null || maxIndex < bestRowO) {
 						bestRowO = maxIndex;
+						this.oRow = [row, row+3, row+6];
 					}
 				}
 			}
@@ -155,10 +160,12 @@ var QTTT = function(computerPlayer, moveFunction) {
 				if (winner == 'X') {
 					if (bestRowX == null || maxIndex < bestRowX) {
 						bestRowX = maxIndex;
+						this.xRow = [col*3, col*3+1, col*3+2];
 					}
 				} else {
 					if (bestRowO == null || maxIndex < bestRowO) {
 						bestRowO = maxIndex;
+						this.oRow = [col*3, col*3+1, col*3+2];
 					}
 				}
 			}
@@ -188,10 +195,12 @@ var QTTT = function(computerPlayer, moveFunction) {
 			if (winner == 'X') {
 				if (bestRowX == null || maxIndex < bestRowX) {
 					bestRowX = maxIndex;
+					this.xRow = [0, 4, 8];
 				}
 			} else {
 				if (bestRowO == null || maxIndex < bestRowO) {
 					bestRowO = maxIndex;
+					this.oRow = [0, 4, 8];
 				}
 			}
 		}
@@ -219,10 +228,12 @@ var QTTT = function(computerPlayer, moveFunction) {
 			if (winner == 'X') {
 				if (bestRowX == null || maxIndex < bestRowX) {
 					bestRowX = maxIndex;
+					this.xRow = [2, 4, 6];
 				}
 			} else {
 				if (bestRowO == null || maxIndex < bestRowO) {
 					bestRowO = maxIndex;
+					this.oRow = [2, 4, 6];
 				}
 			}
 		}
@@ -294,6 +305,7 @@ var QTTT = function(computerPlayer, moveFunction) {
 		for (var square = 0; square < this.board.length; square++) {
 			var squareDiv = $('#square-' + square);
 			var isCycle = false;
+			squareDiv.removeClass('resolved loop selected wonSquare lostSquare');
 			if (typeof this.board[square] == "object") {
 				var text = '';
 				for (var j = 0; j < this.board[square].length; j++) {
@@ -306,19 +318,20 @@ var QTTT = function(computerPlayer, moveFunction) {
 					}
 				}
 				squareDiv.html(text);
-				squareDiv.removeClass("resolved");
 			} else {
 				squareDiv.addClass("resolved").text(this.board[square]);
 			}
 			if (isCycle) {
 				squareDiv.addClass("loop");
-			} else {
-				squareDiv.removeClass("loop");
 			}
 			if (square == this.selectedSquare) {
 				squareDiv.addClass("selected");
-			} else {
-				squareDiv.removeClass("selected");
+			}
+			if (this.xRow.includes(square)) {
+				squareDiv.addClass('wonSquare');
+			}
+			if (this.oRow.includes(square)) {
+				squareDiv.addClass('lostSquare');
 			}
 		}
 		var player = this.getPlayerMark();
@@ -347,10 +360,11 @@ var QTTT = function(computerPlayer, moveFunction) {
 					if (typeof _this.computerMoveFunction == "function") {
 						_this.computerMoveFunction(_this);
 					} else {
-						_this.moveRandom();
+						var move = _this.moveRandom();
+						_this.move(move[0], move[1]);						
 					}
 					_this.draw();
-				}, 10);
+				}, 1);
 			}
 		}
 	};
@@ -407,7 +421,6 @@ var QTTT = function(computerPlayer, moveFunction) {
 		validSquares.splice(idx, 1);
 		idx = Math.floor(Math.random()*validSquares.length);
 		move[1] = validSquares[idx];
-		this.move(move[0], move[1]);
 		return move;
 	}
 
@@ -417,11 +430,11 @@ games = [];
 currentGameNum = 0;
 gamesTotal = 0;
 gamesWon = 0;
-scoreX = 0;
-scoreO = 0;
+totalscoreX = 0;
+totalscoreO = 0;
 for (var i = 0; i < 6; i++) {
 	//games.push(new QTTT(i%2));
-	games.push(new QTTT("O"));
+	games.push(new QTTT());
 }
 function getCurrentGame() {
 	return games[currentGameNum];
@@ -437,7 +450,40 @@ function setCurrentGameNum(num) {
 	});
 }
 
+attractMode = false;
+attractModePid = null;
+attractModeMove = [];
+function startAttractMode() {
+	attractMode = true;
+	$('#message').hide();
+	$('#gameinfo').hide();
+	games[currentGameNum] = new QTTT();
+	attractModePid = setInterval(doAttract, 100);
+}
+
+function stopAttractMode() {
+	clearInterval(attractModePid);
+	attractMode = false;
+	$('#message').show();
+	$('#gameinfo').show();
+}
+
+function doAttract() {
+	var game = getCurrentGame();
+	if (game.winner != null) {
+		games[currentGameNum] = new QTTT();
+		return;
+	}
+	if (attractModeMove.length == 0) {
+		attractModeMove = game.moveRandom();
+	} else {
+		game.select(attractModeMove.pop());
+	}
+	game.draw();
+}
+
 $(document).ready(function() {
+	// TODO: set prevGames max-height based on rules height
 	$('#gamediv div').click(function() {
 		var game = getCurrentGame();
 		var square = $(this).data('square');
@@ -452,30 +498,73 @@ $(document).ready(function() {
 				game.draw();
 			});
 			if (game.winner != null) {
+				$('#playAgainButton').text("Play A Game");
 				gamesTotal++;
-				if (game.winner > 0) {
-					gamesWon++;
-					scoreX += game.winner;
-				} else {
-					scoreO -= game.winner;
+				var scoreX = 0;
+				var scoreO = 0;
+				switch (game.winner) {
+					case .5:
+						scoreO = .5;
+						// fall through
+					case 1:
+						gamesWon++;
+						scoreX = 1;
+						break;
+					case -.5:
+						scoreX = .5;
+						// fall through
+					case -1:
+						scoreO = 1;
+						break;
 				}
-				$('#netscore').text(scoreX - scoreO);
+				totalscoreX += scoreX;
+				totalscoreO += scoreO;
+				$('#netscore').text(totalscoreX - totalscoreO);
+				$('#totalscoreX').text(totalscoreX);
+				$('#totalscoreO').text(totalscoreO);
+				$('#scoreX').text(scoreX);
+				$('#scoreO').text(scoreO);
 				$('#score').text(game.winner);
 				$('#gamesTotal').text(gamesTotal);
+				$('#playAgainButton').focus();
+
+				var histGame = $('#gamediv').clone().removeAttr('id');
+				histGame.find('*').removeAttr('id');
+				histGame.prependTo('#prevGames');
+				setMaxDepth(gamesWon);
+				$('#difficulty').text(gamesWon);
+				alert($('#message').text());
+
+				startAttractMode();
 			}
-		}, 20);
+		}, 50);
 	});
 	$('#playAgainButton').click(function() {
-		var histGame = $('#gamediv').clone().removeAttr('id');
-		histGame.find('*').removeAttr('id');
-		histGame.prependTo('#prevGames');
+		$('#playAgainButton').text("Concede");
+		if (attractMode) {
+			stopAttractMode();
+			games[currentGameNum] = new QTTT(
+				$('input[name="aiChoice"]:checked').val(), 
+				gamesWon == 0 ? null : dfs);
+			games[currentGameNum].draw();
+			$('#scoreX').text("0");
+			$('#scoreO').text("0");
+			$('#score').text("0");
+			return;
+		} else if (getCurrentGame().turn == 1) {
+			return;
+		}
+		if (getCurrentGame().winner == null) {
+			scoreO += 1;
+			$('#score').text("-1");
+			$('#netscore').text(scoreX - scoreO);
+			$('#gamediv div').addClass('lostSquare');
+		}
 		games[currentGameNum] = new QTTT(
 //			$('input[name="aiChoice"]:checked').val(), 
 //			$('input[name="aiDiff"]:checked').val() == "0" ? null : dfs);
-			"O",
+			$('input[name="aiChoice"]:checked').val(),
 			gamesWon == 0 ? null : dfs);
-		setMaxDepth(gamesWon);
-		$('#difficulty').text(gamesWon);
 		games[currentGameNum].draw();
 	});
 	$('input[name="aiChoice"]').change(function() {
@@ -492,9 +581,13 @@ $(document).ready(function() {
 		}
 	});
 	setCurrentGameNum(0);
+	startAttractMode();
 });
 	</script>
 	<style type="text/css">
+	button {
+		font-size: large;
+	}
 	td div {
 		min-width: 50px;
 		min-height: 50px;
@@ -557,10 +650,16 @@ $(document).ready(function() {
 		padding: 3px;
 		margin: 3px;
 	}
+	div.wonSquare {
+		background-color: lightgreen;
+	}
+	div.lostSquare {
+		background-color: pink;
+	}
 	</style>
 </head>
 <body>
-	<div style="float: right; max-width: 50%">
+	<div id="rules" style="float: right; max-width: 50%">
 	<h3>Quantum Tic-Tac-Toe</h3>
 
 	<h4>Object of the Game</h4>
@@ -600,12 +699,14 @@ $(document).ready(function() {
 			<td><div id="square-8" data-square="8" class="lower-right"></div></td>
 		</tr>
 	</table><br/>
-	Score: <span id="score">0</span><br/>
-	Net Score: <span id="netscore">0</span><br/>
-	Games Played: <span id="gamesTotal">0</span><br/>
-	Difficulty Level: <span id="difficulty">0</span><br/>
+	<div id="gameinfo">
+		Game <span id="gamesTotal">1</span><br/>
+		Score: X <span id="scoreX"x>0</span>, O <span id="scoreO">0</span><br/>
+		Net Score: <span id="netscore">0</span><br/>
+		Difficulty Level: <span id="difficulty">0</span><br/>
 	</div>
-	<button id="playAgainButton">Play Again</button><br/>
+	</div>
+	<button id="playAgainButton">Play a Game</button><br/>
 	Opponent:<br/>
 	<input type="radio" name="aiChoice" value="O" checked="checked"/> AI<br/>
 	<input type="radio" name="aiChoice" value="none"/> Human<br/>
