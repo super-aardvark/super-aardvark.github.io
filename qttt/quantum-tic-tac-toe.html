@@ -500,7 +500,6 @@ $(document).ready(function() {
 				game.draw();
 			});
 			if (game.winner != null) {
-				gamesTotal++;
 				var scoreX = 0;
 				var scoreO = 0;
 				switch (game.winner) {
@@ -528,7 +527,6 @@ $(document).ready(function() {
 				$('#scoreX').text(scoreX);
 				$('#scoreO').text(scoreO);
 				$('#score').text(game.winner);
-				$('#gamesTotal').text(gamesTotal);
 				$('#playAgainButton').focus();
 
 				var histGame = $('#gamediv').clone().removeAttr('id');
@@ -550,6 +548,8 @@ $(document).ready(function() {
 				$('input[name="aiChoice"]:checked').val(), 
 				gamesWon == 0 ? null : dfs);
 			games[currentGameNum].draw();
+			gamesTotal++;
+			$('#gamesTotal').text(gamesTotal);
 			$('#scoreX').text("0");
 			$('#scoreO').text("0");
 			$('#score').text("0");
@@ -584,6 +584,11 @@ $(document).ready(function() {
 	});
 	$('input[name="aiChoice"]').change(function() {
 		getCurrentGame().computerPlayer = this.value;
+		if (this.value == 'X' || this.value == 'O') {
+			$('#difficulty').text(gamesWon);
+		} else {
+			$('#difficulty').text('Human');
+		}
 		if (!attractMode) {
 			getCurrentGame().draw();
 		}
