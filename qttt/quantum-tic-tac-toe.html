@@ -340,6 +340,7 @@ var QTTT = function(computerPlayer, moveFunction) {
 		}
 		if (this.winner == null) {
 			if (this.computerPlayer != null && this.getPlayerMark() == this.computerPlayer) {
+				console.log("AI playing for " + this.getPlayerMark());
 				$('#message').text('Computer is thinking...');
 				var _this = this;
 				setTimeout(function() {
@@ -414,6 +415,7 @@ var QTTT = function(computerPlayer, moveFunction) {
 
 games = [];
 currentGameNum = 0;
+gamesTotal = 0;
 gamesWon = 0;
 scoreX = 0;
 scoreO = 0;
@@ -427,7 +429,7 @@ function getCurrentGame() {
 function setCurrentGameNum(num) {
 	currentGameNum = num;
 	getCurrentGame().draw();
-	$('span.loop').click(function() {
+	$('#gamediv span.loop').click(function() {
 		var mark = $(this).text();
 		var square = $(this).parent().data('square');
 		game.resolve(square, mark);
@@ -436,31 +438,37 @@ function setCurrentGameNum(num) {
 }
 
 $(document).ready(function() {
-	$('div').click(function() {
+	$('#gamediv div').click(function() {
 		var game = getCurrentGame();
 		var square = $(this).data('square');
 		console.log("clicked on square " + square);
 		var cycle = game.select(square);
 		game.draw();
 		setTimeout(function() {
-			$('span.loop').click(function() {
+			$('#gamediv span.loop').click(function() {
 				var mark = $(this).text();
 				var square = $(this).parent().data('square');
 				game.resolve(square, mark);
 				game.draw();
 			});
 			if (game.winner != null) {
+				gamesTotal++;
 				if (game.winner > 0) {
 					gamesWon++;
 					scoreX += game.winner;
 				} else {
 					scoreO -= game.winner;
 				}
-				$('#score').text(scoreX - scoreO);
+				$('#netscore').text(scoreX - scoreO);
+				$('#score').text(game.winner);
+				$('#gamesTotal').text(gamesTotal);
 			}
 		}, 20);
 	});
 	$('#playAgainButton').click(function() {
+		var histGame = $('#gamediv').clone().removeAttr('id');
+		histGame.find('*').removeAttr('id');
+		histGame.prependTo('#prevGames');
 		games[currentGameNum] = new QTTT(
 //			$('input[name="aiChoice"]:checked').val(), 
 //			$('input[name="aiDiff"]:checked').val() == "0" ? null : dfs);
@@ -509,21 +517,45 @@ $(document).ready(function() {
 	div.upper-left {
 		border-width: 0px 1px 1px 0px;
 	}
+	div.top {
+		border-width: 0px 1px 1px 1px;
+	}
 	div.upper-right {
 		border-width: 0px 0px 1px 1px;
+	}
+	div.left {
+		border-width: 1px 1px 1px 0px;
 	}
 	div.center {
 		border-width: 1px 1px 1px 1px;
 	}
+	div.right {
+		border-width: 1px 0px 1px 1px;
+	}
 	div.lower-left {
 		border-width: 1px 1px 0px 0px;
+	}
+	div.bottom {
+		border-width: 1px 1px 0px 1px;
 	}
 	div.lower-right {
 		border-width: 1px 0px 0px 1px;
 	}
 	div.selected {
-		border-width: 2px;
-		border-color: green;
+		background-color: lightgreen;
+	}
+
+	div#prevGames {
+		max-height: 50rem;
+		overflow: auto;
+	}
+
+	#prevGames .gamediv {
+		border-width: 1px;
+		border-style: solid;
+		width: 10rem;
+		padding: 3px;
+		margin: 3px;
 	}
 	</style>
 </head>
@@ -553,28 +585,35 @@ $(document).ready(function() {
 	</div>
 	<div id="message"></div>
 	<br/>
-	<table cellspacing="0" cellpadding="0">
+	<div id="gamediv" class="gamediv">
+	<table id="gameboard" cellspacing="0" cellpadding="0">
 		<tr><td><div id="square-0" data-square="0" class="upper-left"></div></td>
-			<td><div id="square-1" data-square="1"></div></td>
+			<td><div id="square-1" data-square="1" class="top"></div></td>
 			<td><div id="square-2" data-square="2" class="upper-right"></div></td>
 		</tr>
-		<tr><td><div id="square-3" data-square="3"></div></td>
+		<tr><td><div id="square-3" data-square="3" class="left"></div></td>
 			<td><div id="square-4" data-square="4" class="center"></div></td>
-			<td><div id="square-5" data-square="5"></div></td>
+			<td><div id="square-5" data-square="5" class="right"></div></td>
 		</tr>
 		<tr><td><div id="square-6" data-square="6" class="lower-left"></div></td>
-			<td><div id="square-7" data-square="7"></div></td>
+			<td><div id="square-7" data-square="7" class="bottom"></div></td>
 			<td><div id="square-8" data-square="8" class="lower-right"></div></td>
 		</tr>
 	</table><br/>
-	<button id="playAgainButton">Play Again</button><br/>
 	Score: <span id="score">0</span><br/>
+	Net Score: <span id="netscore">0</span><br/>
+	Games Played: <span id="gamesTotal">0</span><br/>
 	Difficulty Level: <span id="difficulty">0</span><br/>
+	</div>
+	<button id="playAgainButton">Play Again</button><br/>
+	Opponent:<br/>
+	<input type="radio" name="aiChoice" value="O" checked="checked"/> AI<br/>
+	<input type="radio" name="aiChoice" value="none"/> Human<br/>
 	<div style="display: none;">
 		AI Player:<br/>
 		<input type="radio" name="aiChoice" value="none"/> None<br/>
 		<input type="radio" name="aiChoice" value="X"/> X<br/>
-		<input type="radio" name="aiChoice" value="O" checked="checked"/> O<br/>
+		<input type="radio" name="aiChoice" value="O"/> O<br/>
 		AI Difficulty:<br/>
 		<input type="radio" name="aiDiff" value="0" checked="checked"/>0<br/>
 		<input type="radio" name="aiDiff" value="1"/>1<br/>
@@ -588,5 +627,6 @@ $(document).ready(function() {
 		<input type="radio" name="aiDiff" value="9"/>9<br/>
 		<input type="radio" name="aiDiff" value="10"/>10<br/>
 	</div>
+	<div id="prevGames"></div>
 </body>
 </html>
