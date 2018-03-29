@@ -457,6 +457,8 @@ function startAttractMode() {
 	attractMode = true;
 	$('#message').hide();
 	$('#gameinfo').hide();
+	$('#playAgainButton').text("Play A Game");
+	$('#playAgainButton').focus();
 	games[currentGameNum] = new QTTT();
 	attractModePid = setInterval(doAttract, 100);
 }
@@ -498,7 +500,6 @@ $(document).ready(function() {
 				game.draw();
 			});
 			if (game.winner != null) {
-				$('#playAgainButton').text("Play A Game");
 				gamesTotal++;
 				var scoreX = 0;
 				var scoreO = 0;
@@ -555,10 +556,20 @@ $(document).ready(function() {
 			return;
 		}
 		if (getCurrentGame().winner == null) {
-			scoreO += 1;
+			$('#gameboard div').addClass('lostSquare');
+			totalscoreO += 1;
+			$('#netscore').text(totalscoreX - totalscoreO);
+			$('#totalscoreX').text(totalscoreX);
+			$('#totalscoreO').text(totalscoreO);
+			$('#scoreX').text("0");
+			$('#scoreO').text("1");
 			$('#score').text("-1");
-			$('#netscore').text(scoreX - scoreO);
-			$('#gamediv div').addClass('lostSquare');
+			$('#gamesTotal').text(gamesTotal);
+			var histGame = $('#gamediv').clone().removeAttr('id');
+			histGame.find('*').removeAttr('id');
+			histGame.prependTo('#prevGames');
+			startAttractMode();
+			return;
 		}
 		games[currentGameNum] = new QTTT(
 //			$('input[name="aiChoice"]:checked').val(), 
@@ -569,7 +580,9 @@ $(document).ready(function() {
 	});
 	$('input[name="aiChoice"]').change(function() {
 		getCurrentGame().computerPlayer = this.value;
-		getCurrentGame().draw();
+		if (!attractMode) {
+			getCurrentGame().draw();
+		}
 	});
 	$('input[name="aiDiff"]').change(function() {
 		var diff = parseInt(this.value);
@@ -668,6 +681,8 @@ $(document).ready(function() {
 	<h4>How to Play</h4>
 	<p>Each player takes a turn by placing a numbered mark in two different squares on the board. <br/>
 	Note: These marks represent the possibility. Each pair of marks will only result in one square being controlled by that player.</p>
+
+	<p>If you place your first mark by accident, click on that square again to deactivate it.</p>
 
 	<p>Each pair of marks you make have a number associated with it, starting with 1 for X and 2 for O. The number associated with the mark is also used for resolving ties at the end.</p>
 
