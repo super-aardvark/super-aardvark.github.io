@@ -510,12 +510,14 @@ $(document).ready(function() {
 					case 1:
 						gamesWon++;
 						scoreX = 1;
+						$('#winnerLabel').text(": X Wins");
 						break;
 					case -.5:
 						scoreX = .5;
 						// fall through
 					case -1:
 						scoreO = 1;
+						$('#winnerLabel').text(": O Wins");
 						break;
 				}
 				totalscoreX += scoreX;
@@ -551,6 +553,7 @@ $(document).ready(function() {
 			$('#scoreX').text("0");
 			$('#scoreO').text("0");
 			$('#score').text("0");
+			$('#winnerLabel').text("");
 			return;
 		} else if (getCurrentGame().turn == 1) {
 			return;
@@ -565,6 +568,7 @@ $(document).ready(function() {
 			$('#scoreO').text("1");
 			$('#score').text("-1");
 			$('#gamesTotal').text(gamesTotal);
+			$('#winnerLabel').text(": O Wins");
 			var histGame = $('#gamediv').clone().removeAttr('id');
 			histGame.find('*').removeAttr('id');
 			histGame.prependTo('#prevGames');
@@ -718,9 +722,8 @@ $(document).ready(function() {
 		</tr>
 	</table><br/>
 	<div id="gameinfo">
-		Game <span id="gamesTotal">1</span><br/>
-		Score: X <span id="scoreX"x>0</span>, O <span id="scoreO">0</span><br/>
-		Net Score: <span id="netscore">0</span><br/>
+		Game <span id="gamesTotal">1</span><span id="winnerLabel"></span><br/>
+		Score: X <span id="totalscoreX"x>0</span>, O <span id="totalscoreO">0</span><br/>
 		Difficulty Level: <span id="difficulty">0</span><br/>
 	</div>
 	</div>
