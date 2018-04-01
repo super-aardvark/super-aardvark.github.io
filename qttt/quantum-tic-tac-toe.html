@@ -338,7 +338,7 @@ var QTTT = function(computerPlayer, moveFunction) {
 		var score = this.winner;
 		if (score != null) {
 			if (score == 0) {
-				$('#message').text('The game ended in a draw.  Reload the page to play again.');
+				$('#message').text("Cat's game.  Reload the page to play again.");
 			} else {
 				$('#message').text('Player ' + (score < 0 ? 'O' : 'X') + ' wins!');
 			}
@@ -455,6 +455,7 @@ attractModePid = null;
 attractModeMove = [];
 function startAttractMode() {
 	attractMode = true;
+	$('#oppChoiceDiv').show();
 	$('#message').hide();
 	$('#gameinfo').hide();
 	$('#playAgainButton').text("Play A Game");
@@ -468,6 +469,7 @@ function stopAttractMode() {
 	attractMode = false;
 	$('#message').show();
 	$('#gameinfo').show();
+	$('#oppChoiceDiv').hide();
 }
 
 function doAttract() {
@@ -487,6 +489,9 @@ function doAttract() {
 $(document).ready(function() {
 	// TODO: set prevGames max-height based on rules height
 	$('#gamediv div').click(function() {
+		if (attractMode) {
+			$('#playAgainButton').click();
+		}
 		var game = getCurrentGame();
 		var square = $(this).data('square');
 		console.log("clicked on square " + square);
@@ -507,7 +512,9 @@ $(document).ready(function() {
 						scoreO = .5;
 						// fall through
 					case 1:
-						gamesWon++;
+						if (game.computerPlayer == "O") {
+							gamesWon++;
+						}
 						scoreX = 1;
 						$('#winnerLabel').text(": X Wins");
 						break;
@@ -533,7 +540,6 @@ $(document).ready(function() {
 				histGame.find('*').removeAttr('id');
 				histGame.prependTo('#prevGames');
 				setMaxDepth(gamesWon);
-				$('#difficulty').text(gamesWon);
 				alert($('#message').text());
 
 				startAttractMode();
@@ -544,9 +550,11 @@ $(document).ready(function() {
 		$('#playAgainButton').text("Concede");
 		if (attractMode) {
 			stopAttractMode();
+			var aiChoice = $('input[name="aiChoice"]:checked').val();
 			games[currentGameNum] = new QTTT(
-				$('input[name="aiChoice"]:checked').val(), 
+				aiChoice, 
 				gamesWon == 0 ? null : dfs);
+			$('#difficulty').text(aiChoice == 'O' ? gamesWon : 'Human');
 			games[currentGameNum].draw();
 			gamesTotal++;
 			$('#gamesTotal').text(gamesTotal);
@@ -560,15 +568,23 @@ $(document).ready(function() {
 		}
 		if (getCurrentGame().winner == null) {
 			$('#gameboard div').addClass('lostSquare');
-			totalscoreO += 1;
+			if (getCurrentGame().getPlayerMark() == 'O' && getCurrentGame().computerPlayer != 'O') {
+				totalscoreX += 1;
+				$('#winnerLabel').text(": X Wins");
+				$('#scoreX').text("1");
+				$('#scoreO').text("-1");
+				$('#score').text("1");
+			} else {
+				totalscoreO += 1;
+				$('#winnerLabel').text(": O Wins");
+				$('#scoreX').text("0");
+				$('#scoreO').text("1");
+				$('#score').text("-1");
+			}
 			$('#netscore').text(totalscoreX - totalscoreO);
 			$('#totalscoreX').text(totalscoreX);
 			$('#totalscoreO').text(totalscoreO);
-			$('#scoreX').text("0");
-			$('#scoreO').text("1");
-			$('#score').text("-1");
 			$('#gamesTotal').text(gamesTotal);
-			$('#winnerLabel').text(": O Wins");
 			var histGame = $('#gamediv').clone().removeAttr('id');
 			histGame.find('*').removeAttr('id');
 			histGame.prependTo('#prevGames');
@@ -733,9 +749,11 @@ $(document).ready(function() {
 	</div>
 	</div>
 	<button id="playAgainButton">Play a Game</button><br/>
-	Opponent:<br/>
-	<input type="radio" name="aiChoice" value="O" checked="checked"/> AI<br/>
-	<input type="radio" name="aiChoice" value="none"/> Human<br/>
+	<div id="oppChoiceDiv">
+		Opponent:<br/>
+		<input type="radio" name="aiChoice" value="O" checked="checked"/> AI<br/>
+		<input type="radio" name="aiChoice" value="none"/> Human<br/>
+	</div>
 	<div style="display: none;">
 		AI Player:<br/>
 		<input type="radio" name="aiChoice" value="none"/> None<br/>
