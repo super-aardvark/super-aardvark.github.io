@@ -542,6 +542,7 @@ $(document).ready(function() {
 
 				var histGame = $('#gamediv').clone().removeAttr('id');
 				histGame.find('*').removeAttr('id');
+				histGame.find('button').remove();
 				histGame.prependTo('#prevGames');
 				setMaxDepth(gamesWon);
 				$('#playAgainButton').text($('#message').text());
@@ -590,6 +591,7 @@ $(document).ready(function() {
 			$('#gamesTotal').text(gamesTotal);
 			var histGame = $('#gamediv').clone().removeAttr('id');
 			histGame.find('*').removeAttr('id');
+			histGame.find('button').remove();
 			histGame.prependTo('#prevGames');
 		}
 		startAttractMode();
@@ -695,7 +697,6 @@ $(document).ready(function() {
 	</style>
 </head>
 <body>
-<div id="qtttContainer">
 	<div id="rules" style="float: right; max-width: 50%">
 	<h3>Quantum Tic-Tac-Toe</h3>
 
@@ -724,37 +725,38 @@ $(document).ready(function() {
 
 	<p>If no one has 3 marks in a row then no points are awarded.</p>
 	</div>
-	<div id="message"></div>
+<div id="qtttContainer">
+	<div id="message" align="center"></div>
 	<br/>
-	<div id="gamediv" class="gamediv">
-	<table id="gameboard" cellspacing="0" cellpadding="0">
-		<tr><td><div id="square-0" data-square="0" class="upper-left"></div></td>
-			<td><div id="square-1" data-square="1" class="top"></div></td>
-			<td><div id="square-2" data-square="2" class="upper-right"></div></td>
-		</tr>
-		<tr><td><div id="square-3" data-square="3" class="left"></div></td>
-			<td><div id="square-4" data-square="4" class="center"></div></td>
-			<td><div id="square-5" data-square="5" class="right"></div></td>
-		</tr>
-		<tr><td><div id="square-6" data-square="6" class="lower-left"></div></td>
-			<td><div id="square-7" data-square="7" class="bottom"></div></td>
-			<td><div id="square-8" data-square="8" class="lower-right"></div></td>
-		</tr>
-	</table><br/>
-	<div id="gameinfo">
-		Game <span id="gamesTotal">1</span><span id="winnerLabel"></span><br/>
-		Score: X <span id="scoreX"x>0</span>, O <span id="scoreO">0</span><br/>
-		Total: X <span id="totalscoreX"x>0</span>, O <span id="totalscoreO">0</span><br/>
-		Difficulty Level: <span id="difficulty">0</span><br/>
+	<div id="gamediv" class="gamediv" align="center">
+		<table id="gameboard" cellspacing="0" cellpadding="0">
+			<tr><td><div id="square-0" data-square="0" class="upper-left"></div></td>
+				<td><div id="square-1" data-square="1" class="top"></div></td>
+				<td><div id="square-2" data-square="2" class="upper-right"></div></td>
+			</tr>
+			<tr><td><div id="square-3" data-square="3" class="left"></div></td>
+				<td><div id="square-4" data-square="4" class="center"></div></td>
+				<td><div id="square-5" data-square="5" class="right"></div></td>
+			</tr>
+			<tr><td><div id="square-6" data-square="6" class="lower-left"></div></td>
+				<td><div id="square-7" data-square="7" class="bottom"></div></td>
+				<td><div id="square-8" data-square="8" class="lower-right"></div></td>
+			</tr>
+		</table><br/>
+		<button id="playAgainButton">Play a Game</button><br/>
+		<div id="gameinfo">
+			Game <span id="gamesTotal">1</span><span id="winnerLabel"></span><br/>
+			Score: X <span id="scoreX"x>0</span>, O <span id="scoreO">0</span><br/>
+			Total: X <span id="totalscoreX"x>0</span>, O <span id="totalscoreO">0</span><br/>
+			Difficulty Level: <span id="difficulty">0</span><br/>
+		</div>
 	</div>
-	</div>
-	<button id="playAgainButton">Play a Game</button><br/>
-	<div id="oppChoiceDiv">
+	<div id="oppChoiceDiv" align="center">
 		Opponent:<br/>
 		<input type="radio" name="aiChoice" value="O" checked="checked"/> AI<br/>
 		<input type="radio" name="aiChoice" value="none"/> Human<br/>
 	</div>
-	<div style="display: none;">
+	<div style="display: none;" align="center">
 		AI Player:<br/>
 		<input type="radio" name="aiChoice" value="none"/> None<br/>
 		<input type="radio" name="aiChoice" value="X"/> X<br/>
@@ -772,7 +774,7 @@ $(document).ready(function() {
 		<input type="radio" name="aiDiff" value="9"/>9<br/>
 		<input type="radio" name="aiDiff" value="10"/>10<br/>
 	</div>
-	<div id="prevGames"></div>
+	<div id="prevGames" align="center"></div>
 </div>
 </body>
 </html>
