@@ -305,7 +305,7 @@ var QTTT = function(computerPlayer, moveFunction) {
 		for (var square = 0; square < this.board.length; square++) {
 			var squareDiv = $('#square-' + square);
 			var isCycle = false;
-			squareDiv.removeClass('resolved loop selected wonSquare lostSquare');
+			squareDiv.removeClass('resolved loop selected wonSquare lostSquare drawnSquare');
 			if (typeof this.board[square] == "object") {
 				var text = '';
 				for (var j = 0; j < this.board[square].length; j++) {
@@ -333,12 +333,15 @@ var QTTT = function(computerPlayer, moveFunction) {
 			if (this.oRow.includes(square)) {
 				squareDiv.addClass('lostSquare');
 			}
+			if (this.winner == 0) {
+				squareDiv.addClass('drawnSquare');
+			}
 		}
 		var player = this.getPlayerMark();
 		var score = this.winner;
 		if (score != null) {
 			if (score == 0) {
-				$('#message').text("Cat's game.  Reload the page to play again.");
+				$('#message').text("Cat's game.");
 			} else {
 				$('#message').text('Player ' + (score < 0 ? 'O' : 'X') + ' wins!');
 			}
@@ -491,6 +494,7 @@ $(document).ready(function() {
 	$('#gamediv div').click(function() {
 		if (attractMode) {
 			$('#playAgainButton').click();
+			return;
 		}
 		var game = getCurrentGame();
 		var square = $(this).data('square');
@@ -540,9 +544,8 @@ $(document).ready(function() {
 				histGame.find('*').removeAttr('id');
 				histGame.prependTo('#prevGames');
 				setMaxDepth(gamesWon);
-				alert($('#message').text());
+				$('#playAgainButton').text($('#message').text());
 
-				startAttractMode();
 			}
 		}, 50);
 	});
@@ -588,15 +591,8 @@ $(document).ready(function() {
 			var histGame = $('#gamediv').clone().removeAttr('id');
 			histGame.find('*').removeAttr('id');
 			histGame.prependTo('#prevGames');
-			startAttractMode();
-			return;
 		}
-		games[currentGameNum] = new QTTT(
-//			$('input[name="aiChoice"]:checked').val(), 
-//			$('input[name="aiDiff"]:checked').val() == "0" ? null : dfs);
-			$('input[name="aiChoice"]:checked').val(),
-			gamesWon == 0 ? null : dfs);
-		games[currentGameNum].draw();
+		startAttractMode();
 	});
 	$('input[name="aiChoice"]').change(function() {
 		getCurrentGame().computerPlayer = this.value;
@@ -623,16 +619,15 @@ $(document).ready(function() {
 });
 	</script>
 	<style type="text/css">
-	button {
+	div#qtttContainer button {
 		font-size: large;
 	}
-	td div {
+	div#qtttContainer table td div {
 		min-width: 50px;
 		min-height: 50px;
 		width: 50px;
 		height: 50px;
 		border-style: solid;
-		border-width: 0;
 	}
 	div.resolved {
 	    font-size: xx-large;
@@ -681,7 +676,7 @@ $(document).ready(function() {
 		overflow: auto;
 	}
 
-	#prevGames .gamediv {
+	div#prevGames .gamediv {
 		border-width: 1px;
 		border-style: solid;
 		width: 10rem;
@@ -694,9 +689,13 @@ $(document).ready(function() {
 	div.lostSquare {
 		background-color: pink;
 	}
+	div.drawnSquare {
+		background-color: lightgrey;
+	}
 	</style>
 </head>
 <body>
+<div id="qtttContainer">
 	<div id="rules" style="float: right; max-width: 50%">
 	<h3>Quantum Tic-Tac-Toe</h3>
 
@@ -744,7 +743,8 @@ $(document).ready(function() {
 	</table><br/>
 	<div id="gameinfo">
 		Game <span id="gamesTotal">1</span><span id="winnerLabel"></span><br/>
-		Score: X <span id="totalscoreX"x>0</span>, O <span id="totalscoreO">0</span><br/>
+		Score: X <span id="scoreX"x>0</span>, O <span id="scoreO">0</span><br/>
+		Total: X <span id="totalscoreX"x>0</span>, O <span id="totalscoreO">0</span><br/>
 		Difficulty Level: <span id="difficulty">0</span><br/>
 	</div>
 	</div>
@@ -773,5 +773,6 @@ $(document).ready(function() {
 		<input type="radio" name="aiDiff" value="10"/>10<br/>
 	</div>
 	<div id="prevGames"></div>
+</div>
 </body>
 </html>
