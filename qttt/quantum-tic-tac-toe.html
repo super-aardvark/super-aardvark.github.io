@@ -459,7 +459,7 @@ attractModeMove = [];
 function startAttractMode() {
 	attractMode = true;
 	$('#oppChoiceDiv').show();
-	$('#message').hide();
+	$('#message').css('visibility', 'hidden');
 	$('#gameinfo').hide();
 	$('#playAgainButton').text("Play A Game");
 	$('#playAgainButton').focus();
@@ -470,7 +470,7 @@ function startAttractMode() {
 function stopAttractMode() {
 	clearInterval(attractModePid);
 	attractMode = false;
-	$('#message').show();
+	$('#message').css('visibility', 'visible');
 	$('#gameinfo').show();
 	$('#oppChoiceDiv').hide();
 }
@@ -540,13 +540,9 @@ $(document).ready(function() {
 				$('#score').text(game.winner);
 				$('#playAgainButton').focus();
 
-				var histGame = $('#gamediv').clone().removeAttr('id');
-				histGame.find('*').removeAttr('id');
-				histGame.find('button').remove();
-				histGame.prependTo('#prevGames');
 				setMaxDepth(gamesWon);
 				$('#playAgainButton').text($('#message').text());
-
+				$('#message').text('')
 			}
 		}, 50);
 	});
@@ -589,11 +585,11 @@ $(document).ready(function() {
 			$('#totalscoreX').text(totalscoreX);
 			$('#totalscoreO').text(totalscoreO);
 			$('#gamesTotal').text(gamesTotal);
-			var histGame = $('#gamediv').clone().removeAttr('id');
-			histGame.find('*').removeAttr('id');
-			histGame.find('button').remove();
-			histGame.prependTo('#prevGames');
 		}
+		var histGame = $('#gamediv').clone().removeAttr('id');
+		histGame.find('*').removeAttr('id');
+		histGame.find('button').remove();
+		histGame.prependTo('#prevGames');
 		startAttractMode();
 	});
 	$('input[name="aiChoice"]').change(function() {
@@ -623,6 +619,7 @@ $(document).ready(function() {
 	<style type="text/css">
 	div#qtttContainer button {
 		font-size: large;
+		margin: .5rem;
 	}
 	div#qtttContainer table td div {
 		min-width: 50px;
@@ -630,6 +627,9 @@ $(document).ready(function() {
 		width: 50px;
 		height: 50px;
 		border-style: solid;
+	}
+	div#message {
+		min-height: 2.5rem;
 	}
 	div.resolved {
 	    font-size: xx-large;
@@ -742,7 +742,7 @@ $(document).ready(function() {
 				<td><div id="square-7" data-square="7" class="bottom"></div></td>
 				<td><div id="square-8" data-square="8" class="lower-right"></div></td>
 			</tr>
-		</table><br/>
+		</table>
 		<button id="playAgainButton">Play a Game</button><br/>
 		<div id="gameinfo">
 			Game <span id="gamesTotal">1</span><span id="winnerLabel"></span><br/>
