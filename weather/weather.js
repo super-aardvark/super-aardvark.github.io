@@ -87,7 +87,8 @@ weatherChances: {
 "The Ruby Sea": function(chance) { if ((chance -= 10) < 0) { return "Thunder"; } else if ((chance -= 10) < 0) { return "Wind"; } else if ((chance -= 15) < 0) { return "Clouds"; } else if ((chance -= 40) < 0) { return "Fair Skies"; } else { return "Clear Skies"; } },
 "Yanxia": function(chance) { if ((chance -= 5) < 0) { return "Showers"; } else if ((chance -= 10) < 0) { return "Rain"; } else if ((chance -= 10) < 0) { return "Fog"; } else if ((chance -= 15) < 0) { return "Clouds"; } else if ((chance -= 40) < 0) { return "Fair Skies"; } else { return "Clear Skies"; } },
 "The Azim Steppe": function(chance) { if ((chance -= 5) < 0) { return "Gales"; } else if ((chance -= 5) < 0) { return "Wind"; } else if ((chance -= 7) < 0) { return "Rain"; } else if ((chance -= 8) < 0) { return "Fog"; } else if ((chance -= 10) < 0) { return "Clouds"; } else if ((chance -= 40) < 0) { return "Fair Skies"; } else { return "Clear Skies"; } },
-"Eureka": function(chance) { if ((chance -= 30) < 0) { return "Fair Skies"; } else if ((chance -= 30) < 0) { return "Gales"; } else if ((chance -= 30) < 0) { return "Showers"; } else { return "Snow"; } }
+"Eureka Anemos": function(chance) { if ((chance -= 30) < 0) { return "Fair Skies"; } else if ((chance -= 30) < 0) { return "Gales"; } else if ((chance -= 30) < 0) { return "Showers"; } else { return "Snow"; } },
+"Eureka Pagos": function(chance) { if ((chance -= 10) < 0) { return "Clear Skies"; } else if ((chance -= 18) < 0) { return "Fog"; } else if ((chance -= 18) < 0) { return "Heat Waves"; } else if ((chance -= 18) < 0) { return "Snow"; } else if ((chance -= 18) < 0) { return "Thunder"; } else { return "Brizzards"; } }
 },
 
 weatherLists: {
@@ -130,6 +131,7 @@ weatherLists: {
 "The Ruby Sea": ["Thunder","Wind","Clouds","Fair Skies","Clear Skies"],
 "Yanxia": ["Showers","Rain","Fog","Clouds","Fair Skies","Clear Skies"],
 "The Azim Steppe": ["Gales","Wind","Rain","Fog","Clouds","Fair Skies","Clear Skies"],
-"Eureka": ["Fair Skies", "Gales", "Showers", "Snow"]
+"Eureka Anemos": ["Fair Skies", "Gales", "Showers", "Snow"],
+"Eureka Pagos": ["Clear Skies", "Fog", "Heat Waves", "Snow", "Thunder", "Brizzards"]
 }
 };
