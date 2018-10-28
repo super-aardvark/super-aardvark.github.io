@@ -44,7 +44,39 @@ $(document).ready(function() {
       $('#helpModal').modal();
       Rage.currentMode = "adventure";
    }
-   setTimeout(function() {$('#' + Rage.currentMode + 'Button').click();}, 50);
+   
+   // if (typeof Rage.options.version == 'undefined') Rage.options.version = 'snes';
+   // var version = Rage.options.version;
+   var urlParams = new URLSearchParams(window.location.search);
+   var version = urlParams.get('version');
+   if (version == null) version = 'snes';
+
+   // var filesLoaded = 0;
+   // var dataCallback = function() {
+      // filesLoaded++;
+      // if (filesLoaded == 2) $('#' + Rage.currentMode + 'Button').click();
+   // };
+   // $.getScript('js/rage-data-' + version + '.js', dataCallback);
+   // $.getScript('js/rage-walkthrough-' + version + '.js', dataCallback);
+   
+   var script = document.createElement('script');
+   script.src = 'js/rage-data-' + version + '.js';
+   document.head.appendChild(script);
+
+   script = document.createElement('script');
+   script.src = 'js/rage-walkthrough-' + version + '.js';
+   document.head.appendChild(script);
+      
+   var pid;
+   var tries = 0;
+   pid = setInterval(function() {
+      if (typeof veldtPacks != 'undefined' && typeof walkthroughDataWOB != 'undefined') {
+         clearInterval(pid);
+         $('#' + Rage.currentMode + 'Button').click();
+      } else if (++tries > 100) {
+         clearInterval(pid);
+         alert('Data failed to load.');
+      }}, 50);
 });
 
 function setupAdventure() {
@@ -644,11 +676,13 @@ Rage = {
    showOptions:
       function() {
          $('#allPacksCheckbox').prop('checked', Rage.options.showAllVeldtPacks === true);
+         $('#versionSelect').val(Rage.options.version);
          $('#optionsModal').modal();
       },
    saveOptions:
       function() {
          Rage.options.showAllVeldtPacks = $('#allPacksCheckbox').prop('checked');
+         Rage.options.version = $('#versionSelect').val();
          $('#optionsModal').modal('hide');
          if (Rage.currentMode != null) {
             setTimeout(function() {$('#' + Rage.currentMode + 'Button').click();}, 10);
