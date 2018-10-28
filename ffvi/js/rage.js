@@ -620,7 +620,7 @@ Rage = {
    unlearn:
       function(name) {
          var idx = rageMap[name];
-         if (idx != null && idx < this.knownRages.length && !this.knownRages[idx]) {
+         if (idx != null && idx < this.knownRages.length && this.knownRages[idx]) {
             this.knownRages[idx] = false;
             $('.enemyName:contains(' + name + ')').removeClass("known").addClass("unknown");
          }
@@ -670,5 +670,23 @@ Rage = {
             setTimeout(function() {$('#' + Rage.currentMode + 'Button').click();}, 10);
          }
          $('#importModal').modal('hide');
-      }
+      },
+   reset:
+      function() {
+         $.extend(Rage, {
+               KNOWN: 1,
+               UNKNOWN: 2,
+               currentPack: null,
+               gauStatus: null,
+               currentAdvAct: 0,
+               currentAdvSection: 0,
+               currentAdvArea: 0,
+               currentMode: null,
+               clearedFormations: new Array(67),
+               knownRages: new Array(255),
+               options: {}
+            });
+         this.save();
+         $('#adventureButton').click();
+	  }
 }

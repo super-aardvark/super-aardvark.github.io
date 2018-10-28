@@ -40,6 +40,7 @@
                   <li><a href="javascript:Rage.showOptions()">Options</a></li>
                   <li><a href="javascript:Rage.export()">Export</a></li>
                   <li><a href="javascript:Rage.import()">Import</a></li>
+                  <li><a href="#" data-toggle="modal" data-target="#resetModal">Reset</a></li>
                   <li><a href="#" data-toggle="modal" data-target="#helpModal">Help</a></li>
                 </ul>
            </li>
@@ -129,6 +130,24 @@
          <div class="modal-footer">
            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
            <button type="button" class="btn btn-primary" onclick="Rage.importData();">Import</button>
+         </div>
+       </div>
+     </div>
+   </div>
+   
+   <div class="modal fade" id="resetModal" tabindex="-1" role="dialog" aria-labelledby="resetModalLabel">
+     <div class="modal-dialog" role="document">
+       <div class="modal-content">
+         <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+           <h4 class="modal-title" id="resetModalLabel">Delete All Data?</h4>
+         </div>
+         <div class="modal-body">
+            <p>This will delete all your data and reset the tracker to the beginning of the game.  Are you sure?
+         </div>
+         <div class="modal-footer">
+           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+           <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="Rage.reset();">Delete Data</button>
          </div>
        </div>
      </div>
