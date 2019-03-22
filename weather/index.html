@@ -22,6 +22,7 @@ function findWeather() {
    var matches = 0;
    var weather = WeatherFinder.getWeather(weatherStartTime, zone);
    var prevWeather = WeatherFinder.getWeather(weatherStartTime-1, zone);
+   var showAll = $("#showAllForecasts").is(":checked")
    while (tries < 1000 && matches < 5) {
       var weatherMatch = targetWeather == null;
       var prevWeatherMatch = targetPrevWeather == null;
@@ -43,7 +44,9 @@ function findWeather() {
       if (weatherMatch && prevWeatherMatch && timeMatch) {
          var weatherDate = new Date(weatherStartTime);
          $("#weatherTable").append('<tr><td>' + prevWeather + '</td><td>' + weather + '</td><td>' + weatherStartHour + ':00</td><td>' + weatherDate + '</td></tr>');
-         matches++;
+         if(!showAll) {
+             matches++;
+         }
       }
       weatherStartTime += 8 * 175 * 1000; // Increment by 8 Eorzean hours
       weatherStartHour = WeatherFinder.getEorzeaHour(weatherStartTime);
@@ -51,7 +54,7 @@ function findWeather() {
       weather = WeatherFinder.getWeather(weatherStartTime, zone);
       tries++;
    }
-   if (matches == 0) {
+   if (matches == 0 && !showAll) {
       $("#weatherDiv").append("Couldn't find the desired conditions over the next 1000 weather cycles (~16 Earth days).  Make sure you have selected at least one time period.<br/>");
    }
 }
@@ -118,6 +121,7 @@ function populateWeather() {
 <tr><td>Desired Weather: </td><td><select id="weatherSelect" multiple="true" size="7"><option value="">Any</option></select></td></tr>
 <tr><td>Transition From: </td><td><select id="previousWeatherSelect" multiple="true" size="7"><option value="">Any</option></select><br/></td></tr>
 <tr><td>Eorzea Time: </td><td><input type="checkbox" name="timeBox" value="0" id="timeBox0" checked="checked"/>00:00-07:59  <br/><input type="checkbox" name="timeBox" value="8" id="timeBox8" checked="checked"/>08:00-15:59  <br/><input type="checkbox" name="timeBox" value="16" id="timeBox16" checked="checked"/>16:00-23:59  <br/></td></tr>
+<tr><td>Show all forcasts for next 16 Days:</td><td><input type="checkbox" name="showAllForecasts" id="showAllForecasts"/></td></tr>
 </table>
 <button onclick="findWeather()">Find Weather</button><br/>
 <table id="weatherTable">
