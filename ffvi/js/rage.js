@@ -215,7 +215,16 @@ function countClearedInPack(packId) {
 // Count the total number of formations in a pack
 function countTotalInPack(packId) {
    var pack = veldtPacks[packId];
-   return pack ? pack.length : 0;
+   if (!pack) return 0;
+   
+   var count = 0;
+   for (var i = 0; i < pack.length; i++) {
+      // Only count formations that aren't empty
+      if (pack[i] && pack[i].length > 0) {
+         count++;
+      }
+   }
+   return count;
 }
 
 function findPackIdByEnemiesString(enemies) {
