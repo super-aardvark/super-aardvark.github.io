@@ -79,6 +79,9 @@ function setupAdventure() {
       activeAct($('#act-' + Rage.currentAdvAct), true);
       activeSection($('#section-' + Rage.currentAdvAct + '-' + Rage.currentAdvSection), true);
       activeArea($('#area-' + Rage.currentAdvAct + '-' + Rage.currentAdvSection + '-' + Rage.currentAdvArea), true);
+      
+      // After the initial setup, ensure all area icons match their expanded/collapsed state
+      updateAreaIcons('.advArea');
    }, 10);
 }
 
@@ -162,7 +165,7 @@ function setupAdventureForAct(actContainer, actWalkthroughData) {
             // Add pack information
             var packClearedCount = countClearedInPack(packId);
             var packTotalCount = countTotalInPack(packId);
-            var packInfoDiv = $('<div class="packInfo">Pack ' + packId + ' (' + packClearedCount + '/' + packTotalCount + ' cleared)</div>');
+            var packInfoDiv = $('<div class="packInfo">Veldt Pack ' + packId + ' (' + packClearedCount + '/' + packTotalCount + ' cleared)</div>');
             formDiv.append(packInfoDiv);
             
             if (form.note) {
@@ -252,6 +255,23 @@ function accordionClick(e) {
    accordion($(this).closest('div'));
 }
 
+// Update area icons to match their expanded/collapsed state
+function updateAreaIcons(selector) {
+   $(selector).each(function() {
+      var areaDiv = $(this);
+      var areaIcon = areaDiv.children('h4').find('.glyphicon');
+      
+      // If the area has visible children, it should have collapse-down icon
+      if (areaDiv.children('div').is(':visible')) {
+         areaIcon.removeClass('glyphicon-expand').addClass('glyphicon-collapse-down');
+      }
+      // Otherwise it should have expand icon
+      else {
+         areaIcon.removeClass('glyphicon-collapse-down').addClass('glyphicon-expand');
+      }
+   });
+}
+
 function accordion(container, force) {
    var expandOnly = false;
    var contractOnly = false;
@@ -262,7 +282,12 @@ function accordion(container, force) {
    var expIcon = container.children().first().find('.glyphicon');
    if (expandOnly || (expIcon.hasClass("glyphicon-expand") && !contractOnly)) {
       expIcon.removeClass("glyphicon-expand").addClass("glyphicon-collapse-down");
-      container.children('div').show(300);
+      container.children('div').show(300, function() {
+         // After showing, update the icons if this is a section
+         if (container.hasClass('advSection')) {
+            updateAreaIcons(container.children('.advArea'));
+         }
+      });
    } else {
       expIcon.removeClass("glyphicon-collapse-down").addClass("glyphicon-expand");
       container.children('div').hide(300);
@@ -289,6 +314,10 @@ function activeSection(sectionDiv, skipArea) {
    $('.advSection.current').removeClass("current");
    sectionDiv.addClass("current");
    accordion(sectionDiv, true);
+   
+   // Update the icon state for each area
+   updateAreaIcons(sectionDiv.children('.advArea'));
+   
    if (!skipArea) activeArea(sectionDiv.children('.advArea').first());
    // $(document).scrollTop(sectionDiv.position().top - 50);
 }
@@ -421,8 +450,8 @@ function updatePackInfo(packId) {
    var packTotalCount = countTotalInPack(packId);
    $('.packInfo').each(function() {
       var infoText = $(this).text();
-      if (infoText.indexOf('Pack ' + packId + ' (') === 0) {
-         $(this).text('Pack ' + packId + ' (' + packClearedCount + '/' + packTotalCount + ' cleared)');
+      if (infoText.indexOf('Veldt Pack ' + packId + ' (') === 0) {
+         $(this).text('Veldt Pack ' + packId + ' (' + packClearedCount + '/' + packTotalCount + ' cleared)');
       }
    });
 }
