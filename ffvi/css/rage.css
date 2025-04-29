@@ -186,10 +186,14 @@ div.rage.known {
    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
    opacity: 0;
    transition: opacity 0.3s ease-in-out;
+   pointer-events: none;
+   visibility: hidden;
 }
 
 .save-notification.show {
    opacity: 1;
+   pointer-events: auto;
+   visibility: visible;
 }
 
 .areaProgress {
@@ -209,4 +213,245 @@ div.rage.known {
    border-radius: 5px;
    z-index: 2000;
    text-align: center;
+}
+
+/* Touch specific styling */
+button, a, input, select {
+   touch-action: manipulation;
+}
+
+/* Navbar styling for all screen sizes */
+.navbar-header {
+   float: left;
+}
+
+.main-nav {
+   float: left;
+}
+
+.navbar-right {
+   float: right !important;
+   margin-right: 0;
+}
+
+/* Clear fix for navbar */
+.navbar:after,
+.navbar:before,
+.navbar-header:after,
+.navbar-header:before {
+   content: " ";
+   display: table;
+}
+
+.navbar:after,
+.navbar-header:after {
+   clear: both;
+}
+
+/* Hide mobile-only elements by default */
+.mobile-only {
+   display: none;
+}
+
+/* Mobile responsive styles */
+@media (max-width: 767px) {
+   /* Show mobile-only elements */
+   .mobile-only {
+      display: inline-block;
+   }
+   
+   /* Navbar styles */
+   .navbar {
+      min-height: 40px;
+   }
+   
+   .navbar-header {
+      width: auto;
+      margin-left: 0 !important;
+      margin-right: 5px !important;
+   }
+   
+   .navbar-brand {
+      padding: 10px 5px;
+      height: auto;
+      font-size: 14px;
+      margin-right: 0;
+      margin-left: 0 !important;
+   }
+   
+   .navbar-nav {
+      margin: 0;
+      width: auto;
+   }
+   
+   .main-nav {
+      float: left;
+      margin-left: 0;
+   }
+   
+   .navbar-nav > li {
+      display: inline-block;
+      float: left;
+   }
+   
+   .navbar-nav > li > a {
+      padding: 10px 5px;
+      font-size: 14px;
+   }
+   
+   /* Hide button text on small screens, just show icons */
+   .navigation-text {
+      display: none;
+   }
+   
+   /* Make sure the adventureOnly buttons are properly sized */
+   .adventureOnly a {
+      padding: 10px 3px !important;
+   }
+   
+   /* Make dropdown menu display correctly on mobile */
+   .dropdown-menu-right {
+      right: 0;
+      left: auto;
+   }
+   
+   /* Ensure navbar doesn't wrap */
+   .container-fluid {
+      padding-left: 5px;
+      padding-right: 5px;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+   }
+   
+   /* Content area adjustments to account for smaller navbar */
+   div.content {
+      padding-top: 40px;
+   }
+   
+   .save-notification {
+      top: 45px;
+   }
+   
+   /* Make adventure areas fill width */
+   div.advAct, div.advSection, div.advArea {
+      max-width: 100%;
+      width: 95%;
+      margin-left: auto;
+      margin-right: auto;
+   }
+   
+   /* Make packs fill width */
+   div.pack {
+      max-width: 100%;
+      width: 95%;
+      margin-left: auto;
+      margin-right: auto;
+   }
+   
+   /* Make formation rows more compact */
+   div.formation {
+      padding: 5px;
+   }
+   
+   /* Make formation details pane better on mobile */
+   div.formationDetail {
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: auto;
+      bottom: 0;
+      max-width: 100%;
+      width: 100%;
+      z-index: 100;
+      background-color: white;
+      border-top: 2px solid #333;
+      border-left: none;
+      border-right: none;
+      border-bottom: none;
+      border-radius: 0;
+      padding: 10px;
+   }
+   
+   /* Make buttons in formation detail more touch-friendly */
+   .formOptions button {
+      padding: 10px;
+      margin: 5px;
+      font-size: 16px;
+   }
+   
+   /* Adjust rage list for mobile */
+   div.rage {
+      max-width: 100%;
+      padding: 8px;
+      margin: 3px 0;
+   }
+   
+   /* Add some space at the bottom when formation details are shown */
+   #veldtContent {
+      padding-bottom: 200px;
+   }
+   
+   /* Make modals more mobile-friendly */
+   .modal-dialog {
+      margin: 10px;
+   }
+}
+
+/* Extra small screens */
+@media (max-width: 400px) {
+   .navbar-brand {
+      padding: 10px 2px;
+      margin-left: 0 !important;
+   }
+   
+   .navbar-brand .navigation-text {
+      display: none;
+   }
+   
+   .navbar-header {
+      margin-right: 5px;
+      margin-left: 0 !important;
+   }
+   
+   .navbar > .container-fluid {
+      padding-left: 0 !important;
+      margin-left: 0 !important;
+   }
+   
+   .navbar > .container-fluid .navbar-header {
+      margin-left: 0 !important;
+   }
+   
+   .main-nav {
+      width: calc(100% - 125px);
+      text-align: center;
+   }
+   
+   .main-nav > li {
+      float: none;
+      display: inline-block;
+   }
+   
+   .navbar-right {
+      width: 75px;
+   }
+   
+   .navbar-nav > li > a {
+      padding: 10px 3px;
+   }
+   
+   .adventureOnly a {
+      padding: 10px 2px !important;
+   }
+}
+
+/* Override Bootstrap default negative margins */
+.navbar-default .navbar-header,
+.navbar-default .container-fluid .navbar-header,
+.navbar-default .navbar-header .navbar-brand {
+   margin-left: 0 !important;
+}
+.navbar-default .container-fluid {
+   margin-left: 0 !important;
+   padding-left: 5px !important;
 }

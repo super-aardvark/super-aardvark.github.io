@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Rage Against the Magitek</title>
 
@@ -20,30 +20,30 @@
       <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
           <div class="navbar-header">
-            <a class="navbar-brand" href="#">Rage Mode</a>
+            <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-home mobile-only"></span><span class="navigation-text">Rage Mode</span></a>
           </div>
-          <ul class="nav navbar-nav">
-            <li id="adventureButton"><a href="#">Adventure</a></li>
+          <ul class="nav navbar-nav main-nav">
+            <li id="adventureButton"><a href="#"><span class="glyphicon glyphicon-globe"></span> <span class="navigation-text">Adventure</span></a></li>
             <li id="prevSectionButton" class="adventureOnly"><a href="javascript:prevSection()" title="Previous Section"><span class="glyphicon glyphicon-fast-backward"></span></a></li>
             <li id="prevAreaButton" class="adventureOnly"><a href="javascript:prevArea()" title="Previous Area"><span class="glyphicon glyphicon-step-backward"></span></a></li>
             <li id="nextAreaButton" class="adventureOnly"><a href="javascript:nextArea()" title="Next Area"><span class="glyphicon glyphicon-step-forward"></span></a></li>
             <li id="nextSectionButton" class="adventureOnly"><a href="javascript:nextSection()" title="Next Section"><span class="glyphicon glyphicon-fast-forward"></span></a></li>
-            <li id="veldtButton"><a href="#">Veldt</a></li>
-            <li id="rageButton"><a href="#">Rages</a></li>
-         </ul>
-         <ul class="nav navbar-nav navbar-right">
-            <li id="saveButton"><a href="javascript:Rage.save()">Save</a></li>
+            <li id="veldtButton"><a href="#"><span class="glyphicon glyphicon-screenshot"></span> <span class="navigation-text">Veldt</span></a></li>
+            <li id="rageButton"><a href="#"><span class="glyphicon glyphicon-fire"></span> <span class="navigation-text">Rages</span></a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li id="saveButton"><a href="javascript:Rage.save()"><span class="glyphicon glyphicon-floppy-disk"></span> <span class="navigation-text">Save</span></a></li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog"></span><span class="caret"></span></a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu dropdown-menu-right">
                   <li><a href="javascript:Rage.showOptions()">Options</a></li>
                   <li><a href="javascript:Rage.export()">Export</a></li>
                   <li><a href="javascript:Rage.import()">Import</a></li>
                   <li><a href="#" data-toggle="modal" data-target="#resetModal">Reset</a></li>
                   <li><a href="#" data-toggle="modal" data-target="#helpModal">Help</a></li>
                 </ul>
-           </li>
-        </ul>
+            </li>
+          </ul>
         </div>
       </nav>
       
