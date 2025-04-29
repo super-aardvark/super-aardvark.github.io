@@ -55,7 +55,6 @@ div.advArea {
 }
 
 div.advFormation {
-   display: none;
    border: solid #AAA 1px;
    border-radius: 4px;
    margin: 2px 0px 2px 0px;
@@ -161,4 +160,53 @@ div.rage.known {
 .glyphicon-expand,
 .glyphicon-collapse-down {
    cursor: pointer;
+}
+
+/* New styles */
+.advArea.completed {
+   background-color: #e8ffe8;
+   border-color: #4CAF50;
+}
+
+.advFormation .packInfo {
+   font-size: 11px;
+   color: #666;
+   margin-top: 3px;
+}
+
+.save-notification {
+   position: fixed;
+   top: 60px;
+   right: 20px;
+   background-color: rgba(40, 167, 69, 0.9);
+   color: white;
+   padding: 10px 15px;
+   border-radius: 4px;
+   z-index: 1050;
+   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+   opacity: 0;
+   transition: opacity 0.3s ease-in-out;
+}
+
+.save-notification.show {
+   opacity: 1;
+}
+
+.areaProgress {
+   font-size: 12px;
+   color: #666;
+   font-weight: normal;
+}
+
+.loading-message {
+   position: fixed;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   background-color: rgba(0, 0, 0, 0.7);
+   color: white;
+   padding: 15px 20px;
+   border-radius: 5px;
+   z-index: 2000;
+   text-align: center;
 }

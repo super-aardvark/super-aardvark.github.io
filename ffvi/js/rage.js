@@ -45,38 +45,18 @@ $(document).ready(function() {
       Rage.currentMode = "adventure";
    }
    
-   // if (typeof Rage.options.version == 'undefined') Rage.options.version = 'snes';
-   // var version = Rage.options.version;
+   // Initialize version if not set
+   if (typeof Rage.options.version == 'undefined') Rage.options.version = 'snes';
    var urlParams = new URLSearchParams(window.location.search);
-   var version = urlParams.get('version');
-   if (version == null) version = 'snes';
-
-   // var filesLoaded = 0;
-   // var dataCallback = function() {
-      // filesLoaded++;
-      // if (filesLoaded == 2) $('#' + Rage.currentMode + 'Button').click();
-   // };
-   // $.getScript('js/rage-data-' + version + '.js', dataCallback);
-   // $.getScript('js/rage-walkthrough-' + version + '.js', dataCallback);
+   var versionParam = urlParams.get('version');
+   if (versionParam) {
+      Rage.options.version = versionParam;
+   }
    
-   var script = document.createElement('script');
-   script.src = 'js/rage-data-' + version + '.js';
-   document.head.appendChild(script);
-
-   script = document.createElement('script');
-   script.src = 'js/rage-walkthrough-' + version + '.js';
-   document.head.appendChild(script);
-      
-   var pid;
-   var tries = 0;
-   pid = setInterval(function() {
-      if (typeof veldtPacks != 'undefined' && typeof walkthroughDataWOB != 'undefined') {
-         clearInterval(pid);
-         $('#' + Rage.currentMode + 'Button').click();
-      } else if (++tries > 100) {
-         clearInterval(pid);
-         alert('Data failed to load.');
-      }}, 50);
+   // Load game data files
+   loadGameData(Rage.options.version, function() {
+      $('#' + Rage.currentMode + 'Button').click();
+   });
 });
 
 function setupAdventure() {
@@ -123,6 +103,9 @@ function setupAdventureForAct(actContainer, actWalkthroughData) {
          areaDiv.append($('<h4><span class="glyphicon glyphicon-expand"></span>' + area.areaTitle + '</h4>'));
          var hasUncleared = false;
          var hasUnknown = false;
+         var totalFormations = area.formations.length;
+         var clearedFormations = 0;
+         
          for (var k = 0; k < area.formations.length; k++) {
             var form = area.formations[k];
             if (typeof form.packId != "number" || typeof form.formId != "number") {
@@ -140,13 +123,15 @@ function setupAdventureForAct(actContainer, actWalkthroughData) {
             var formId = form.formId;
             var formDiv = $('<div class="advFormation advFormation-' + packId + '-' + formId + '"></div>');
             formDiv.data('id', {packId: packId, formId: formId});
+            
             if (Rage.isCleared(packId, formId)) {
                formDiv.addClass("cleared");
+               clearedFormations++;
             } else {
                formDiv.addClass("uncleared");
                hasUncleared = true;
             }
-            // formDiv.append($('<h5 class="formationNum">' + packId + '-' + formId + '</h5>'));
+            
             var enemiesDiv = $('<div class="enemies"></div>');
             var formation = veldtPacks[packId][formId];
             for (var l = 0; l < formation.length; l++) {
@@ -164,6 +149,7 @@ function setupAdventureForAct(actContainer, actWalkthroughData) {
                enemiesDiv.append(nameSpan);
             }
             formDiv.append(enemiesDiv);
+            
             var chanceDiv = $('<div class="chances">Encounter chance: </div>');
             if (form.chance == null) {
                chanceDiv.append("Special");
@@ -172,11 +158,27 @@ function setupAdventureForAct(actContainer, actWalkthroughData) {
                chanceDiv.append(form.chance + '/' + form.chanceOutOf + ' (' + pct.toPrecision(3) + '%)');
             }
             formDiv.append(chanceDiv);
+            
+            // Add pack information
+            var packClearedCount = countClearedInPack(packId);
+            var packTotalCount = countTotalInPack(packId);
+            var packInfoDiv = $('<div class="packInfo">Pack ' + packId + ' (' + packClearedCount + '/' + packTotalCount + ' cleared)</div>');
+            formDiv.append(packInfoDiv);
+            
             if (form.note) {
                formDiv.append($('<div class="note">Note: ' + form.note + '</div>'));
             }
             areaDiv.append(formDiv);
          }
+         
+         // Add cleared count to area header
+         var areaHeader = areaDiv.find('h4').first();
+         areaHeader.html('<span class="glyphicon glyphicon-expand"></span>' + area.areaTitle + ' <span class="areaProgress">(' + clearedFormations + '/' + totalFormations + ')</span>');
+         
+         if (clearedFormations === totalFormations && totalFormations > 0) {
+            areaDiv.addClass("completed");
+         }
+         
          if (hasUncleared) {
             areaDiv.addClass("hasUncleared");
          } else {
@@ -194,6 +196,26 @@ function setupAdventureForAct(actContainer, actWalkthroughData) {
    if (fixit) {
       console.log(JSON.stringify(actWalkthroughData));
    }
+}
+
+// Count the number of cleared formations in a pack
+function countClearedInPack(packId) {
+   var count = 0;
+   var pack = veldtPacks[packId];
+   if (!pack) return 0;
+   
+   for (var i = 0; i < pack.length; i++) {
+      if (Rage.isCleared(packId, i)) {
+         count++;
+      }
+   }
+   return count;
+}
+
+// Count the total number of formations in a pack
+function countTotalInPack(packId) {
+   var pack = veldtPacks[packId];
+   return pack ? pack.length : 0;
 }
 
 function findPackIdByEnemiesString(enemies) {
@@ -366,9 +388,52 @@ function formationClick(e) {
    if ($(this).hasClass("uncleared")) {
       Rage.clear(id.packId, id.formId);
       $(this).removeClass("uncleared").addClass("cleared");
+      
+      // Update pack info for all formations in this pack
+      updatePackInfo(id.packId);
+      
+      // Update area progress
+      updateAreaProgress($(this).closest('.advArea'));
    } else {
       Rage.unclear(id.packId, id.formId);
       $(this).removeClass("cleared").addClass("uncleared");
+      
+      // Update pack info for all formations in this pack
+      updatePackInfo(id.packId);
+      
+      // Update area progress
+      updateAreaProgress($(this).closest('.advArea'));
+   }
+}
+
+// Function to update pack info for all formations in a pack
+function updatePackInfo(packId) {
+   var packClearedCount = countClearedInPack(packId);
+   var packTotalCount = countTotalInPack(packId);
+   $('.packInfo').each(function() {
+      var infoText = $(this).text();
+      if (infoText.indexOf('Pack ' + packId + ' (') === 0) {
+         $(this).text('Pack ' + packId + ' (' + packClearedCount + '/' + packTotalCount + ' cleared)');
+      }
+   });
+}
+
+// Function to update area progress counter and styling
+function updateAreaProgress(areaDiv) {
+   if (!areaDiv.length) return;
+   
+   var totalFormations = areaDiv.find('.advFormation').length;
+   var clearedFormations = areaDiv.find('.advFormation.cleared').length;
+   
+   // Update the progress counter
+   var areaHeader = areaDiv.find('h4 .areaProgress');
+   areaHeader.text('(' + clearedFormations + '/' + totalFormations + ')');
+   
+   // Update area styling
+   if (clearedFormations === totalFormations && totalFormations > 0) {
+      areaDiv.addClass("completed");
+   } else {
+      areaDiv.removeClass("completed");
    }
 }
 
@@ -462,6 +527,18 @@ function gauButtonAction() {
    var data = $('#formationDetailPane').data('id');
    Rage.leap(data.packId, data.formId);
    $('#ragesNeeded').text("No");
+   
+   // Update the Formation in Adventure view if it exists
+   if (Rage.currentMode === "veldt") {
+      var advFormation = $('.advFormation-' + data.packId + '-' + data.formId);
+      if (advFormation.length > 0) {
+         advFormation.each(function() {
+            var areaDiv = $(this).closest('.advArea');
+            updateAreaProgress(areaDiv);
+         });
+      }
+   }
+   
    otherButtonAction();
 }
 
@@ -627,9 +704,52 @@ Rage = {
    leap:
       function(packId, formId) {
          var formation = veldtPacks[packId][formId];
+         var namesLearned = [];
+         
          for (var i = 0; i < formation.length; i++) {
             var name = formation[i];
+            // Track which names were newly learned
+            var idx = rageMap[name];
+            if (idx != null && idx < this.knownRages.length && !this.knownRages[idx]) {
+               namesLearned.push(name);
+            }
+            
             this.learn(name);
+         }
+         
+         // If we're in Adventure mode, update any formations containing the learned enemies
+         if (Rage.currentMode === "adventure" && namesLearned.length > 0) {
+            // Find all packs that need updating
+            var packsToUpdate = new Set();
+            
+            // Check all formations in all packs for the learned enemies
+            for (var p = 0; p < veldtPacks.length; p++) {
+               var packFormations = veldtPacks[p];
+               if (!packFormations) continue;
+               
+               for (var f = 0; f < packFormations.length; f++) {
+                  var form = packFormations[f];
+                  if (!form) continue;
+                  
+                  // Check if this formation contains any of the newly learned enemies
+                  for (var e = 0; e < form.length; e++) {
+                     if (namesLearned.includes(form[e])) {
+                        packsToUpdate.add(p);
+                        break;
+                     }
+                  }
+               }
+            }
+            
+            // Update all affected packs
+            packsToUpdate.forEach(function(p) {
+               updatePackInfo(p);
+            });
+            
+            // Update all areas that might contain the affected formations
+            $('.advArea').each(function() {
+               updateAreaProgress($(this));
+            });
          }
       },
    learn:
@@ -646,6 +766,15 @@ Rage = {
                      packDiv.removeClass("hasUnknown").addClass("noUnknown");
                   }
                });
+            } else if (Rage.currentMode == "adventure") {
+               // Update areas to reflect that unknown enemy is now known
+               learnedEnemies.closest('.advArea').each(function(i, e) {
+                  var areaDiv = $(e);
+                  if (areaDiv.find('.enemyName.unknown').length == 0) {
+                     areaDiv.removeClass("hasUnknown").addClass("hasNoUnknown");
+                  }
+                  updateAreaProgress(areaDiv);
+               });
             }
          }
       },
@@ -654,7 +783,22 @@ Rage = {
          var idx = rageMap[name];
          if (idx != null && idx < this.knownRages.length && this.knownRages[idx]) {
             this.knownRages[idx] = false;
-            $('.enemyName:contains(' + name + ')').removeClass("known").addClass("unknown");
+            var enemies = $('.enemyName:contains(' + name + ')');
+            enemies.removeClass("known").addClass("unknown");
+            
+            if (Rage.currentMode == "veldt") {
+               // Update pack styling
+               enemies.closest('.pack').removeClass("noUnknown").addClass("hasUnknown");
+            } else if (Rage.currentMode == "adventure") {
+               // Update area styling
+               var areas = enemies.closest('.advArea');
+               areas.removeClass("hasNoUnknown").addClass("hasUnknown");
+               
+               // Update area progress
+               areas.each(function() {
+                  updateAreaProgress($(this));
+               });
+            }
          }
       },
    leaped:
@@ -669,6 +813,12 @@ Rage = {
       function() {
          if(typeof(Storage) !== "undefined") {
              localStorage.setItem("RageData", JSON.stringify(Rage));
+             // Show save notification
+             var notification = $('#save-notification');
+             notification.addClass('show');
+             setTimeout(function() {
+                notification.removeClass('show');
+             }, 2000);
          } else {
             alert("No local storage!");
          }
@@ -681,10 +831,19 @@ Rage = {
       },
    saveOptions:
       function() {
+         var oldVersion = Rage.options.version;
          Rage.options.showAllVeldtPacks = $('#allPacksCheckbox').prop('checked');
          Rage.options.version = $('#versionSelect').val();
          $('#optionsModal').modal('hide');
-         if (Rage.currentMode != null) {
+         
+         // Reload data if version changed
+         if (oldVersion !== Rage.options.version) {
+            loadGameData(Rage.options.version, function() {
+               if (Rage.currentMode != null) {
+                  $('#' + Rage.currentMode + 'Button').click();
+               }
+            });
+         } else if (Rage.currentMode != null) {
             setTimeout(function() {$('#' + Rage.currentMode + 'Button').click();}, 10);
          }
       },
@@ -723,4 +882,62 @@ Rage = {
          this.save();
          $('#adventureButton').click();
 	  }
+}
+
+// Function to load game data files dynamically
+function loadGameData(version, callback) {
+   // Show loading message
+   $('#loading-message').show();
+   
+   // Clear existing data
+   if (typeof veldtPacks !== 'undefined') {
+      veldtPacks = undefined;
+   }
+   if (typeof walkthroughDataWOB !== 'undefined') {
+      walkthroughDataWOB = undefined;
+   }
+   if (typeof walkthroughDataWOR !== 'undefined') {
+      walkthroughDataWOR = undefined;
+   }
+   if (typeof rageList !== 'undefined') {
+      rageList = undefined;
+   }
+   if (typeof rageMap !== 'undefined') {
+      rageMap = undefined;
+   }
+   
+   // Remove existing script tags if they exist
+   $('script[src*="rage-data-"]').remove();
+   $('script[src*="rage-walkthrough-"]').remove();
+   
+   // Load new data files
+   var dataScript = document.createElement('script');
+   dataScript.src = 'js/rage-data-' + version + '.js';
+   
+   var walkthroughScript = document.createElement('script');
+   walkthroughScript.src = 'js/rage-walkthrough-' + version + '.js';
+   
+   document.head.appendChild(dataScript);
+   document.head.appendChild(walkthroughScript);
+   
+   // Wait for both scripts to load with timeout
+   var tries = 0;
+   var maxTries = 100; // 5 seconds at 50ms intervals
+   var checkInterval = setInterval(function() {
+      if (typeof veldtPacks !== 'undefined' && 
+          typeof walkthroughDataWOB !== 'undefined' && 
+          typeof walkthroughDataWOR !== 'undefined' &&
+          typeof rageList !== 'undefined' &&
+          typeof rageMap !== 'undefined') {
+         clearInterval(checkInterval);
+         // Hide loading message
+         $('#loading-message').hide();
+         if (callback) callback();
+      } else if (++tries > maxTries) {
+         clearInterval(checkInterval);
+         // Hide loading message
+         $('#loading-message').hide();
+         alert('Failed to load game data for version: ' + version);
+      }
+   }, 50);
 }
